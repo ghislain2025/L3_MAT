@@ -4,7 +4,7 @@
 \usepackage{amsmath,amssymb,amsthm,mathrsfs}
 \usepackage[margin=2.3cm]{geometry}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,calc,positioning}
+\usetikzlibrary{arrows.meta,calc,patterns,positioning}
 \usepackage[most]{tcolorbox}
 \usepackage{enumitem}
 \usepackage{xcolor}
@@ -18,12 +18,19 @@
 % --- Macros mathématiques
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Rb}{\overline{\mathbb{R}}}
 \newcommand{\A}{\mathscr{A}}
 \newcommand{\B}{\mathscr{B}}
+\newcommand{\C}{\mathscr{C}}
+\newcommand{\M}{\mathscr{M}}
 \newcommand{\Pp}{\mathscr{P}}
 \newcommand{\Ee}{\mathscr{E}}
-\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\Qq}{\mathscr{Q}}
+\newcommand{\Ss}{\mathscr{S}}
+\newcommand{\Oo}{\mathscr{O}}
+\newcommand{\Ff}{\mathscr{F}}
+\newcommand{\Ii}{\mathscr{I}}
 
 % --- Mise en forme
 \setlength{\parindent}{0pt}
@@ -46,27 +53,815 @@
   fontupper=\small\itshape,before upper={\textbf{\upshape[Note de transcription]}\ }}
 
 \newenvironment{preuve}{\par\textit{\textbf{Preuve :}}\par\nopagebreak[4]}{\par}
+\DeclareMathOperator{\sgn}{sgn}
 \newcommand{\sect}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand{\datepage}[1]{\begin{flushright}\small\bfseries\itshape\color{bleuclair}#1\end{flushright}\vspace{-8pt}}
 
 \begin{document}
 
 \begin{center}
   {\Huge\bfseries\color{bleu} MAT341}\\[4pt]
-  {\LARGE\bfseries\color{bleuclair} Fonctions numériques mesurables}\\[4pt]
-  {\large\itshape Notes de cours saisies à partir du manuscrit}\\[6pt]
-  {\normalsize 6 octobre 2026}
+  {\LARGE\bfseries\color{bleuclair} Mesure et Intégration : chapitres 1 et 2}\\[4pt]
+  {\large\itshape Notes de cours saisies à partir du manuscrit}
 \end{center}
 \vspace{-4pt}
 \hrule
 \vspace{6pt}
 
 \begin{note}
-Les encadrés jaunes de ce type signalent un point douteux du manuscrit, une imprécision mathématique
-ou une précision que j'ai ajoutée. Le reste du texte suit fidèlement le cours.
-Une fois vérifiées, ces notes peuvent être supprimées.
+Les encadrés jaunes de ce type signalent un point douteux du manuscrit, une imprécision mathématique,
+une page manquante ou une précision que j'ai ajoutée. Le reste du texte suit fidèlement le cours,
+avec sa numérotation. Les dates sont reportées à l'endroit où elles figurent dans le cahier.
 \end{note}
 
 %=====================================================================
+\section*{Chapitre 01 : Anneaux et algèbres des parties d'un ensemble}
+
+\begin{enonce}{Définition}{1}
+On appelle \emph{anneau des parties d'un ensemble $E$} une famille $\A$ non vide de parties de $E$,
+possédant les propriétés suivantes :
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=1.2cm]
+  \item Si $A\in\A$ et $B\in\A$, alors $A\cup B\in\A$.
+  \item Si $A\in\A$ et $B\in\A$, alors $A\setminus B\in\A$.
+\end{enumerate}
+\end{enonce}
+
+\textbf{\color{bleu}Remarque 2.}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \fill[pattern=north east lines,pattern color=red!70!black] (0,0) circle (1);
+  \fill[white] (1.2,0) circle (1);
+  \draw[thick,bleu] (0,0) circle (1);
+  \draw[thick,bleu] (1.2,0) circle (1);
+  \node at (-1.25,0.9) {$A$};
+  \node at (2.45,0.9) {$B$};
+  \draw[->,red!70!black] (-0.9,-1.5) node[below,black]{$A\setminus B$} -- (-0.5,-0.4);
+\end{tikzpicture}
+\end{center}
+\begin{center}
+  \fcolorbox{red!70!black}{white}{\ \ $A\setminus B = A\cap B^{c}$\ \ }
+\end{center}
+
+\textbf{\color{bleu}Conséquence 3.}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item Soit $A\in\A$, alors $A\setminus A=\varnothing\in\A$, donc si $\A$ est un anneau, alors $\varnothing\in\A$.
+  \item Soit $A\in\A$ et $B\in\A$, alors
+  \[
+    A\cap B=(A\cup B)\setminus\bigl((A\setminus B)\cup(B\setminus A)\bigr)\in\A .
+  \]
+\end{enumerate}
+Ainsi, si $\A$ est un anneau et si $A\in\A$, $B\in\A$, alors $A\cap B\in\A$.
+
+\textbf{\color{bleu}Remarque 4.}
+$\A$ s'appelle un « anneau » car c'est un anneau au sens algébrique.
+$\A$ est un anneau quand on le munit des opérations suivantes :
+\begin{itemize}[leftmargin=1.2cm]
+  \item une addition $\Delta$ qui est la \emph{différence symétrique} :
+        $A\,\Delta\, B=(A\setminus B)\cup(B\setminus A)$ ;
+  \item une multiplication $\cap$, qui est l'intersection.
+\end{itemize}
+$\Delta$ a bien les propriétés de l'addition dans l'anneau $\A$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \draw[thick,bleu] (0,0) circle (1);
+  \draw[thick,bleu] (1.2,0) circle (1);
+  \draw[thick,bleu] (0.6,-1.0) circle (1);
+  \node at (-1.25,0.9) {$A$};
+  \node at (2.45,0.9) {$B$};
+  \node at (0.6,-2.25) {$C$};
+\end{tikzpicture}
+\end{center}
+
+En effet :
+\begin{itemize}[leftmargin=1.2cm]
+  \item $\Delta$ est commutative.
+  \item $\A$ possède un élément neutre pour $\Delta$ ; en effet $\varnothing=A\,\Delta\,A$, pour tout $A\in\A$.
+  \item $\Delta$ est associative : $(A\,\Delta\, B)\,\Delta\, C=A\,\Delta\,(B\,\Delta\, C)$.
+\end{itemize}
+
+\begin{note}
+Pour être précis : $\varnothing\in\A$ est l'élément neutre ($A\,\Delta\,\varnothing=A$), et la relation
+$A\,\Delta\,A=\varnothing$ signifie que chaque élément est son propre opposé. Le schéma à trois cercles
+accompagne la vérification de l'associativité.
+\end{note}
+
+$\cap$ a bien les propriétés de la multiplication dans l'anneau :
+\begin{itemize}[leftmargin=1.2cm]
+  \item $\cap$ est bien associative, car $(A\cap B)\cap C=A\cap(B\cap C)$, $\ \forall A,B,C\in\A$.
+  \item $\cap$ est bien distributive par rapport à $\Delta$, car
+        $A\cap(B\,\Delta\, C)=(A\cap B)\,\Delta\,(A\cap C)$, $\ \forall A,B,C\in\A$.
+\end{itemize}
+On conclut alors que $(\A,\Delta,\cap)$ est un anneau au sens algébrique.
+
+\textbf{\color{bleu}Exemple 5.}
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item Pour tout ensemble $E$, $\A=\Pp(E)$ est un anneau.
+  \item Si $E=\R$, alors $\A$, l'ensemble des réunions finies d'intervalles finis, est un anneau.
+  \begin{center}
+  \begin{tikzpicture}[scale=0.9]
+    \draw (0,0) -- (6,0);
+    \foreach \x/\l in {0.8/a,2.2/c,3.8/b,5.2/d}{\draw (\x,0.08) -- (\x,-0.08); \node[below] at (\x,-0.1) {$\l$};}
+  \end{tikzpicture}
+  \end{center}
+  Alors $[a;b]\setminus[c;d]=[a;c[$.
+  \begin{center}
+  \begin{tikzpicture}[scale=0.9]
+    \draw (0,0) -- (6,0);
+    \foreach \x/\l in {0.8/a,2.2/c,3.4/d,4.6/b}{\draw (\x,0.08) -- (\x,-0.08); \node[below] at (\x,-0.1) {$\l$};}
+  \end{tikzpicture}
+  \end{center}
+  Alors $[a;b]\setminus[c;d]=[a;c[\,\cup\,]d;b]$.
+  \item $\A$, l'ensemble des réunions finies d'intervalles $[a;b[$, fermés à gauche et ouverts à droite,
+        est un anneau.
+  \item $\A$, l'ensemble des réunions finies d'intervalles mixtes $]a;b]$, ouverts à gauche et fermés à droite,
+        est un anneau.
+\end{enumerate}
+
+\begin{note}
+Dans l'exemple 5.2, les deux cas du schéma sont $a<c<b<d$ puis $a<c<d<b$ ; j'ai ajouté ces hypothèses
+d'ordre qui sont implicites sur les dessins.
+\end{note}
+
+\textbf{\color{bleu}Remarque 6.}
+Si $\A$ est un anneau de parties de $E$ et si $E\in\A$, alors $\A$ a un élément neutre.
+
+\begin{enonce}{Définition}{7}
+On dit que la famille $\A$ des parties de $E$ est une \emph{algèbre} si $\A$ est un anneau et si $E\in\A$.
+\end{enonce}
+
+\textbf{\color{bleu}Remarque 8.}
+Si $\A$ est une algèbre des parties de $E$, alors $\forall A\in\A$, $A^{c}\in\A$.
+En effet $\bigl((E\in\A)\ \text{et}\ (A\in\A)\bigr)\Rightarrow A^{c}=E\setminus A\in\A$.
+Les exemples précédemment cités (Exemple 5) ne sont pas des algèbres, car $\R$ n'est pas une réunion finie
+d'intervalles finis.
+
+\textbf{\color{bleu}Exemple 09.}
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item $\A$, l'ensemble des réunions finies d'intervalles finis ou infinis, est une algèbre.
+  \item $\A$, l'ensemble des réunions finies d'intervalles mixtes $[a;b[$ ou $[a;+\infty[$ ou $]-\infty;b]$
+        \ldots
+\end{enumerate}
+
+\begin{note}
+La phrase de l'exemple 09.2 s'arrête là dans le manuscrit (la conclusion « est une algèbre » n'est pas écrite).
+\end{note}
+
+\begin{enonce}{Définition}{10}
+On appelle \emph{$\sigma$-anneau des parties d'un ensemble $E$} un anneau $\A$ qui est stable par réunions
+dénombrables, c'est-à-dire qui possède la propriété suivante :
+\[
+  \forall A_m\in\A,\ m\in\N,\ \text{on a :}\quad \bigcup_{m\in\N}A_m\in\A .
+\]
+\end{enonce}
+
+\begin{enonce}{Définition}{11}
+On appelle \emph{$\sigma$-algèbre des parties d'un ensemble $E$} un $\sigma$-anneau $\A$ tel que $E\in\A$.
+\end{enonce}
+
+\textbf{\color{bleu}Remarque 12.}
+Un ensemble dénombrable est un ensemble qui peut être mis en bijection avec $\N$ (ou une partie de $\N$).
+
+\begin{enonce}{Propriété}{13}
+Tout $\sigma$-anneau $\A$ est stable par intersection dénombrable, c'est-à-dire que pour toute famille
+dénombrable $(A_m)_{m\in\N}\subset\A$, on a :
+\[
+  \bigcap_{n\in\N}A_n\in\A .
+\]
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+\begin{itemize}[leftmargin=1.2cm]
+  \item Si $E\in\A$ (c'est-à-dire que $\A$ est une $\sigma$-algèbre), alors
+  \[
+    \bigcap_{n\in\N}A_n=\Bigl(\bigcup_{n\in\N}A_n^{c}\Bigr)^{c}\in\A .
+  \]
+  \item Si $E\notin\A$, posons $B=\displaystyle\bigcup_{n\in\N}A_n\in\A$ et on a :
+  \[
+    \bigcap_{n\in\N}A_n=B\setminus\Bigl(\bigcup_{n\in\N}(B\setminus A_n)\Bigr).
+  \]
+\end{itemize}
+
+\textbf{\color{bleu}Exemple 14.}
+Si $E$ est un ensemble, alors $\Pp(E)$ est un $\sigma$-anneau, et c'est même une $\sigma$-algèbre.
+
+\textbf{\color{bleu}Remarque 15.}
+On utilise aussi les noms de « tribu » pour $\sigma$-algèbre et « clan » pour $\sigma$-anneau.
+
+\begin{note}
+Le mot « clan » est difficile à lire dans le manuscrit ; c'est le terme usuel pour $\sigma$-anneau.
+\end{note}
+
+\begin{enonce}{Proposition}{16}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item Si $(\A_i)_{i\in I}$ est une famille d'anneaux de parties de $E$, alors $\bigcap_{i\in I}\A_i$ est un anneau.
+  \item Si $(\A_i)_{i\in I}$ est une famille d'algèbres des parties de $E$, alors $\bigcap_{i\in I}\A_i$ est une algèbre.
+  \item Si $(\A_i)_{i\in I}$ est une famille de $\sigma$-anneaux de parties de $E$, alors $\bigcap_{i\in I}\A_i$ est un $\sigma$-anneau.
+  \item Si $(\A_i)_{i\in I}$ est une famille de $\sigma$-algèbres de parties de $E$, alors $\bigcap_{i\in I}\A_i$ est une $\sigma$-algèbre.
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+(Exercice.)
+
+\begin{enonce}{Théorème et définition}{17}
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=1.2cm]
+  \item Soit $\Ee$ une famille de parties d'un ensemble $E$ ($\Ee\subset\Pp(E)$). Parmi les anneaux contenant $\Ee$,
+        il existe un plus petit anneau appelé « \emph{anneau engendré par $\Ee$} ».
+  \item Parmi les $\sigma$-anneaux contenant $\Ee$, il existe un plus petit $\sigma$-anneau, appelé
+        « \emph{$\sigma$-anneau engendré par $\Ee$} ».
+  \item Parmi les tribus contenant $\Ee$, il existe une plus petite tribu appelée « \emph{tribu engendrée} ».
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Soit $(\A_i)_{i\in I}$ la famille de toutes les tribus contenant $\Ee$. Cette famille n'est pas vide car elle
+contient $\Pp(E)$. Posons $\A=\bigcap_{i\in I}\A_i$. Alors d'après la proposition 16.4, $\A$ est encore une tribu
+qui contient $\Ee$ et $\A$ est contenue dans toute tribu qui contient $\Ee$.
+
+%---------------------------------------------------------------------
+\datepage{19-09-2026}
+
+
+\begin{enonce}{Définition}{18}
+On appelle \emph{semi-anneau des parties de l'ensemble $E$} une famille $\Ss$ de parties de $E$ telle que :
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item $\forall A,B\in\Ss$, $A\cap B\in\Ss$ (stabilité par l'intersection) ;
+  \item $\forall A,B\in\Ss$, il existe une famille finie d'éléments de $\Ss$ deux à deux disjoints
+        $(C_i)_{i=1,\dots,p}$ telle que
+        \[
+          A\setminus B=\bigcup_{i=1}^{p}C_i .
+        \]
+\end{enumerate}
+\end{enonce}
+
+\textbf{\color{bleu}Exemple 19.} Si $E=\R$ :
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item l'ensemble $\Ii$ des intervalles est un semi-anneau ;
+  \item l'ensemble $\Ii_g$ des intervalles finis de la forme $[a;b[$ est un semi-anneau ;
+  \item l'ensemble $\Ii_d$ des intervalles finis de la forme $]a;b]$ est un semi-anneau.
+\end{enumerate}
+Dans $E=\R^n$ :
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item Les pavés forment un semi-anneau.
+\end{enumerate}
+
+\begin{note}
+Le manuscrit écrit « un anneau » à l'exemple 19 pour les pavés de $\R^n$ ; le résultat correct (confirmé
+par la remarque suivante) est qu'ils forment un \emph{semi-anneau}. J'ai aussi omis la mention « dans $E=\R^n$ »
+qui apparaît en fin de la ligne 3).
+\end{note}
+
+\textbf{\color{bleu}Remarque.}
+Un pavé de $\R^n$ est une partie $I_n$ de la forme
+\[
+  I_n=[a_1,b_1]\times[a_2,b_2]\times\cdots\times[a_n;b_n]
+\]
+(avec $a_i,b_i\in\R$, $\forall\,1\le i\le n$, $a_i\le b_i$).
+Les pavés de la forme $[a_1;b_1[\times[a_2;b_2[\times\cdots\times[a_n;b_n[$ forment un semi-anneau.
+
+\begin{enonce}{Proposition}{20}
+L'anneau engendré par le semi-anneau $\Ss$ est formé de réunions finies des éléments de $\Ss$.
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Tout anneau qui contient $\Ss$ contient les réunions finies d'éléments de $\Ss$.
+Désignons par $\A$ l'ensemble des réunions finies d'éléments de $\Ss$. Alors tout anneau qui contient $\Ss$
+va contenir $\A$. Il reste à démontrer que $\A$ est un anneau.
+
+\textbf{1) Stabilité de $\A$ par réunion de deux éléments.}
+Soit $A,B\in\A$, alors $A$ et $B$ sont des réunions finies d'éléments de $\Ss$, donc $A\cup B$ est aussi
+une réunion finie d'éléments de $\Ss$.
+
+\textbf{2) Stabilité par différence.} Soit $A,B\in\A$, alors
+\[
+  A=S_1\cup S_2\cup\cdots\cup S_p,\qquad B=S'_1\cup S'_2\cup\cdots\cup S'_q .
+\]
+Donc
+\[
+  A\setminus B=\Bigl(\bigl((A\setminus S'_1)\setminus S'_2\bigr)\setminus\cdots\Bigr)\setminus S'_q .
+\]
+Il suffit alors de montrer que $\forall A\in\A$, $S\in\Ss$, $A\setminus S\in\A$.
+Mais
+\[
+  A\setminus S=(S_1\setminus S)\cup(S_2\setminus S)\cup\cdots\cup(S_p\setminus S).
+\]
+Or, par hypothèse, chaque $S_1\setminus S$, $S_2\setminus S$, \ldots{} est une réunion finie d'éléments de $\Ss$.
+Donc $A\setminus S$ est aussi une réunion finie d'éléments de $\Ss$.
+
+
+
+\begin{enonce}{Définition}{21}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item On appelle \emph{$\sigma$-algèbre des boréliens} la $\sigma$-algèbre engendrée par l'ensemble $\Oo$ d'ouverts
+        de $\R$ ou $\R^n$. On la note $\B_{\R}$ ou $\B_{\R^n}$.
+  \item Plus généralement, dans tout espace topologique, on appelle \emph{$\sigma$-algèbre de Boréliens}
+        la $\sigma$-algèbre engendrée par l'ensemble des ouverts de l'espace.
+  \item Soit $\B$ l'ensemble des boréliens de l'espace topologique $E$, et soit $\A$ la $\sigma$-algèbre
+        engendrée par l'ensemble $\Ff$ des fermés de $E$.
+\end{enumerate}
+\end{enonce}
+
+Montrons que $\A=\B$.
+
+\textbf{i) Montrons que $\B\supset\A$.} Il suffit de montrer que $\B\supset\Ff$.
+Or $\B$ est une tribu, donc elle contient tous les ouverts de $E$, c'est-à-dire qu'elle contient $\Oo$,
+et comme les complémentaires des éléments de $\Oo$ font partie de $\B$, alors $\B\supset\Ff$.
+Il vient que $\B\supset\A$.
+
+\textbf{ii) Montrons que $\A$ contient $\B$ ($\A\supset\B$).} Il suffit de montrer que $\A$ contient $\Oo$.
+Mais $\A\supset\Ff$ et les complémentaires des éléments de $\Ff$ appartiennent aussi à $\A$. Donc $\A\supset\Oo$.
+Il en résulte que $\A\supset\B$.
+
+\textbf{\color{bleu}Remarque.} Si $\A$ est la tribu engendrée par une famille $\Ee$, on peut noter $\A=\sigma(\Ee)$.
+
+\begin{note}
+$\Oo$ désigne l'ensemble des ouverts de $E$ (cerclé dans le manuscrit).
+\end{note}
+
+
+
+\begin{enonce}{Proposition}{22}
+La tribu borélienne de $\R$, $\B_{\R}$, est aussi la tribu engendrée par l'ensemble $\Ii$ des intervalles.
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Appelons $\A$ la tribu engendrée par $\Ii$. $\B_{\R}$ contient les intervalles ouverts qui sont des ouverts
+et les intervalles fermés.
+
+De plus, $]a,b]=\,]a,b[\,\cup\{b\}$ et $\{b\}$ est fermé, donc appartient à $\B_{\R}$. Alors $]a,b]\in\B_{\R}$.
+De même, $[a,b[\,=\,]a,b[\,\cup\{a\}$, donc $[a,b[\,\in\B_{\R}$.
+Par conséquent $\B_{\R}\supset\Ii$, d'où $\B_{\R}\supset\A$.
+
+Montrons que $\B_{\R}\subset\A$. Il suffira de montrer que $\A$ contient les ouverts de $\R$.
+Or sur $\R$ tout ouvert est une réunion dénombrable d'intervalles ouverts
+(en effet les intervalles $]a;b[$, $a,b\in\Q$, forment une base dénombrable des ouverts de $\R$).
+Donc $\B_{\R}\subset\A$.
+
+
+
+\begin{enonce}{Proposition}{23}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item $\B_{\R}$ est la $\sigma$-algèbre engendrée par l'ensemble $\Ii_g$ des intervalles $[a;b[$.
+  \item $\B_{\R}$ est la $\sigma$-algèbre engendrée par l'ensemble $\Ii_d$ des intervalles $]a;b]$.
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Exercice.
+
+\begin{enonce}{Proposition}{24}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $]-\infty;a]$, $a\in\R$.
+  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $]-\infty;a[$, $a\in\R$.
+  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $[a;+\infty[$, $a\in\R$.
+  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $]a;+\infty[$, $a\in\R$.
+\end{enumerate}
+\end{enonce}
+
+
+
+\begin{enonce}{Remarque}{25}
+$\B_{\R}$ ne contient pas toutes les parties de $\R$ (preuve en TD).
+\end{enonce}
+
+Sur $\R^n$ :
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item $\B_{\R^n}$ est aussi la tribu engendrée par l'ensemble des pavés de $\R^n$ (pavés fermés ou ouverts).
+  \item $\B_{\R^n}$ est aussi la tribu engendrée par l'ensemble des pavés de la forme
+        \[
+          [a_1;b_1[\times\cdots\times[a_n;b_n[\quad\text{ou}\quad ]a_1;b_1]\times\cdots\times]a_n;b_n].
+        \]
+\end{enumerate}
+
+%=====================================================================
+\newpage
+\datepage{Mardi 22 septembre 2026}
+\section*{Chapitre 2 : Espaces mesurables, applications mesurables}
+\subsection*{2-1 Généralités}
+
+\begin{enonce}{Définition}{1}
+On appelle \emph{espace mesurable} $(E,\B)$ où $E$ est un ensemble et $\B$ une tribu des parties de $E$.
+\end{enonce}
+
+\textbf{\color{bleu}Exemple 2.} $(\R,\B_{\R})$ est un espace mesurable.
+
+\begin{enonce}{Définition}{3}
+Soient $(E,\A)$ et $(F,\B)$ deux espaces mesurables : une application $f:E\to F$ est dite \emph{mesurable}
+si pour tout $A\in\B$, $f^{-1}(A)\in\A$.
+\end{enonce}
+
+Les éléments d'une tribu s'appellent des \emph{mesurables}.
+
+\textbf{\color{bleu}Remarque.}
+$f$ est mesurable si l'image réciproque par $f$ d'un mesurable de $F$ est un mesurable de $E$.
+
+\begin{note}
+La phrase « les éléments d'une tribu s'appellent des mesurables » est écrite en haut de la page suivante
+du cahier ; je la place juste après la définition 3.
+\end{note}
+
+\begin{enonce}{Définition}{4}
+Une application $f:\R\to\R$ est dite \emph{mesurable} si elle est mesurable de $(\R,\B_{\R})$ vers $(\R,\B_{\R})$.
+\end{enonce}
+
+\begin{enonce}{Théorème}{5}
+Soit $E$ un ensemble, $(F,\B)$ un espace mesurable et $f:E\to F$, alors :
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item $f^{-1}(\B)=\bigl\{f^{-1}(A),\ A\in\B\bigr\}$ est une tribu des parties de $E$.
+  \item Si $\Qq$ est une famille des parties de $F$ qui engendre la tribu $\B$ (i.e.\ $\B=\sigma(\Qq)$),
+        alors $f^{-1}(\Qq)$ engendre la tribu $f^{-1}(\B)$.
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+\textbf{Preuve du point 1.}
+
+$\ast$ \emph{Stabilité par réunions dénombrables.} Soit $(A_n)_{n\in\N}\subset f^{-1}(\B)$, alors $\forall n\in\N$
+il existe $B_n\in\B$ tel que $A_n=f^{-1}(B_n)$. Ainsi
+\[
+  \bigcup_{n\in\N}A_n=\bigcup_{n\in\N}f^{-1}(B_n)=f^{-1}\Bigl(\bigcup_{n\in\N}B_n\Bigr)\in f^{-1}(\B)
+\]
+car $\bigcup_{n\in\N}B_n\in\B$.
+
+$\ast$ \emph{Stabilité par la différence.} Soit $A_1=f^{-1}(B_1)$, $A_2=f^{-1}(B_2)$, $B_1,B_2\in\B$, alors
+\[
+  A_1\setminus A_2=f^{-1}(B_1)\setminus f^{-1}(B_2)=f^{-1}(B_1\setminus B_2)\in f^{-1}(\B)
+\]
+car $B_1\setminus B_2\in\B$.
+
+$\ast$ On sait que $E=f^{-1}(F)$ et $F\in\B$, donc $E\in f^{-1}(\B)$.
+
+\medskip
+\textbf{Preuve du point 2.}
+
+Notons $\A$ la tribu engendrée par $f^{-1}(\Qq)$, et montrons que $\A=f^{-1}(\B)$.
+Puisque $\B\supset\Qq$, alors $f^{-1}(\B)\supset f^{-1}(\Qq)$, d'où $f^{-1}(\B)\supset\A$,
+la tribu engendrée par $f^{-1}(\Qq)$.
+
+Il reste à montrer que $f^{-1}(\B)\subset\A$. Posons
+\[
+  \M=\bigl\{M\in\B \ \big/\ f^{-1}(M)\in\A\bigr\}\qquad(\text{par définition } \M\subset\B).
+\]
+Mais nous voulons démontrer que $\M=\B$, ce qui reviendra à conclure que $\B\subset\M$.
+
+$\bullet$ Montrons d'abord que $\M$ est une tribu.
+
+i) Soit $M_n\in\M$, $\forall n\in\N$. Alors $M_n\in\B$ et $f^{-1}(M_n)\in\A$ $\ \forall n\in\N$.
+Comme $\bigcup_{n\in\N}M_n\in\B$ (car $\B$ est une tribu), alors
+\[
+  f^{-1}\Bigl(\bigcup_{n\in\N}M_n\Bigr)=\bigcup_{n\in\N}f^{-1}(M_n)\in\A\qquad(\text{car }\A\text{ est une tribu}),
+\]
+ainsi $\bigcup_{n\in\N}M_n\in\M$.
+
+ii) Soient $M_1$ et $M_2\in\M$ alors $M_1,M_2\in\B$ et $f^{-1}(M_1),f^{-1}(M_2)\in\A$, donc
+$M_1\setminus M_2\in\B$ et
+\[
+  f^{-1}(M_1\setminus M_2)=f^{-1}(M_1)\setminus f^{-1}(M_2)\in\A .
+\]
+Ainsi $M_1\setminus M_2\in\M$.
+
+iii) On sait que $F\in\B$ et $f^{-1}(F)=E\in\A$, ainsi $F\in\M$.
+
+$\ast$ Il reste à voir que $\B\subset\M$. Or $\A=\sigma\bigl(f^{-1}(\Qq)\bigr)\supset f^{-1}(\Qq)$.
+Donc $\M\supset\Qq$. D'où $\M\supset\B$, la tribu engendrée par $\Qq$.
+
+\begin{enonce}{Théorème}{6}
+Soient $(E,\A)$, $(F,\B)$ deux espaces mesurables. Soit $\Qq$ une famille de parties qui engendre $\B$.
+Soit $f:E\to F$ une application. Pour que $f$ soit mesurable il faut et il suffit que $f^{-1}(\Qq)\subset\A$.
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+\textbf{1- Hypothèse :} $f$ est mesurable de $(E,\A)$ vers $(F,\B)$. Comme $f$ est mesurable, $f^{-1}(\B)\subset\A$,
+or $\Qq\subset\B$, donc $f^{-1}(\Qq)\subset\A$.
+
+\textbf{2- Hypothèse :} $f^{-1}(\Qq)\subset\A$, donc la tribu $\A$ contient aussi la tribu engendrée par
+$f^{-1}(\Qq)$, donc $\A\supset f^{-1}(\B)$ d'après le théorème 5.
+
+\begin{tcolorbox}[colback=gray!8,colframe=gray!60,boxrule=0pt,leftrule=2pt,arc=0pt,left=6pt,top=2pt,bottom=2pt]
+\textbf{Note :} Toute application $f:(\R,\B_{\R})\to(\R,\B_{\R})$ qui est continue est mesurable, car si $O$ est un ouvert de $\R$,
+alors $f^{-1}(O)$ est un ouvert. Donc c'est un élément de $\B_{\R}$ et ceci est suffisant, car l'ensemble des ouverts
+engendre $\B_{\R}$ (Théorème 6).
+\end{tcolorbox}
+
+\begin{enonce}{Application}{7}
+Si $E$ et $F$ sont des espaces topologiques, et si $\A$ est la tribu des boréliens de $E$ et $\B$ la tribu des
+boréliens de $F$, alors toute application $f:E\to F$ continue est une application mesurable de $(E,\A)\to(F,\B)$.
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Par définition des boréliens de $F$, l'ensemble $\Oo$ des ouverts de $F$ engendre $\B$.
+Pour montrer que $f$ est mesurable il suffit de montrer que $f^{-1}(\Oo)\subset\A$.
+Or $f$ étant continue, $\forall A\in\Oo$, $f^{-1}(A)$ est un ouvert de $E$, donc $f^{-1}(A)\in\A$.
+
+Soit $f:(\R,\B_{\R})\to(\R,\B_{\R})$. Puisque la famille $]-\infty,a]$ $(a\in\R)$ engendre $\B_{\R}$,
+pour montrer que $f$ est mesurable, il suffit de montrer que
+\[
+  f^{-1}\bigl(]-\infty,a]\bigr)\in\B_{\R}\qquad\forall a\in\R .
+\]
+
+\begin{enonce}{Théorème}{8 \textnormal{(Fonctions composées mesurables)}}
+Soient $(E,\A)$, $(F,\B)$, $(G,\C)$ trois espaces mesurables. Soient $f:E\to F$, $g:F\to G$ mesurables, alors
+l'application $g\circ f:(E,\A)\to(G,\C)$ est mesurable.
+\end{enonce}
+
+\begin{note}
+Le numéro du théorème est raturé sur le cahier ; je lis « 8 » d'après la suite de la numérotation (le prochain
+numéro écrit est 10).
+\end{note}
+
+\begin{preuve}\end{preuve}
+Soit $C\in\C$, montrons que $(g\circ f)^{-1}(C)\in\A$. Or
+\[
+  (g\circ f)^{-1}(C)=f^{-1}\bigl(g^{-1}(C)\bigr).
+\]
+Comme $g$ est mesurable, alors $g^{-1}(C)\in\B$ et $f$ étant mesurable, $f^{-1}\bigl(g^{-1}(C)\bigr)\in\A$,
+d'où $(g\circ f)^{-1}(C)\in\A$.
+
+\begin{note}
+\textbf{Numéro 9 reconstitué} d'après le cours de F.~Wamon (MAT~303), Remarque 3.1 ; absent du manuscrit.
+\end{note}
+
+\begin{enonce}{Remarque}{9 \textnormal{(reconstituée)}}
+Si $E$ est un espace topologique, sauf mention du contraire, $E$ sera muni de la tribu $\B_E$ des boréliens de $E$.
+
+Soit $F$ un espace topologique et $(E,\A)$ un espace mesurable. Une application $f$ de $E$ dans $F$ est dite
+mesurable si $f$ est mesurable de $(E,\A)$ dans $(F,\B_F)$. En particulier,
+\[
+  f:E\to\R \text{ mesurable}\iff f:(E,\A)\to(\R,\B_{\R}) \text{ mesurable}\iff \forall A\in\B_{\R},\ f^{-1}(A)\in\A .
+\]
+\end{enonce}
+
+%---------------------------------------------------------------------
+\subsection*{2-2 Fonctions numériques mesurables}
+\subsubsection*{L'ensemble $\Rb$}
+
+\begin{enonce}{Définition}{10}
+L'ensemble $\Rb$ est l'ensemble $\R$ auquel on ajoute deux éléments notés $+\infty$ et $-\infty$.
+Donc $\Rb=\R\cup\{+\infty,-\infty\}$.
+
+$\Rb$ est muni d'une relation d'ordre totale ainsi définie :
+$\forall x,y\in\R$, $x\le y$ dans $\Rb\iff x\le y$ dans $\R$ ;
+$\forall y\in\Rb$, $-\infty\le y$ ; $\ \forall x\in\Rb$, $x\le+\infty$.
+\end{enonce}
+
+\begin{enonce}{Conséquence}{11}
+$\Rb$ a un plus grand élément $(+\infty)$ et un plus petit élément $(-\infty)$.
+\end{enonce}
+
+\begin{enonce}{Propriété}{12}
+Dans $\Rb$, toute partie $A$ admet une borne supérieure et une borne inférieure.
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Soit $A\subset\Rb$.
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item Si $A$ est majorée dans $\R$, $A$ admet une borne sup dans $\R$ qui l'est dans $\Rb$.
+  \item Si $A\subset\Rb$ et non majorée dans $\R$, puisque $A$ est non majorée dans $\R$, alors $A$ n'admet qu'un seul
+        majorant dans $\Rb$, et sa borne sup est $+\infty$.
+  \item Si $A\not\subset\R$ :
+  \begin{itemize}[leftmargin=0.8cm]
+    \item si $+\infty\in A$, $+\infty$ est l'unique majorant, donc la borne sup ;
+    \item si $-\infty\in A$ et $+\infty\notin A$ :
+    \begin{itemize}[leftmargin=0.8cm]
+      \item si $A\cap\R\neq\varnothing$, $A$ a la même borne sup que $A\cap\R$ ;
+      \item si $A\cap\R=\varnothing$, $A=\{-\infty\}$, donc sa borne sup est $-\infty$.
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
+
+
+
+\begin{note}
+Seule la borne supérieure est traitée dans le manuscrit ; la borne inférieure se montre de la même façon.
+\end{note}
+
+\begin{enonce}{Notation}{13}
+$\sup A$ désigne la borne supérieure de $A$ ; $\ \inf A$ désigne la borne inférieure de $A$.
+\end{enonce}
+
+\textbf{Topologie de $\Rb$} \textit{(suite des définitions de $\Rb$)}.
+La famille des intervalles ouverts de $\Rb$ : $]a,b[$, $[-\infty,a[$, $]a;+\infty]$ est une base d'ouverts
+définissant la topologie de $\Rb$.
+
+\begin{enonce}{Conséquence}{14}
+$\forall x\in\Rb$, les intervalles ouverts contenant $x$ forment une base de voisinages dans $\Rb$
+comme dans $\R$.
+\end{enonce}
+
+\textbf{\color{bleu}Remarque.}
+\begin{itemize}[leftmargin=1.2cm]
+  \item Si $a=-\infty$, les $[-\infty,a[$ forment une base de voisinages de $-\infty$.
+  \item Si $a=+\infty$, les $]a,+\infty]$ forment une base de voisinages de $+\infty$.
+  \item Tout ouvert de $\Rb$ est une réunion dénombrable d'intervalles ouverts.
+\end{itemize}
+
+\begin{enonce}{Propriété}{15}
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=1.2cm]
+  \item Dans $\Rb$ toute suite monotone est convergente (faux dans $\R$).
+  \item L'ensemble des boréliens de $\Rb$, $\B_{\Rb}$, se déduit de $\B_{\R}$ ainsi : $\forall A\in\B_{\Rb}$,
+        ou bien $A\in\B_{\R}$, ou $A=B\cup\{+\infty\}$, $B\in\B_{\R}$, ou $A=B\cup\{-\infty\}$, $B\in\B_{\R}$,
+        ou $A=B\cup\{-\infty,+\infty\}$, $B\in\B_{\R}$.
+\end{enumerate}
+\end{enonce}
+
+\begin{enonce}{Conséquence}{16}
+De la topologie de $\Rb$, on déduit la topologie de $\Rb\times\Rb$.
+On a une base ouverte de $\Rb\times\Rb$ en prenant les pavés définis par les produits de deux intervalles ouverts de $\Rb$.
+
+L'ensemble des boréliens de $\Rb\times\Rb$, $\B_{\Rb\times\Rb}$, se déduit de $\B_{\R\times\R}$ ainsi :
+si $A\in\B_{\Rb\times\Rb}$, alors ou bien $A\in\B_{\R\times\R}$, ou $A=B\cup C$ où $B\in\B_{\R\times\R}$ et
+\[
+  C=\{+\infty\}\times K_1\ \cup\ \{-\infty\}\times K_2\ \cup\ K_3\times\{-\infty\}\ \cup\ K_4\times\{+\infty\},
+\]
+où $K_1,K_2,K_3,K_4\in\B_{\R}$.
+\end{enonce}
+
+\begin{note}
+Les quatre points $(\pm\infty,\pm\infty)$ ne sont couverts par cette écriture que si l'on autorise $K_i\in\B_{\Rb}$ ; le manuscrit écrit $K_i\in\B_{\R}$.
+\end{note}
+
+%=====================================================================
+\newpage
+\datepage{29-09-2026}
+\section*{Suite du chapitre 2 : opérations dans $\Rb$, limites supérieure et inférieure}
+
+\begin{note}
+Les numéros 17 à 22 manquent dans le manuscrit scanné (entre la Conséquence 16 et le Théorème 22). Ils sont repris de
+la \textbf{feuille de cours officielle} « Opérations sur $\Rb$ -- Limite supérieure et limite inférieure »
+(Math L3, UY1, cours du 29-09-26), dont la numérotation est conservée (Conséquences 18 et 19, Définition 20,
+Propositions 21 et 22). Ce n'est pas une transcription du cahier. Le numéro 17 est présumé : la feuille ne
+numérote pas le paragraphe sur les opérations. Le Théorème 22 du cahier (ci-après) porte le même numéro que la
+Proposition 22 de la feuille : à vérifier sur le cahier.
+\end{note}
+
+\textbf{\color{bleu}Fin de la description de la tribu borélienne de $\Rb\times\Rb$.}
+Si $A\in\B_{\Rb\times\Rb}$, alors $A=B\cup C$ où $B\in\B_{\R\times\R}$ et
+\[
+  C=\bigl(\{-\infty\}\times K_1\bigr)\cup\bigl(\{+\infty\}\times K_2\bigr)\cup\bigl(K_3\times\{-\infty\}\bigr)\cup\bigl(K_4\times\{+\infty\}\bigr),
+\]
+où $K_1,K_2,K_3,K_4\in\B_{\R}$.
+
+\begin{enonce}{Définition}{17 \textnormal{(numéro présumé) : opérations dans $\Rb$}}
+$\Rb$ est muni de deux opérations définies ainsi.
+
+\textbf{a) L'addition.}
+\begin{itemize}[leftmargin=1.2cm]
+  \item $\forall x,y\in\R$, $x+y$ a la même valeur dans $\Rb$ que dans $\R$ ;
+  \item $\forall x\in\R$, $x+(+\infty)=+\infty$, $\ x+(-\infty)=-\infty$ ;
+  \item $(+\infty)+(+\infty)=+\infty$, $\ (-\infty)+(-\infty)=-\infty$ ;
+  \item $(+\infty)+(-\infty)$ n'est pas défini (forme indéterminée).
+\end{itemize}
+L'addition est commutative et associative : $\forall x,y,z\in\Rb$, $x+(y+z)=(x+y)+z$ (lorsque les sommes sont définies).
+\end{enonce}
+
+\begin{enonce}{Conséquence}{18}
+L'addition est donc définie seulement sur la partie
+\[
+  \Sigma=\Rb\times\Rb\setminus\bigl\{(-\infty,+\infty),(+\infty,-\infty)\bigr\}
+\]
+de $\Rb\times\Rb$. Elle y est continue.
+\end{enonce}
+
+\begin{enonce}{Définition}{17 \textnormal{(suite)}}
+\textbf{b) La multiplication.}
+\begin{itemize}[leftmargin=1.2cm]
+  \item $\forall x,y\in\R$, $x\cdot y$ a la même valeur dans $\Rb$ que dans $\R$ ;
+  \item $\forall x\in\R^*$, $\ x\cdot(+\infty)=\begin{cases}+\infty&\text{si }x>0\\-\infty&\text{si }x<0\end{cases}$
+        et $\ x\cdot(-\infty)=\begin{cases}-\infty&\text{si }x>0\\+\infty&\text{si }x<0\end{cases}$ ;
+  \item $(+\infty)\cdot(+\infty)=+\infty$ ; $\ (-\infty)\cdot(+\infty)=-\infty$ ; $\ (-\infty)\cdot(-\infty)=+\infty$ ;
+  \item $0\cdot(-\infty)=0\cdot(+\infty)=0$ ($0$ est l'élément absorbant de $\Rb$ ; ce n'est pas une F.I.).
+\end{itemize}
+La multiplication dans $\Rb$ est commutative et associative.
+\end{enonce}
+
+\begin{enonce}{Conséquence}{19}
+La multiplication n'est pas continue aux points $(+\infty,0)$ ; $(0,+\infty)$ ; $(-\infty,0)$ ; $(0,-\infty)$,
+mais elle est mesurable de $(\Rb\times\Rb,\B_{\Rb\times\Rb})$ dans $(\Rb,\B_{\Rb})$.
+\end{enonce}
+
+\subsubsection*{Limite supérieure, limite inférieure, limite}
+
+Soit $(x_n)_{n\in\N}\subset\Rb$ une suite. Alors $A_n=\{x_n,x_{n+1},x_{n+2},\dots\}$ est une partie non vide (et bornée dans $\Rb$
+par $+\infty$ et $-\infty$). Donc
+\[
+  \sup A_n=\sup_{p\ge n}x_p\quad\text{et}\quad\inf A_n=\inf_{p\ge n}x_p\quad\text{existent.}
+\]
+
+\textbf{\color{bleu}Remarque.} Comme $A_{n+1}\subset A_n$, alors $\sup A_{n+1}\le\sup A_n$ et $\inf A_n\le\inf A_{n+1}$.
+
+Donc $\sup_{p\ge n}x_p$ est décroissante dans $\Rb$ et minorée, donc converge vers sa borne inférieure. Ainsi
+\[
+  \lim_{n\to+\infty}\ \sup_{p\ge n}x_p=\inf_{n\in\N}\ \sup_{p\ge n}x_p=\overline{\lim}\,x_n .
+\]
+De même, $\inf_{p\ge n}x_p$ est croissante et majorée dans $\Rb$, donc converge vers sa borne supérieure. Ainsi
+\[
+  \lim_{n\to+\infty}\ \inf_{p\ge n}x_p=\sup_{n\in\N}\ \inf_{p\ge n}x_p=\underline{\lim}\,x_n .
+\]
+On observe aussi que $\displaystyle\inf_{p\ge n}x_p\le x_n\le\sup_{p\ge n}x_p$. Donc
+\[
+  \lim_{n\to+\infty}\ \inf_{p\ge n}x_p\ \le\ \lim x_n\ \le\ \lim_{n\to+\infty}\ \sup_{p\ge n}x_p,
+  \qquad\text{et il vient que}\qquad \underline{\lim}\,x_n\le\lim x_n\le\overline{\lim}\,x_n .
+\]
+
+\begin{enonce}{Définition}{20}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item On appelle \emph{limite supérieure} de la suite $(x_n)_{n\in\N}$ dans $\Rb$ le nombre ainsi défini :
+  \[
+    \limsup x_n=\lim_{n\to+\infty}\ \sup_{p\ge n}x_p=\inf_{n\in\N}\ \sup_{p\ge n}x_p .
+  \]
+  On écrit aussi $\overline{\lim}\,x_n$ et on dit « plus grande limite ».
+  \item On appelle \emph{limite inférieure} de la suite $(x_n)_{n\in\N}$ dans $\Rb$ le nombre ainsi défini :
+  \[
+    \liminf x_n=\lim_{n\to+\infty}\ \inf_{p\ge n}x_p=\sup_{n\in\N}\ \inf_{p\ge n}x_p .
+  \]
+  On écrit aussi $\underline{\lim}\,x_n$ et on dit aussi « plus petite limite ».
+\end{enumerate}
+\end{enonce}
+
+\begin{enonce}{Proposition}{21}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item Pour que $\ell$ soit la limite supérieure de la suite $(x_n)_{n\in\N}$, il faut et il suffit que :
+  \begin{itemize}[leftmargin=0.8cm]
+    \item $\forall\xi>\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>\xi$ ;
+    \item $\forall\xi<\ell$, il y a une infinité d'indices $n$ tels que $x_n>\xi$.
+  \end{itemize}
+  \item Pour que $m$ soit la limite inférieure de la suite $(x_n)_{n\in\N}$, il faut et il suffit que :
+  \begin{itemize}[leftmargin=0.8cm]
+    \item $\forall\xi<m$, il y a un nombre fini d'indices $n$ tels que $x_n<\xi$ ;
+    \item $\forall\xi>m$, il y a une infinité d'indices $n$ tels que $x_n<\xi$.
+  \end{itemize}
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+\textbf{1) Nécessité.} Supposons que $\ell=\limsup x_n$. Posons $y_n=\sup_{p\ge n}x_p$. Alors $\ell=\inf_{n\in\N}y_n$, car la suite $(y_n)$
+est décroissante et converge vers $\ell$.
+
+\emph{Rappel :} $\theta=\inf A\iff\begin{cases}\forall x\in A,\ \theta\le x\\ \forall\varepsilon>0,\ \exists x_0\in A,\ x_0<\theta+\varepsilon.\end{cases}$
+
+\begin{itemize}[leftmargin=0.8cm]
+  \item Soit $\xi>\ell$. Prenons $\varepsilon=\xi-\ell>0$. Il existe $n_0\in\N$ tel que $y_{n_0}<\ell+(\xi-\ell)=\xi$, d'où $y_{n_0}<\xi$.
+  Donc si $x_p>\xi$, alors $p<n_0$ (car pour $p\ge n_0$, $x_p\le y_{n_0}<\xi$) ; d'où il y a un nombre fini d'indices $n$ tels que $x_n>\xi$.
+  \item Soit $\xi<\ell$. Alors $\forall n\in\N$, $\xi<\ell\le y_n=\sup_{p\ge n}x_p$ ; ainsi il existe $p_0\ge n$ tel que $\xi<x_{p_0}$.
+  Comme c'est vrai $\forall n\in\N$, il existe une infinité d'indices $p_0$ tels que $x_{p_0}>\xi$.
+\end{itemize}
+
+\textbf{Suffisance.} Soit $\ell$ un nombre tel que $\forall\xi>\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>\xi$, et $\forall\xi<\ell$,
+il y a une infinité d'indices $n$ tels que $x_n>\xi$. Posons $\ell'=\limsup x_n$. On veut montrer que $\ell=\ell'$.
+\begin{itemize}[leftmargin=0.8cm]
+  \item Soit $\xi>\ell$ et $n_0$ le plus grand indice tel que $x_{n_0}>\xi$. Donc pour $n>n_0$, $x_n\le\xi$. D'où $y_n=\sup_{p\ge n}x_p\le\xi$
+  pour $n>n_0$. Ainsi $\ell'=\inf y_n\le\xi$. Donc $\forall\xi>\ell$, $\ell'\le\xi$, d'où $\ell'\le\ell$.
+  \item Soit $\xi<\ell$. Il y a une infinité d'indices $n$ tels que $x_n>\xi$, donc $\forall n\in\N$, $y_n=\sup_{p\ge n}x_p\ge\xi$.
+  Ainsi $\ell'=\inf y_n\ge\xi$. Donc $\forall\xi<\ell$, $\ell'\ge\xi$, d'où $\ell'\ge\ell$.
+\end{itemize}
+Par conséquent $\ell=\ell'$. \hfill$\square$
+
+Pour 2), on procède de façon analogue (ou on utilise $\liminf x_n=-\limsup(-x_n)$).
+
+\begin{enonce}{Proposition}{22}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item $\limsup x_n$ est la plus grande valeur d'adhérence de la suite $(x_n)$.
+  \item $\liminf x_n$ est la plus petite valeur d'adhérence de la suite $(x_n)$.
+\end{enumerate}
+\end{enonce}
+
+\emph{Rappel.} 1) $a$ est une valeur d'adhérence (ou un point d'accumulation) de la suite $(x_n)$ si et seulement si
+$\forall\varepsilon>0$, $|x_n-a|<\varepsilon$ pour une infinité d'indices $n$, ou, de façon équivalente,
+$\forall\varepsilon>0$, $\forall N\in\N$, $\exists n\in\N$, $n>N$ et $|x_n-a|<\varepsilon$.
+
+2) Ainsi, $a$ est valeur d'adhérence de $(x_n)$ si et seulement si
+\[
+  \forall\varepsilon>0,\ \forall N\in\N,\ \exists n\ge N \text{ tel que } x_n\in]a-\varepsilon,a+\varepsilon[
+  \iff a\in\overline{A_N},\ \forall N\in\N
+  \iff a\in\bigcap_{N\in\N}\overline{A_N},\quad\text{avec } A_N=\{x_N,x_{N+1},\dots\}.
+\]
+
+\begin{preuve}\end{preuve}
+\textbf{1) Cas de $\limsup x_n$.} Posons $A=\bigcap_{n\in\N}\overline{A_n}$, l'ensemble des valeurs d'adhérence de la suite $(x_n)_{n\in\N}$.
+Montrons que $\limsup x_n\in A$ et que $\limsup x_n=\sup A$.
+
+\emph{Remarque.} Si $B\subset\R$, alors $\sup B\in\overline B$ (s'il existe). En effet, $\sup B$ est un majorant de $B$ et $\sup B\ge a$
+pour tout $a\in B$. De plus, $\forall\varepsilon>0$, $\exists a_0\in B$ tel que $a_0>\sup B-\varepsilon$. Ainsi $\forall\varepsilon>0$, $\exists a_0\in B$ tel que
+\[
+  \sup B-\varepsilon<a_0\le\sup B<\sup B+\varepsilon,
+\]
+donc $]\sup B-\varepsilon,\sup B+\varepsilon[\cap B\neq\varnothing$ pour tout $\varepsilon>0$. D'où $\sup B\in\overline B$.
+
+Posons $y_n=\sup_{p\ge n}x_p=\sup A_n$. Donc $y_n\in\overline{A_n}$. On a $A_{n+1}\subset A_n$, donc $\overline{A_{n+1}}\subset\overline{A_n}$.
+Ainsi, $\forall m\ge n$, $y_m\in\overline{A_m}\subset\overline{A_n}$, donc $\ell=\inf y_n\in\overline{A_n}$. Donc $\forall n\in\N$, $\ell\in\overline{A_n}$,
+d'où $\ell\in\bigcap_{n\in\N}\overline{A_n}=A$. Donc $\limsup x_n$ est une valeur d'adhérence.
+
+Il reste à montrer que $\ell=\limsup x_n=\sup A$. $\forall n\in\N$, on a $\overline{A_n}=[-\infty,y_n]$, donc
+\[
+  A=\bigcap_{n\in\N}\overline{A_n}=\bigcap_{n\in\N}[-\infty,y_n]=[-\infty,\ell],
+\]
+donc $\ell=\sup A$. \hfill$\square$
+
+
+%=====================================================================
+% Partie issue du premier document (Théorème 22 et suivants)
+\datepage{6 octobre 2026}
 \section*{Limites de suites dans $\Rb$}
 
 \begin{enonce}{Théorème}{22}
@@ -467,5 +1262,6 @@ $g_n-h_n$ est étagée sur $\A$ et à valeurs dans $\R$, et
 \begin{note}
 « Étagée sur $\A$ » résulte de la Proposition 29 (espace vectoriel).
 \end{note}
+
 
 \end{document}
