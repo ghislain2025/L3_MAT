@@ -683,88 +683,76 @@ Les quatre points $(\pm\infty,\pm\infty)$ ne sont couverts par cette écriture q
 
 %=====================================================================
 \newpage
-\datepage{29-09-2026}
-\section*{Suite du chapitre 2 : opérations dans $\Rb$, limites supérieure et inférieure}
+\datepage{Mardi 29 septembre 2026}
+\section*{Chapitre 2 (suite)}
+\subsubsection*{Opérations sur $\Rb$ (fin de la définition de $\Rb$)}
 
-\begin{note}
-Les numéros 17 à 22 manquent dans le manuscrit scanné (entre la Conséquence 16 et le Théorème 22). Ils sont repris de
-la \textbf{feuille de cours officielle} « Opérations sur $\Rb$ -- Limite supérieure et limite inférieure »
-(Math L3, UY1, cours du 29-09-26), dont la numérotation est conservée (Conséquences 18 et 19, Définition 20,
-Propositions 21 et 22). Ce n'est pas une transcription du cahier. Le numéro 17 est présumé : la feuille ne
-numérote pas le paragraphe sur les opérations. Le Théorème 22 du cahier (ci-après) porte le même numéro que la
-Proposition 22 de la feuille : à vérifier sur le cahier.
-\end{note}
+$\Rb$ est muni de deux opérations ainsi définies :
 
-\textbf{\color{bleu}Fin de la description de la tribu borélienne de $\Rb\times\Rb$.}
-Si $A\in\B_{\Rb\times\Rb}$, alors $A=B\cup C$ où $B\in\B_{\R\times\R}$ et
-\[
-  C=\bigl(\{-\infty\}\times K_1\bigr)\cup\bigl(\{+\infty\}\times K_2\bigr)\cup\bigl(K_3\times\{-\infty\}\bigr)\cup\bigl(K_4\times\{+\infty\}\bigr),
-\]
-où $K_1,K_2,K_3,K_4\in\B_{\R}$.
-
-\begin{enonce}{Définition}{17 \textnormal{(numéro présumé) : opérations dans $\Rb$}}
-$\Rb$ est muni de deux opérations définies ainsi.
-
-\textbf{a) L'addition.}
+\textbf{a) L'addition.} L'addition est commutative et :
 \begin{itemize}[leftmargin=1.2cm]
-  \item $\forall x,y\in\R$, $x+y$ a la même valeur dans $\Rb$ que dans $\R$ ;
-  \item $\forall x\in\R$, $x+(+\infty)=+\infty$, $\ x+(-\infty)=-\infty$ ;
-  \item $(+\infty)+(+\infty)=+\infty$, $\ (-\infty)+(-\infty)=-\infty$ ;
-  \item $(+\infty)+(-\infty)$ n'est pas défini (forme indéterminée).
+  \item $\forall x,y\in\R$, $x+y$ a la même valeur dans $\Rb$ que dans $\R$.
+  \item $\forall x\in\R$, $x+(+\infty)=+\infty$, $\ x+(-\infty)=-\infty$,\\
+        $(+\infty)+(+\infty)=+\infty$, $\ (-\infty)+(-\infty)=-\infty$.
 \end{itemize}
-L'addition est commutative et associative : $\forall x,y,z\in\Rb$, $x+(y+z)=(x+y)+z$ (lorsque les sommes sont définies).
+L'addition est donc définie seulement sur la partie
+$\Sigma=\Rb\times\Rb\setminus\bigl\{(-\infty,+\infty),(+\infty,-\infty)\bigr\}$ de $\Rb\times\Rb$.
+
+\begin{enonce}{Conséquence}{17}
+L'addition est associative.
 \end{enonce}
+
+\textbf{b) La multiplication.} La multiplication dans $\Rb$ est commutative et ainsi définie :
+\begin{itemize}[leftmargin=1.2cm]
+  \item $\forall x,y\in\R$, $x\cdot y$ a la même valeur dans $\Rb$ que dans $\R$.
+  \item $\forall x\in\R$, $\ x\cdot(+\infty)=\begin{cases}+\infty&\text{si }x>0\\-\infty&\text{si }x<0\end{cases}$
+  \item $\forall x\in\R$, $\ x\cdot(-\infty)=\begin{cases}-\infty&\text{si }x>0\\+\infty&\text{si }x<0\end{cases}$
+  \item $(+\infty)\cdot(+\infty)=+\infty$, $\ (+\infty)\cdot(-\infty)=-\infty$, $\ (-\infty)\cdot(-\infty)=+\infty$ ;
+        $\ 0\cdot(-\infty)=0$, $\ 0\cdot(+\infty)=0$.
+\end{itemize}
 
 \begin{enonce}{Conséquence}{18}
-L'addition est donc définie seulement sur la partie
-\[
-  \Sigma=\Rb\times\Rb\setminus\bigl\{(-\infty,+\infty),(+\infty,-\infty)\bigr\}
-\]
-de $\Rb\times\Rb$. Elle y est continue.
+\begin{enumerate}[label=\textbf{\roman*)},leftmargin=1.2cm]
+  \item La multiplication dans $\Rb$ est associative : $\forall x,y,z\in\Rb$, $(x\cdot y)\cdot z=x\cdot(y\cdot z)$.
+  \item L'addition est une opération continue de $\Sigma=\Rb\times\Rb\setminus\{(+\infty,-\infty),(-\infty,+\infty)\}$ dans $\Rb$.
+        D'où elle est mesurable.
+  \item La multiplication n'est pas continue aux points $(+\infty,0)$, $(0,+\infty)$, $(-\infty,0)$, $(0,-\infty)$, mais elle est
+        mesurable de $(\Rb\times\Rb,\B_{\Rb\times\Rb})$ dans $(\Rb,\B_{\Rb})$.
+\end{enumerate}
 \end{enonce}
 
-\begin{enonce}{Définition}{17 \textnormal{(suite)}}
-\textbf{b) La multiplication.}
-\begin{itemize}[leftmargin=1.2cm]
-  \item $\forall x,y\in\R$, $x\cdot y$ a la même valeur dans $\Rb$ que dans $\R$ ;
-  \item $\forall x\in\R^*$, $\ x\cdot(+\infty)=\begin{cases}+\infty&\text{si }x>0\\-\infty&\text{si }x<0\end{cases}$
-        et $\ x\cdot(-\infty)=\begin{cases}-\infty&\text{si }x>0\\+\infty&\text{si }x<0\end{cases}$ ;
-  \item $(+\infty)\cdot(+\infty)=+\infty$ ; $\ (-\infty)\cdot(+\infty)=-\infty$ ; $\ (-\infty)\cdot(-\infty)=+\infty$ ;
-  \item $0\cdot(-\infty)=0\cdot(+\infty)=0$ ($0$ est l'élément absorbant de $\Rb$ ; ce n'est pas une F.I.).
-\end{itemize}
-La multiplication dans $\Rb$ est commutative et associative.
-\end{enonce}
+\begin{note}
+Dans le manuscrit, le cas $x\cdot(-\infty)$ pour $x>0$ est écrit avec un signe peu lisible (« $x\ge0$ » raturé) ; je lis « $x>0$ »,
+comme dans la feuille de cours du 29-09-26.
+\end{note}
 
-\begin{enonce}{Conséquence}{19}
-La multiplication n'est pas continue aux points $(+\infty,0)$ ; $(0,+\infty)$ ; $(-\infty,0)$ ; $(0,-\infty)$,
-mais elle est mesurable de $(\Rb\times\Rb,\B_{\Rb\times\Rb})$ dans $(\Rb,\B_{\Rb})$.
-\end{enonce}
+%---------------------------------------------------------------------
+\subsubsection*{Limites supérieures, limites inférieures, limite}
 
-\subsubsection*{Limite supérieure, limite inférieure, limite}
+Soit $(x_n)_{n\in\N}\subset\Rb$ une suite. Alors $A_n=\{x_n,x_{n+1},\dots\}$ est une partie non vide (et bornée dans $\Rb$ par $+\infty$ et $-\infty$).
+Donc $\sup(A_n)=\sup_{p\ge n}x_p$ et $\inf(A_n)=\inf_{p\ge n}x_p$ existent.
 
-Soit $(x_n)_{n\in\N}\subset\Rb$ une suite. Alors $A_n=\{x_n,x_{n+1},x_{n+2},\dots\}$ est une partie non vide (et bornée dans $\Rb$
-par $+\infty$ et $-\infty$). Donc
-\[
-  \sup A_n=\sup_{p\ge n}x_p\quad\text{et}\quad\inf A_n=\inf_{p\ge n}x_p\quad\text{existent.}
-\]
+\textbf{\color{bleu}Remarque.} Comme $A_{n+1}\subset A_n$, alors $\sup A_{n+1}\le\sup A_n$ et $\inf A_{n+1}\ge\inf A_n$.
 
-\textbf{\color{bleu}Remarque.} Comme $A_{n+1}\subset A_n$, alors $\sup A_{n+1}\le\sup A_n$ et $\inf A_n\le\inf A_{n+1}$.
-
-Donc $\sup_{p\ge n}x_p$ est décroissante dans $\Rb$ et minorée, donc converge vers sa borne inférieure. Ainsi
+Donc $\sup_{p\ge n}x_p$ est décroissante dans $\Rb$ et minorée, donc converge vers sa borne inférieure ; ainsi
 \[
   \lim_{n\to+\infty}\ \sup_{p\ge n}x_p=\inf_{n\in\N}\ \sup_{p\ge n}x_p=\overline{\lim}\,x_n .
 \]
-De même, $\inf_{p\ge n}x_p$ est croissante et majorée dans $\Rb$, donc converge vers sa borne supérieure. Ainsi
+De même, $\inf_{p\ge n}x_p$ est croissante et majorée dans $\Rb$, donc converge vers sa borne supérieure ; ainsi
 \[
   \lim_{n\to+\infty}\ \inf_{p\ge n}x_p=\sup_{n\in\N}\ \inf_{p\ge n}x_p=\underline{\lim}\,x_n .
 \]
-On observe aussi que $\displaystyle\inf_{p\ge n}x_p\le x_n\le\sup_{p\ge n}x_p$. Donc
+On observe aussi que
 \[
-  \lim_{n\to+\infty}\ \inf_{p\ge n}x_p\ \le\ \lim x_n\ \le\ \lim_{n\to+\infty}\ \sup_{p\ge n}x_p,
-  \qquad\text{et il vient que}\qquad \underline{\lim}\,x_n\le\lim x_n\le\overline{\lim}\,x_n .
+  \inf_{p\ge n}x_p\ \le\ x_n\ \le\ \sup_{p\ge n}x_p .
 \]
+Donc
+\[
+  \lim_{n\to+\infty}\ \inf_{p\ge n}x_p\ \le\ \lim x_n\ \le\ \lim_{n\to+\infty}\ \sup_{p\ge n}x_p ,
+\]
+il vient que $\underline{\lim}\,x_n\le\lim x_n\le\overline{\lim}\,x_n$.
 
-\begin{enonce}{Définition}{20}
+\begin{enonce}{Définition}{19}
 \begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
   \item On appelle \emph{limite supérieure} de la suite $(x_n)_{n\in\N}$ dans $\Rb$ le nombre ainsi défini :
   \[
@@ -779,89 +767,108 @@ On observe aussi que $\displaystyle\inf_{p\ge n}x_p\le x_n\le\sup_{p\ge n}x_p$. 
 \end{enumerate}
 \end{enonce}
 
-\begin{enonce}{Proposition}{21}
+\begin{enonce}{Proposition}{20}
 \begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
   \item Pour que $\ell$ soit la limite supérieure de la suite $(x_n)_{n\in\N}$, il faut et il suffit que :
   \begin{itemize}[leftmargin=0.8cm]
-    \item $\forall\xi>\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>\xi$ ;
-    \item $\forall\xi<\ell$, il y a une infinité d'indices $n$ tels que $x_n>\xi$.
+    \item $\forall z>\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>z$ ;
+    \item $\forall z<\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>z$.
   \end{itemize}
   \item Pour que $m$ soit la limite inférieure de la suite $(x_n)_{n\in\N}$, il faut et il suffit que :
   \begin{itemize}[leftmargin=0.8cm]
-    \item $\forall\xi<m$, il y a un nombre fini d'indices $n$ tels que $x_n<\xi$ ;
-    \item $\forall\xi>m$, il y a une infinité d'indices $n$ tels que $x_n<\xi$.
+    \item $\forall z<m$, il y a un nombre fini d'indices $n$ tels que $x_n<z$ ;
+    \item $\forall z>m$, il y a une infinité d'indices $n$ tels que $x_n<z$.
   \end{itemize}
 \end{enumerate}
 \end{enonce}
 
+\begin{note}
+Dans le manuscrit, la deuxième condition du point 1) est écrite « il y a un nombre fini d'indices » ; la preuve (nécessité) conclut
+à « une infinité » et la feuille de cours du 29-09-26 écrit « une infinité » : c'est sans doute un lapsus. Je transcris le manuscrit tel quel.
+\end{note}
+
 \begin{preuve}\end{preuve}
-\textbf{1) Nécessité.} Supposons que $\ell=\limsup x_n$. Posons $y_n=\sup_{p\ge n}x_p$. Alors $\ell=\inf_{n\in\N}y_n$, car la suite $(y_n)$
-est décroissante et converge vers $\ell$.
+\textbf{1) Nécessité.} Supposons que $\ell=\limsup x_n=\inf_{n\in\N}\sup_{p\ge n}x_p$. Posons $y_n=\sup_{p\ge n}x_p$, alors
+$\ell=\inf_{n\in\N}y_n$, car la suite $(y_n)$ est décroissante et converge vers $\ell$.
+
+Donc $\forall z>\ell$, $\exists n_0\in\N$ tel que $y_{n_0}<z$, d'où $\sup_{p\ge n_0}x_p<z$.
 
 \emph{Rappel :} $\theta=\inf A\iff\begin{cases}\forall x\in A,\ \theta\le x\\ \forall\varepsilon>0,\ \exists x_0\in A,\ x_0<\theta+\varepsilon.\end{cases}$
+Posons $\varepsilon=z-\ell>0$, $\exists n_0\in\N$ tel que $y_{n_0}<\ell+(z-\ell)$.
 
-\begin{itemize}[leftmargin=0.8cm]
-  \item Soit $\xi>\ell$. Prenons $\varepsilon=\xi-\ell>0$. Il existe $n_0\in\N$ tel que $y_{n_0}<\ell+(\xi-\ell)=\xi$, d'où $y_{n_0}<\xi$.
-  Donc si $x_p>\xi$, alors $p<n_0$ (car pour $p\ge n_0$, $x_p\le y_{n_0}<\xi$) ; d'où il y a un nombre fini d'indices $n$ tels que $x_n>\xi$.
-  \item Soit $\xi<\ell$. Alors $\forall n\in\N$, $\xi<\ell\le y_n=\sup_{p\ge n}x_p$ ; ainsi il existe $p_0\ge n$ tel que $\xi<x_{p_0}$.
-  Comme c'est vrai $\forall n\in\N$, il existe une infinité d'indices $p_0$ tels que $x_{p_0}>\xi$.
-\end{itemize}
+Donc si $x_p>z$ alors $p<n_0$ ; d'où il y a un nombre fini d'indices.
 
-\textbf{Suffisance.} Soit $\ell$ un nombre tel que $\forall\xi>\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>\xi$, et $\forall\xi<\ell$,
-il y a une infinité d'indices $n$ tels que $x_n>\xi$. Posons $\ell'=\limsup x_n$. On veut montrer que $\ell=\ell'$.
-\begin{itemize}[leftmargin=0.8cm]
-  \item Soit $\xi>\ell$ et $n_0$ le plus grand indice tel que $x_{n_0}>\xi$. Donc pour $n>n_0$, $x_n\le\xi$. D'où $y_n=\sup_{p\ge n}x_p\le\xi$
-  pour $n>n_0$. Ainsi $\ell'=\inf y_n\le\xi$. Donc $\forall\xi>\ell$, $\ell'\le\xi$, d'où $\ell'\le\ell$.
-  \item Soit $\xi<\ell$. Il y a une infinité d'indices $n$ tels que $x_n>\xi$, donc $\forall n\in\N$, $y_n=\sup_{p\ge n}x_p\ge\xi$.
-  Ainsi $\ell'=\inf y_n\ge\xi$. Donc $\forall\xi<\ell$, $\ell'\ge\xi$, d'où $\ell'\ge\ell$.
-\end{itemize}
-Par conséquent $\ell=\ell'$. \hfill$\square$
+Si $z<\ell$ alors $\forall n\in\N$, $z\le y_n$. Donc $\forall n\in\N$, $z\le\sup_{p\ge n}x_p$ ; ainsi il existe $p_0\ge n$ tel que $z<x_{p_0}$.
+Comme c'est vrai pour tout $n\in\N$, alors il existe une infinité de $x_{p_0}>z$.
 
-Pour 2), on procède de façon analogue (ou on utilise $\liminf x_n=-\limsup(-x_n)$).
+\textbf{Suffisance.} $\ell$ est un nombre tel que $\forall z>\ell$ il y a un nombre fini d'indices $n$ tels que $x_n>z$ et $\forall z>\ell$
+il y a une infinité d'indices $n$ tels que $x_n>z$.
 
-\begin{enonce}{Proposition}{22}
+\begin{note}
+Dans la suffisance, le manuscrit écrit « $\forall z>\ell$ » pour la seconde condition ; d'après la suite de la preuve, il faut lire « $\forall z<\ell$ ».
+\end{note}
+
+On veut montrer que $\ell=\limsup x_n$ : posons $\ell'=\limsup x_n$ et montrons que $\ell=\ell'$.
+
+Soit $z>\ell$ et $n_0$ le plus grand indice tel que $x_n>z$, donc pour $n>n_0$, $x_n\le z$. Ainsi $y_n=\sup_{p\ge n}x_p\le z$ pour $n>n_0$,
+d'où $\ell'=\inf y_n\le z$, donc $\forall z>\ell$, $\ell'\le z$, d'où $\ell'\le\ell$.
+
+Soit $z<\ell$, alors $\forall n\in\N$, $y_n=\sup_{p\ge n}x_p\ge z$. Comme parmi l'infinité des $x_n>z$, il y en a dont l'indice $p\ge n$ ; alors
+$\ell'=\inf y_n\ge z$, donc $\forall z<\ell$, $\ell'\ge z$, d'où $\ell'\ge\ell$.
+
+\begin{note}
+La preuve du point 2) (limite inférieure) n'est pas écrite dans le manuscrit.
+\end{note}
+
+\begin{enonce}{Proposition}{21}
 \begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
   \item $\limsup x_n$ est la plus grande valeur d'adhérence de la suite $(x_n)$.
   \item $\liminf x_n$ est la plus petite valeur d'adhérence de la suite $(x_n)$.
 \end{enumerate}
 \end{enonce}
 
-\emph{Rappel.} 1) $a$ est une valeur d'adhérence (ou un point d'accumulation) de la suite $(x_n)$ si et seulement si
-$\forall\varepsilon>0$, $|x_n-a|<\varepsilon$ pour une infinité d'indices $n$, ou, de façon équivalente,
-$\forall\varepsilon>0$, $\forall N\in\N$, $\exists n\in\N$, $n>N$ et $|x_n-a|<\varepsilon$.
-
-2) Ainsi, $a$ est valeur d'adhérence de $(x_n)$ si et seulement si
-\[
-  \forall\varepsilon>0,\ \forall N\in\N,\ \exists n\ge N \text{ tel que } x_n\in]a-\varepsilon,a+\varepsilon[
-  \iff a\in\overline{A_N},\ \forall N\in\N
-  \iff a\in\bigcap_{N\in\N}\overline{A_N},\quad\text{avec } A_N=\{x_N,x_{N+1},\dots\}.
-\]
+\textbf{\color{bleu}Rappel.}
+\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
+  \item $a$ est une valeur d'adhérence (ou point d'accumulation) de la suite $(x_n)$ si
+  $\forall\varepsilon>0$, il existe une infinité de termes de la suite tels que $|x_n-a|<\varepsilon$, ou de façon équivalente
+  $\forall\varepsilon>0$, $\forall N\in\N$, $\exists n\in\N$, $n>N$ et $|x_n-a|<\varepsilon$.
+  \item Ainsi $a$ est valeur d'adhérence de $(x_n)$ si et seulement si $\forall\varepsilon>0$, $\forall N\in\N$, $\exists n\ge N$ tel que
+  $x_n\in]a-\varepsilon,a+\varepsilon[$ et $x_n\neq a$
+  \[
+    \iff\ \forall\varepsilon>0,\ \forall N\in\N,\ ]a-\varepsilon,a+\varepsilon[\,\cap A_N\neq\varnothing
+    \iff a\in\overline{A_N},\ \forall N\in\N
+    \iff a\in\bigcap_{n\in\N}\overline{A_n},\quad A_n=\{x_n,x_{n+1},\dots\}.
+  \]
+\end{enumerate}
 
 \begin{preuve}\end{preuve}
 \textbf{1) Cas de $\limsup x_n$.} Posons $A=\bigcap_{n\in\N}\overline{A_n}$, l'ensemble des valeurs d'adhérence de la suite $(x_n)_{n\in\N}$.
 Montrons que $\limsup x_n\in A$ et que $\limsup x_n=\sup A$.
 
-\emph{Remarque.} Si $B\subset\R$, alors $\sup B\in\overline B$ (s'il existe). En effet, $\sup B$ est un majorant de $B$ et $\sup B\ge a$
-pour tout $a\in B$. De plus, $\forall\varepsilon>0$, $\exists a_0\in B$ tel que $a_0>\sup B-\varepsilon$. Ainsi $\forall\varepsilon>0$, $\exists a_0\in B$ tel que
-\[
-  \sup B-\varepsilon<a_0\le\sup B<\sup B+\varepsilon,
-\]
-donc $]\sup B-\varepsilon,\sup B+\varepsilon[\cap B\neq\varnothing$ pour tout $\varepsilon>0$. D'où $\sup B\in\overline B$.
+\emph{Remarque :} si $B\subset\R$, alors $\sup B\in\overline B$ (s'il existe). En effet, $\sup B$ est un majorant de $B$ et $\sup B\ge a$ $\forall a\in B$.
+De plus $\forall\varepsilon>0$, $\exists a_0\in B$ tel que $a_0>\sup B-\varepsilon$ ; ainsi $\forall\varepsilon>0$, $\exists a_0\in B$ tel que
+$\sup B-\varepsilon\le a_0\le\sup B+\varepsilon$, donc $]\sup B-\varepsilon,\sup B+\varepsilon[\,\cap B\neq\varnothing$ $\forall\varepsilon>0$, d'où $\sup B\in\overline B$.
 
-Posons $y_n=\sup_{p\ge n}x_p=\sup A_n$. Donc $y_n\in\overline{A_n}$. On a $A_{n+1}\subset A_n$, donc $\overline{A_{n+1}}\subset\overline{A_n}$.
-Ainsi, $\forall m\ge n$, $y_m\in\overline{A_m}\subset\overline{A_n}$, donc $\ell=\inf y_n\in\overline{A_n}$. Donc $\forall n\in\N$, $\ell\in\overline{A_n}$,
-d'où $\ell\in\bigcap_{n\in\N}\overline{A_n}=A$. Donc $\limsup x_n$ est une valeur d'adhérence.
+Posons $y_n=\sup_{p\ge n}x_p=\sup A_n$, donc $y_n\in\overline{A_n}$. Or $A_{n+1}\subset A_n$, donc $\overline{A_{n+1}}\subset\overline{A_n}$, ainsi
+$\forall m\ge n$, $y_m\in\overline{A_m}\subset\overline{A_n}$, donc $\ell=\inf y_n\in\overline{A_n}$, d'où $\forall n\in\N$, $\ell\in\overline{A_n}$,
+c'est-à-dire $\ell\in\bigcap_{n\in\N}\overline{A_n}=A$.
+
+Donc $\limsup x_n$ est une valeur d'adhérence.
 
 Il reste à montrer que $\ell=\limsup x_n=\sup A$. $\forall n\in\N$, on a $\overline{A_n}=[-\infty,y_n]$, donc
 \[
   A=\bigcap_{n\in\N}\overline{A_n}=\bigcap_{n\in\N}[-\infty,y_n]=[-\infty,\ell],
 \]
-donc $\ell=\sup A$. \hfill$\square$
+donc $\ell=\sup A$.
+
+\begin{note}
+La preuve du point 2) (valeur d'adhérence la plus petite pour $\liminf$) n'est pas écrite dans le manuscrit.
+\end{note}
 
 
 %=====================================================================
 % Partie issue du premier document (Théorème 22 et suivants)
-\datepage{6 octobre 2026}
+\datepage{Mardi 6 octobre 2026}
 \section*{Limites de suites dans $\Rb$}
 
 \begin{enonce}{Théorème}{22}
