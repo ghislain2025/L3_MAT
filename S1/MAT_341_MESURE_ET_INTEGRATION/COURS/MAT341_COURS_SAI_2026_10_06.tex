@@ -61,7 +61,7 @@
 
 \begin{center}
   {\Huge\bfseries\color{bleu} MAT341}\\[4pt]
-  {\LARGE\bfseries\color{bleuclair} Mesure et Intégration : chapitres 1 et 2}\\[4pt]
+  {\LARGE\bfseries\color{bleuclair} Mesure et Intégration : chapitres 1 à 3}\\[4pt]
   {\large\itshape Notes de cours saisies à partir du manuscrit}
 \end{center}
 \vspace{-4pt}
@@ -1268,6 +1268,241 @@ $g_n-h_n$ est étagée sur $\A$ et à valeurs dans $\R$, et
 
 \begin{note}
 « Étagée sur $\A$ » résulte de la Proposition 29 (espace vectoriel).
+\end{note}
+
+%=====================================================================
+\newpage
+\datepage{Vendredi 09 octobre 2026}
+\section*{Chapitre 3 : Mesures positives}
+
+\begin{note}
+Le manuscrit note la mesure par un symbole proche d'un « t » (avec une boucle) ; je lis et transcris $\mu$ partout.
+\end{note}
+
+\begin{enonce}{Définition}{1}
+Soit $\A$ une famille de parties d'un ensemble $E$, soit $\mu:\A\to\Rb_+$.
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item $\mu$ est dite \emph{simplement additive} si pour toute famille $(A_1,A_2,\dots,A_p)$ d'éléments deux à deux disjoints de $\A$
+        telle que $\displaystyle\bigcup_{i=1}^{p}A_i\in\A$ on a
+        \[
+          \mu\Bigl(\bigcup_{i=1}^{p}A_i\Bigr)=\sum_{i=1}^{p}\mu(A_i).
+        \]
+  \item $\mu$ est dite \emph{$\sigma$-additive} si pour toute famille dénombrable $(A_n)_{n\in\N}$ d'éléments deux à deux disjoints de $\A$
+        telle que $\displaystyle\bigcup_{n\in\N}A_n\in\A$, on a
+        \[
+          \mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\sum_{n=0}^{+\infty}\mu(A_n).
+        \]
+\end{enumerate}
+\end{enonce}
+
+\textbf{\color{bleu}Remarque 2.}
+Si $\A$ est un anneau, il suffit de dire : $\mu$ est simplement additive si
+$\forall A_1,A_2\in\A$, $A_1\cap A_2=\varnothing\Rightarrow\mu(A_1\cup A_2)=\mu(A_1)+\mu(A_2)$.
+
+\textbf{\color{bleu}Exemple 3.} Soit $E$ un ensemble et $\A=\Pp(E)$.
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item Si $\mu(A)=\operatorname{Card}(A)$, $\forall A\subseteq E$, alors $\mu$ est additive mais pas $\sigma$-additive.
+  \item Si $\mu(A)=+\infty$, $\forall A\subseteq E$, alors $\mu$ est additive et $\sigma$-additive.
+\end{enumerate}
+
+\begin{enonce}{Proposition}{4}
+Soit $\A$ un anneau de parties de $E$ et soit $\mu:\A\to\Rb_+$ une application. Si $\mu$ est simplement additive et différente de
+l'application constante $+\infty$, $\mu$ a les propriétés suivantes :
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item $\mu(\varnothing)=0$.
+  \item $\forall A,B\in\A$, $A\subset B\Rightarrow\mu(A)\le\mu(B)$.
+  \item $\forall A,B\in\A$, $\mu(A\cup B)\le\mu(A)+\mu(B)$.
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+\textbf{1-} Soit $A\in\A$ tel que $\mu(A)<+\infty$. Comme $A\cap\varnothing=\varnothing$ alors
+$\mu(A\cup\varnothing)=\mu(A)+\mu(\varnothing)=\mu(A)$. $\mu(A)$ étant fini, alors $\mu(\varnothing)=0$.
+
+\textbf{2-} Soit $A,B\in\A$ tel que $A\subset B$, alors $B=A\cup(B\setminus A)$ et $B\setminus A\in\A$ ;
+de plus $A\cap(B\setminus A)=\varnothing$, donc $\mu(B)=\mu(A)+\mu(B\setminus A)$, d'où $\mu(B)\ge\mu(A)$ puisque $\mu(B\setminus A)\ge0$.
+
+\textbf{3-} Soit $A,B\in\A$. Alors $A\cup B=A\cup(B\setminus A)$ et $A\cap(B\setminus A)=\varnothing$, ainsi
+$\mu(A\cup B)=\mu(A)+\mu(B\setminus A)$. Or $B\setminus A\subset B\Rightarrow\mu(B\setminus A)\le\mu(B)$.
+Il vient que $\mu(A\cup B)\le\mu(A)+\mu(B)$.
+
+\begin{enonce}{Définition}{5}
+Soit $\A$ un anneau de parties de $E$. On appelle \emph{mesure positive} sur $\A$, une application $\mu:\A\to\Rb_+$, différente de
+l'application constante $+\infty$ et qui est $\sigma$-additive.
+\end{enonce}
+
+\begin{enonce}{Définition}{6}
+Soit $(E,\B)$ un espace mesurable. Si $\mu$ est une mesure sur la $\sigma$-algèbre $\B$, le triplet $(E,\B,\mu)$ est appelé
+\emph{espace mesuré}.
+\begin{itemize}[leftmargin=1.2cm]
+  \item Si $\mu$ prend ses valeurs dans $\R_+$, $\mu$ est dite \emph{finie}.
+  \item Si l'ensemble des valeurs prises par $\mu$ est borné supérieurement alors $\mu$ est dite \emph{bornée}.
+\end{itemize}
+\end{enonce}
+
+\textbf{\color{bleu}Exemple 7.} Si $\A$ est une $\sigma$-algèbre, alors $\forall A\in\A$, on a $\mu(A)\le\mu(E)$ et si $\mu(E)<+\infty$ alors
+$\mu$ est bornée.
+
+\textbf{\color{bleu}Exemple 8.} Soit $\A$ l'anneau des parties finies de $E$. Posons $\forall A\in\A$, $\mu(A)=\operatorname{Card}(A)$ ; alors $\mu$ est finie.
+Si $E$ est un espace infini, $\mu$ n'est pas bornée.
+
+\begin{enonce}{Théorème}{9}
+Si $\A$ est un anneau de parties de $E$, et $\mu:\A\to\Rb_+$ simplement additive et différente de l'application constante $+\infty$.
+Pour que $\mu$ soit une mesure, il faut et il suffit que : quelle que soit la suite croissante $(A_n)_{n\in\N}\subset\A$, telle que
+$\displaystyle\bigcup_{n\in\N}A_n\in\A$, on ait
+\[
+  \mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n)
+  \qquad\text{(propriété de limite croissante des mesures).}
+\]
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Remarquons d'abord que $A_n\subset A_{n+1}\Rightarrow\mu(A_n)\le\mu(A_{n+1})$.
+
+\textbf{1- Hypothèse :} $\mu$ est $\sigma$-additive.
+Soit $(A_n)_{n\in\N}$ une suite croissante avec $A_n\in\A$ $\forall n\in\N$ et $\bigcup_{n\in\N}A_n\in\A$.
+Montrons que $\mu\bigl(\bigcup_{n\in\N}A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
+
+Posons $B_0=A_0$, $B_1=A_1\setminus A_0\in\A$, \dots, $B_n=A_n\setminus A_{n-1}$.
+Par construction les $B_n$ sont deux à deux disjoints et $A_n=\bigcup_{p=0}^{n}B_p$, donc $\bigcup_{n=0}^{+\infty}A_n=\bigcup_{p=0}^{+\infty}B_p$.
+
+$\mu$ étant simplement additive, $\mu(A_n)=\sum_{p=0}^{n}\mu(B_p)$.
+$\mu$ étant $\sigma$-additive,
+\[
+  \mu\Bigl(\bigcup_{n=0}^{+\infty}A_n\Bigr)=\mu\Bigl(\bigcup_{p=0}^{+\infty}B_p\Bigr)=\sum_{p=0}^{+\infty}\mu(B_p)
+  =\lim_{n\to+\infty}\sum_{p=0}^{n}\mu(B_p)=\lim_{n\to+\infty}\mu(A_n).
+\]
+
+\textbf{2- Hypothèse :} pour toute suite croissante $(A_n)_{n\in\N}$ avec $A_n\in\A$ $\forall n\in\N$ et $\bigcup_{n\in\N}A_n\in\A$, on a
+$\mu\bigl(\bigcup A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
+
+Montrons que $\mu$ est $\sigma$-additive. Soit $(B_n)_{n\in\N}$ une suite telle que $B_n\in\A$, $\forall n\in\N$, les $B_n$ sont deux à deux disjoints
+et $\bigcup_{n\in\N}B_n\in\A$.
+
+Posons $A_n=\bigcup_{p=0}^{n}B_p$. La suite $(A_n)_{n\in\N}$ est croissante et $\bigcup_{n\in\N}A_n=\bigcup_{p\in\N}B_p\in\A$,
+donc $\mu\bigl(\bigcup_{n\in\N}A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
+
+Comme les $B_p$ sont deux à deux disjoints et que $\mu$ est simplement additive, alors $\mu(A_n)=\sum_{p=0}^{n}\mu(B_p)$. Ainsi
+\[
+  \mu\Bigl(\bigcup_{p\in\N}B_p\Bigr)=\mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n)
+  =\lim_{n\to+\infty}\Bigl(\sum_{p=0}^{n}\mu(B_p)\Bigr)=\sum_{p=0}^{+\infty}\mu(B_p).
+\]
+
+\begin{enonce}{Corollaire}{10}
+Soit $\mu$ une mesure sur l'anneau $\A$, si $S\in\A$ et si $R_n\in\A$ pour tout $n\in\N$ avec $S\subset\bigcup_{n\in\N}R_n$, alors
+\[
+  \mu(S)\le\sum_{n\in\N}\mu(R_n).
+\]
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Comme $S\subset\bigcup R_n$ alors $S=\bigcup_{n\in\N}(R_n\cap S)$ avec $R_n\cap S\in\A$.
+
+Posons $A_n=\bigcup_{i=0}^{n}(R_i\cap S)\in\A$ ; les $A_n$ forment une suite croissante et $\bigcup_{n\in\N}A_n=S$.
+D'après la propriété de limite croissante,
+\[
+  \mu(S)=\mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n).
+\]
+Or $\mu(A_n)\le\sum_{i=0}^{n}\mu(R_i\cap S)\le\sum_{i=0}^{n}\mu(R_i)$. Ainsi $\mu(A_n)\le\sum_{i=0}^{n}\mu(R_i)$,
+d'où
+\[
+  \lim_{n\to+\infty}\mu(A_n)\le\lim_{n\to+\infty}\Bigl(\sum_{i=0}^{n}\mu(R_i)\Bigr)=\sum_{i=0}^{+\infty}\mu(R_i),
+  \qquad\text{d'où}\qquad \mu(S)\le\sum_{i=0}^{+\infty}\mu(R_i).
+\]
+
+\begin{enonce}{Théorème}{11}
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item Soit $\A$ un anneau de parties de $E$ et $\mu:\A\to\Rb_+$ une mesure sur $\A$, alors pour toute suite décroissante
+        $(A_n)_{n\in\N}\subset\A$ telle que $\bigcap_{n\in\N}A_n\in\A$ et $\mu(A_0)<+\infty$ on a
+        \[
+          \mu\Bigl(\bigcap_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n).
+        \]
+  \item Soit $\mu:\A\to\Rb_+$ une application simplement additive. Pour que $\mu$ soit une mesure, il suffit que pour toute suite décroissante
+        $(A_n)_{n\in\N}\subset\A$ telle que $\bigcap_{n\in\N}A_n=\varnothing$, $\mu(A_n)\xrightarrow[n\to+\infty]{}0$.
+\end{enumerate}
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+\textbf{1- Hypothèse :} $\mu$ est une mesure.
+
+Soit $(A_n)$ une suite décroissante de $\A$ telle que $\bigcap_{n\in\N}A_n\in\A$ et $\mu(A_0)<+\infty$.
+Montrons que $\mu\bigl(\bigcap_{n\in\N}A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
+
+\begin{note}
+Le manuscrit écrit ici « $\mu(A_0)\neq+\infty$ » (avec une rature), alors que l'énoncé dit $\mu(A_0)<+\infty$ ; c'est équivalent.
+\end{note}
+
+Posons $B_n=A_0\setminus A_n\in\A$. Les $B_n$ forment une suite croissante et
+$\bigcup_{n\in\N}B_n=A_0\setminus\bigcap_{n\in\N}A_n\in\A$.
+$\mu$ étant une mesure, on peut appliquer le théorème des suites croissantes à $(B_n)$ :
+\[
+  \mu\Bigl(\bigcup_{n\in\N}B_n\Bigr)=\lim_{n\to+\infty}\mu(B_n).
+\]
+Or $A_0=A_n\cup(A_0\setminus A_n)$ et $B_n=A_0\setminus A_n$. Ainsi $\mu(A_0)=\mu(A_n)+\mu(B_n)$,
+d'où $\mu(B_n)=\mu(A_0)-\mu(A_n)$ car $\mu(A_0)<+\infty$ et $(A_n)_{n\in\N}$ est décroissante.
+
+De même, $\mu\bigl(\bigcup B_n\bigr)=\mu(A_0)-\mu\bigl(\bigcap_{n\in\N}A_n\bigr)$. Donc
+\[
+  \mu(A_0)-\mu\Bigl(\bigcap_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\bigl[\mu(A_0)-\mu(A_n)\bigr].
+\]
+Ainsi $\displaystyle\mu\Bigl(\bigcap_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n)$.
+
+\textbf{\color{bleu}Exemple 12.} $\A=\Pp(E)$ et $\mu(A)=\operatorname{Card}(A)$. $A_n=\{n,n+1,n+2,\dots\}$ ; $\mu(A_n)=+\infty$,
+$\bigcap_{n\in\N}A_n=\varnothing$ et $\mu\bigl(\bigcap_{n\in\N}A_n\bigr)=0$.
+
+\textbf{2- Hypothèse :} $\mu$ est simplement additive, et pour toute suite décroissante $(A_n)_{n\in\N}\subset\A$ telle que $\bigcap_{n\in\N}A_n=\varnothing$,
+$\mu(A_n)\xrightarrow[n\to+\infty]{}0$.
+
+Montrons que $\mu$ est $\sigma$-additive. Soit $(B_n)$ une suite d'éléments deux à deux disjoints de $\A$ telle que
+$\bigcup_{n\in\N}B_n\in\A$ ; montrons que
+\[
+  \mu\Bigl(\bigcup_{n\in\N}B_n\Bigr)=\sum_{n=0}^{+\infty}\mu(B_n).
+\]
+Posons $A_p=\bigcup_{n=0}^{p}B_n\in\A$ et $\mu(A_p)=\sum_{n=0}^{p}\mu(B_n)$.
+
+Posons $B=\bigcup_{n\in\N}B_n=\bigcup_{p=0}^{+\infty}A_p\in\A$.
+La suite $(B\setminus A_p)_{p\in\N}$ est une suite décroissante et $\bigcap_{p\in\N}(B\setminus A_p)=\varnothing$ ;
+par hypothèse, $\mu(B\setminus A_p)\to0$.
+
+Or $B=A_p\cup(B\setminus A_p)$ donc $\mu(B)=\mu(A_p)+\mu(B\setminus A_p)$.
+Comme $\mu(B\setminus A_p)\to0$, il est fini à partir d'un certain rang et on peut écrire :
+\[
+  \mu(A_p)=\mu(B)-\mu(B\setminus A_p).
+\]
+Il vient : $\displaystyle\sum_{n=0}^{+\infty}\mu(B_n)=\mu(B)-\mu(B\setminus A_p)$, il en résulte que
+$\displaystyle\sum_{n=0}^{+\infty}\mu(B_n)=\mu(B)$.
+
+\begin{note}
+Dans l'avant-dernière ligne, le manuscrit écrit la somme jusqu'à $+\infty$ avec $\mu(B\setminus A_p)$ ; il faut lire
+$\sum_{n=0}^{p}\mu(B_n)=\mu(B)-\mu(B\setminus A_p)$, puis passer à la limite quand $p\to+\infty$.
+\end{note}
+
+%---------------------------------------------------------------------
+\subsubsection*{1- Mesure image}
+
+Soit $(X_1,\A_1,\mu_1)$ un espace mesuré. Soit $(X_2,\A_2)$ un espace mesurable, et $f:(X_1,\A_1)\to(X_2,\A_2)$ une application mesurable.
+Comment construire à partir de $\mu_1$ et de $f$ une mesure $\mu_2$ sur $(X_2,\A_2)$ ?
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick]
+  \node (a) at (0,2.4) {$(X_1,\A_1)$};
+  \node (b) at (6.2,2.4) {$(X_2,\A_2)$};
+  \node (c) at (0,0) {$\Rb_+$};
+  \draw[->] (a) -- (b) node[midway,above] {$f$};
+  \draw[->] (a) -- (c) node[midway,left] {$\mu_1$};
+  \draw[->] (b) -- (c) node[midway,above right] {$\mu_2$};
+\end{tikzpicture}
+\end{center}
+
+Alors $\mu_2=\mu_1\circ f^{-1}=f_*\mu_1$ est une mesure sur $\A_2$ appelée \emph{mesure image} de $\mu_1$ par $f$.
+
+En effet, $\forall B\in\A_2$,
+\[
+  \mu_2(B)=(f_*\mu_1)(B)=\mu_1\bigl(f^{-1}(B)\bigr).
+\]
+
+\begin{note}
+Le manuscrit s'arrête ici : la vérification que $\mu_2$ est bien une mesure n'est pas écrite (page suivante éventuellement manquante).
 \end{note}
 
 
