@@ -1501,9 +1501,196 @@ En effet, $\forall B\in\A_2$,
   \mu_2(B)=(f_*\mu_1)(B)=\mu_1\bigl(f^{-1}(B)\bigr).
 \]
 
+\datepage{Mardi 13 octobre 2026}
+\subsubsection*{2- Mesures discrètes}
+
+Soit $E$ un ensemble et $(x_i)_{i\in I}$ une famille dénombrable de points de $E$ ($\forall i\in I$, $x_i\in E$), $(a_i)_{i\in I}$ une famille dénombrable
+de nombres strictement positifs ($\forall i\in I$, $a_i\in\R_+^*$).
+
+Soit $\A$ un anneau de parties de $E$. $\forall A\in\A$, on pose
+\[
+  \mu(A)=\sum_{i\,/\,x_i\in A}a_i .
+\]
+Alors $\mu$ est une mesure positive sur $E$.
+
+$\ast$ \emph{Vérifions l'additivité de $\mu$.} Soit $A,B\in\A$, $A\cap B=\varnothing$. Alors
+\[
+  \mu(A\cup B)=\sum_{i\,/\,x_i\in A\cup B}a_i=\sum_{i\,/\,x_i\in A}a_i+\sum_{i\,/\,x_i\in B}a_i=\mu(A)+\mu(B).
+\]
+
+$\ast$ \emph{Vérifions que $\mu$ est $\sigma$-additive.} Soit $(B_n)_{n\in\N}\subset\A$, les $B_n$ deux à deux disjoints. Alors
+\[
+  \mu\Bigl(\bigcup_{n\in\N}B_n\Bigr)=\sum_{i\,/\,x_i\in\bigcup B_n}a_i=\sum_{n\in\N}\Bigl(\sum_{i\,/\,x_i\in B_n}a_i\Bigr)=\sum_{n\in\N}\mu(B_n).
+\]
+La mesure $\mu$ ainsi définie s'appelle une \emph{mesure discrète}.
+
+\textbf{\color{red!70!black}Remarque 14 :} \textit{(le manuscrit écrit le titre « Remarque 14 : » en bas de page, puis passe à la page suivante.)}
+
+Si $\A=\Pp(E)$, $\mu$ est finie si et seulement si $\sum_{i\in I}a_i<+\infty$. Si $\sum_{i\in I}a_i=1$ alors $a_i$ est la probabilité de $\{x_i\}$
+et $\mu(A)$ est la probabilité de $A$.
+
 \begin{note}
-Le manuscrit s'arrête ici : la vérification que $\mu_2$ est bien une mesure n'est pas écrite (page suivante éventuellement manquante).
+Le manuscrit ne numérote pas ce paragraphe sur les mesures discrètes (« 2- » après la mesure image) ; le titre « Remarque 14 : » est laissé en fin de page.
+Je place la phrase du haut de la page suivante, qui parle de $\mu$ finie, comme contenu de cette remarque, ce qui est une interprétation.
 \end{note}
 
+%---------------------------------------------------------------------
+\subsubsection*{Construction de la mesure de Lebesgue}
+
+\begin{enonce}{Proposition}{15}
+Soit $\Ss$ un semi-anneau de parties de $E$. L'anneau $\A$ engendré par $\Ss$ ($\A=\sigma(\Ss)$) est formé de réunions d'éléments deux à deux
+disjoints de $\Ss$.
+\end{enonce}
+
+\begin{preuve}\end{preuve}
+Si $A=\bigcup_{k=1}^{n}S_k$, $S_k\in\Ss$, on vérifie que
+\[
+  A=S_1\cup(S_2\setminus S_1)\cup\dots\cup\bigl(S_n\setminus(S_1\cup\dots\cup S_{n-1})\bigr).
+\]
+
+\begin{enonce}{Théorème}{16}
+Soit $\Ss$ un semi-anneau de parties de $E$ et $\lambda:\Ss\to\Rb_+$ une application.
+\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
+  \item Si $\lambda$ est simplement additive, $\lambda$ se prolonge de manière unique en une application simplement additive
+        $\overline\lambda:\A\to\Rb_+$ où $\A$ est l'anneau engendré par $\Ss$ ($\A=\sigma(\Ss)$).
+  \item Si $\lambda$ est de plus $\sigma$-additive, le prolongement $\overline\lambda$ est $\sigma$-additif.
+\end{enumerate}
+\end{enonce}
+
+\begin{note}
+Le manuscrit écrit « $\A=\sigma(\Ss)$ » pour l'anneau engendré ; cela désigne ici l'anneau (et non la tribu) engendré par $\Ss$, comme dans la Proposition 15.
+Les repères \textcircled{\scriptsize i} et \textcircled{\scriptsize ii} du manuscrit sont notés (i) et (ii).
+\end{note}
+
+\begin{preuve}\end{preuve}
+\textbf{1-} $\ast$ \emph{Unicité de $\overline\lambda$.} Soit $\A=\sigma(\Ss)$ et $A\in\A$. Alors
+\[
+  A=\bigcup_{i=1}^{n}S_i,\qquad S_i\in\Ss\text{ et les }S_i\text{ sont deux à deux disjoints.}\tag{i}
+\]
+S'il existe un prolongement $\overline\lambda$ de $\lambda$ simplement additif, alors on doit avoir
+\[
+  \overline\lambda(A)=\sum_{i=1}^{n}\lambda(S_i).\tag{ii}
+\]
+Donc la valeur de $\overline\lambda$ est déterminée.
+
+$\ast$ \emph{Existence de $\overline\lambda$.} En général $A$ peut s'écrire de plusieurs manières sous la forme (i). On ne peut définir $\overline\lambda(A)$ par (ii)
+que si le nombre trouvé dans (ii) est indépendant de la décomposition de $A$ choisie.
+
+Supposons que $A=\bigcup_{i=1}^{n}S_i=\bigcup_{j=1}^{m}T_j$ où $S_i,T_j\in\Ss$, les $S_i$ et $T_j$ étant deux à deux disjoints (chacune des familles $(S_i)$ et $(T_j)$ étant formée d'éléments deux à deux disjoints dans $\Ss$).
+
+On veut montrer $\displaystyle\sum_{i=1}^{n}\lambda(S_i)=\sum_{j=1}^{m}\lambda(T_j)$.
+Remarquons que $S_i\cap T_j\in\Ss$ et les $S_i\cap T_j$ sont deux à deux disjoints.
+\begin{align*}
+  S_i\subset A=\bigcup_{j=1}^{m}T_j&\Rightarrow S_i=\bigcup_{j=1}^{m}(S_i\cap T_j)\Rightarrow\lambda(S_i)=\sum_{j=1}^{m}\lambda(S_i\cap T_j),\\
+  T_j\subset A=\bigcup_{i=1}^{n}S_i&\Rightarrow T_j=\bigcup_{i=1}^{n}(S_i\cap T_j)\Rightarrow\lambda(T_j)=\sum_{i=1}^{n}\lambda(S_i\cap T_j).
+\end{align*}
+Ainsi,
+\[
+  \sum_{i=1}^{n}\lambda(S_i)=\sum_{i=1}^{n}\Bigl(\sum_{j=1}^{m}\lambda(S_i\cap T_j)\Bigr)=\sum_{j=1}^{m}\sum_{i=1}^{n}\lambda(S_i\cap T_j)=\sum_{j=1}^{m}\lambda(T_j).
+\]
+
+$\ast$ \emph{Montrons que $\overline\lambda(A)$ définie par (ii) est simplement additive.}
+Soit $A,B\in\A$ avec $A\cap B=\varnothing$. $A=\bigcup_{i=1}^{n}S_i$, $S_i\in\Ss$, $S_i$ deux à deux disjoints ;
+$B=\bigcup_{j=1}^{m}T_j$, $T_j\in\Ss$, $T_j$ deux à deux disjoints.
+Alors $A\cup B=\bigl(\bigcup_{i=1}^{n}S_i\bigr)\cup\bigl(\bigcup_{j=1}^{m}T_j\bigr)$, $S_i,T_j\in\Ss$, les $S_i,T_j$ deux à deux disjoints car $A\cap B=\varnothing$.
+Donc
+\[
+  \overline\lambda(A\cup B)=\sum_{i=1}^{n}\lambda(S_i)+\sum_{j=1}^{m}\lambda(T_j)=\overline\lambda(A)+\overline\lambda(B).
+\]
+
+\textbf{2-} Supposons que $\lambda$ soit $\sigma$-additive et montrons que son prolongement $\overline\lambda$ est $\sigma$-additif.
+
+Soit $(A_n)_{n\in\N}\subset\A$ une suite d'éléments deux à deux disjoints et $A=\bigcup_{n\in\N}A_n\in\A$.
+Montrons que $\overline\lambda(A)=\sum_{n\in\N}\overline\lambda(A_n)$.
+
+Or $\forall n\in\N$, $A_n\in\A=\sigma(\Ss)$. Donc $A_n=\bigcup_{i=1}^{p}S_{n,i}$ avec $S_{n,i}\in\Ss$, les $S_{n,i}$ étant deux à deux disjoints.
+Ainsi $\overline\lambda(A_n)=\sum_{i=1}^{p}\lambda(S_{n,i})$.
+
+Or $A=\bigcup_{n\in\N}A_n\in\A$. Alors $A=\bigcup_{k=1}^{n}T_k$, $T_k\in\Ss$ et sont deux à deux disjoints. Ainsi, $\overline\lambda(A)=\sum_{k=1}^{n}\lambda(T_k)$.
+
+De plus
+\[
+  A=\bigcup_{n\in\N}A_n=\bigcup_{n\in\N}\Bigl(\bigcup_{i=1}^{p}S_{n,i}\Bigr)=\bigcup_{n,i}S_{n,i}.
+\]
+$T_k\subset A\Rightarrow T_k=\bigcup_{n,i}(T_k\cap S_{n,i})$ (les $T_k\cap S_{n,i}$ étant deux à deux disjoints)
+$\Rightarrow\lambda(T_k)=\sum_{n,i}\lambda(T_k\cap S_{n,i})$.
+
+Ainsi, $\displaystyle\overline\lambda(A)=\sum_{k=1}^{n}\sum_{n,i}\lambda(T_k\cap S_{n,i})$.
+
+De même, $S_{n,i}\subset A\Rightarrow S_{n,i}=\bigcup_{k=1}^{n}(S_{n,i}\cap T_k)\Rightarrow\lambda(S_{n,i})=\sum_{k=1}^{n}\lambda(S_{n,i}\cap T_k)$.
+
+D'où
+\[
+  \overline\lambda(A)=\sum_{n,i}\sum_{k=1}^{n}\lambda(S_{n,i}\cap T_k)=\sum_{n}\sum_{i}\lambda(S_{n,i})=\sum_{n}\overline\lambda(A_n).
+\]
+
+\begin{note}
+Dans cette preuve, le manuscrit utilise la même lettre $n$ pour le nombre de $T_k$ et pour l'indice de la suite $(A_n)$ ; je transcris tel quel.
+Les sommes sur $(n,i)$ de $\lambda(T_k\cap S_{n,i})$ sont dénombrables et la $\sigma$-additivité de $\lambda$ sur $\Ss$ s'applique à $T_k=\bigcup_{n,i}(T_k\cap S_{n,i})$.
+\end{note}
+
+\textbf{\color{bleu}Exemple 17.} Soit $E=\R$, $\Ss=\Ii_g=\bigl\{[a,b[\ ,\ a<b,\ a,b\in\R\bigr\}$. Posons
+\[
+  \lambda:\Ii_g\longrightarrow\R_+,\qquad [a,b[\ \longmapsto\lambda([a,b[)=b-a .
+\]
+
+\textbf{1- Montrons que $\lambda$ est simplement additive.}
+Soit $(I_i)_{i\in\{1,\dots,n\}}$ une famille d'éléments de $\Ii_g$ telle que $\bigcup_{i=1}^{n}I_i=I$, $I_i=[a_i,b_i[$ et $I=[a,b[$, les $I_1,\dots,I_n$ deux à deux disjoints.
+
+Comme les $I_i$ sont en nombre fini on peut les ranger par ordre croissant :
+\[
+  a=a_1<b_1=a_2<b_2=a_3<b_3\dots=a_n<b_n=b .
+\]
+On veut montrer $\lambda(I)=\sum_{i=1}^{n}\lambda(I_i)$. On a
+\[
+  \lambda(I)=b-a=(b_1-a_1)+\dots+(b_n-a_n)=\sum_{i=1}^{n}\lambda(I_i).
+\]
+
+\textbf{2- Montrons que $\lambda$ est $\sigma$-additive.}
+Soit $(I_n)_{n\in\N}$ de $\Ii_g$ deux à deux disjoints telle que $\bigcup_{n\in\N}I_n=I\in\Ii_g$.
+Comme $I_n\in\Ii_g$ $\forall n\in\N$, alors $I_n=[\alpha_n,\beta_n[$. Alors $I=[a,b[$.
+On veut montrer que $\lambda(I)=\sum_{n\in\N}\lambda(I_n)$.
+
+\emph{$\bullet$ Montrons que $\lambda(I)\ge\sum_{n\in\N}\lambda(I_n)$.}
+Soit $I_1,\dots,I_n\subset I$ (deux à deux disjoints), on peut les ranger par ordre croissant (en changeant la numérotation). On aura alors
+\[
+  a\le\alpha_1<\beta_1\le\alpha_2<\beta_2<\dots\le\alpha_n<\beta_n\le b .
+\]
+Donc
+\[
+  \lambda(I)=b-a\ge(\beta_1-\alpha_1)+(\beta_2-\alpha_2)+\dots+(\beta_n-\alpha_n)=\sum_{i=1}^{n}\lambda(I_i).
+\]
+Comme ceci est vrai pour tout $n$, $\displaystyle\lambda(I)\ge\sum_{i=1}^{+\infty}\lambda(I_i)$.
+
+\emph{$\bullet$ Montrons que $\lambda(I)\le\sum_{n\in\N}\lambda(I_n)$.}
+Soit $\varepsilon>0$, soit $I'=[a,b']$, $b'<b$ et $b-b'<\varepsilon$. On a bien $I'\subset I$.
+Soit $I'_n=\,]\alpha'_n,\beta_n[\ \supset I_n$, $\alpha'_n<\alpha_n$ tel que $\alpha_n-\alpha'_n<\dfrac{\varepsilon}{2^n}$.
+On a bien donc
+\[
+  I'\subset I=\bigcup_{n\in\N}I_n\subset\bigcup_{n\in\N}I'_n .
+\]
+$I'$ est un intervalle fermé fini qui est recouvert par la famille des intervalles ouverts $I'_n$. On peut donc extraire des $I'_n$ une famille finie qui recouvre $I'$.
+Soit $I'_{n_1},\dots,I'_{n_p}$ cette famille ; alors $I'\subset\bigcup_{k=1}^{p}I'_{n_k}$. Or
+\[
+  [a,b'[\ \subset[a,b']\subset\bigcup_{k=1}^{p}\,]\alpha'_{n_k},\beta_{n_k}[\ \subset\bigcup_{k=1}^{p}[\alpha'_{n_k},\beta_{n_k}[ .
+\]
+$\lambda$ étant simplement additive sur $\Ii_g$, on a :
+\[
+  \lambda([a,b'[)\le\sum_{k=1}^{p}\lambda\bigl([\alpha'_{n_k},\beta_{n_k}[\bigr).
+\]
+Donc
+\[
+  b-a-\varepsilon<b'-a\le\sum_{k=1}^{p}(\beta_{n_k}-\alpha'_{n_k})\le\sum_{k=1}^{p}\Bigl[(\beta_{n_k}-\alpha_{n_k})+\frac{\varepsilon}{2^{n_k}}\Bigr].
+\]
+Ainsi
+\[
+  \lambda(I)\le\sum_{k=1}^{p}\lambda(I_{n_k})+2\varepsilon\le\sum_{n=1}^{+\infty}\lambda(I_n)+2\varepsilon .
+\]
+D'où $\displaystyle\lambda(I)\le\sum_{n=1}^{+\infty}\lambda(I_n)$.
+
+\begin{note}
+Dans le manuscrit, $\lambda(I)\le\dots+2\varepsilon$ est suivi de $\sum_{k=1}^{+\infty}\lambda(I_n)$ avec l'indice $k$ ; je lis $\sum_{n=1}^{+\infty}$. La ligne « $\lambda(I)\ge\sum_{i=1}^{+\infty}\lambda(I_i)$ » en haut de page est la conclusion de la partie précédente.
+Le choix du recouvrement par des intervalles ouverts (compacité de $[a,b']$, Borel--Lebesgue) n'est pas nommé dans le cahier.
+\end{note}
 
 \end{document}
