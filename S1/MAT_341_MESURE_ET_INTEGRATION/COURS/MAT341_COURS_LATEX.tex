@@ -38,8 +38,8 @@
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0.4pt}
-\fancyhead[L]{\small\color{bleu}MAT341}
-\fancyhead[R]{\small\color{bleu}Mesure et Intégration}
+\fancyhead[L]{\small\color{bleu}MAT361}
+\fancyhead[R]{\small\color{bleu}Statistiques mathématiques}
 \fancyfoot[C]{\thepage}
 
 \newtcolorbox{enonce}[2]{enhanced,breakable,colback=bleuclair!6,colframe=bleuclair,
@@ -57,1640 +57,1068 @@
 \newcommand{\sect}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
 \newcommand{\datepage}[1]{\begin{flushright}\small\bfseries\itshape\color{bleuclair}#1\end{flushright}\vspace{-8pt}}
 
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\ind}{\mathbf{1}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator*{\argmin}{arg\,min}
 \begin{document}
 
 \begin{center}
-  {\Huge\bfseries\color{bleu} MAT341}\\[4pt]
-  {\LARGE\bfseries\color{bleuclair} Mesure et Intégration : chapitres 1 à 3}\\[4pt]
-  {\large\itshape Notes de cours saisies à partir du manuscrit}
+  {\Huge\bfseries\color{bleu} MAT361}\\[4pt]
+  {\LARGE\bfseries\color{bleuclair} Statistiques mathématiques}\\[4pt]
+  {\large\itshape Notes de cours saisies à partir du manuscrit}\\[6pt]
+  {\normalsize\bfseries Lundi 12 octobre 2026}
 \end{center}
 \vspace{-4pt}
 \hrule
 \vspace{6pt}
 
 \begin{note}
-Les encadrés jaunes de ce type signalent un point douteux du manuscrit, une imprécision mathématique,
-une page manquante ou une précision que j'ai ajoutée. Le reste du texte suit fidèlement le cours,
-avec sa numérotation. Les dates sont reportées à l'endroit où elles figurent dans le cahier.
+Les encadrés jaunes signalent une précision ajoutée ou une partie absente du manuscrit. Les lectures douteuses ont été remplacées par la version la plus probable. Les premières pages du manuscrit ne sont pas numérotées (les titres sont ceux du cahier) ; à partir du chapitre 2, la numérotation du cahier est conservée. L'ordre des pages a été reconstitué par la logique du cours.
 \end{note}
 
 %=====================================================================
-\section*{Chapitre 01 : Anneaux et algèbres des parties d'un ensemble}
+\section*{Rappel (1)}
 
-\begin{enonce}{Définition}{1}
-On appelle \emph{anneau des parties d'un ensemble $E$} une famille $\A$ non vide de parties de $E$,
-possédant les propriétés suivantes :
-\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=1.2cm]
-  \item Si $A\in\A$ et $B\in\A$, alors $A\cup B\in\A$.
-  \item Si $A\in\A$ et $B\in\A$, alors $A\setminus B\in\A$.
-\end{enumerate}
-\end{enonce}
-
-\textbf{\color{bleu}Remarque 2.}
-\begin{center}
-\begin{tikzpicture}[scale=0.9]
-  \fill[pattern=north east lines,pattern color=red!70!black] (0,0) circle (1);
-  \fill[white] (1.2,0) circle (1);
-  \draw[thick,bleu] (0,0) circle (1);
-  \draw[thick,bleu] (1.2,0) circle (1);
-  \node at (-1.25,0.9) {$A$};
-  \node at (2.45,0.9) {$B$};
-  \draw[->,red!70!black] (-0.9,-1.5) node[below,black]{$A\setminus B$} -- (-0.5,-0.4);
-\end{tikzpicture}
-\end{center}
-\begin{center}
-  \fcolorbox{red!70!black}{white}{\ \ $A\setminus B = A\cap B^{c}$\ \ }
-\end{center}
-
-\textbf{\color{bleu}Conséquence 3.}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item Soit $A\in\A$, alors $A\setminus A=\varnothing\in\A$, donc si $\A$ est un anneau, alors $\varnothing\in\A$.
-  \item Soit $A\in\A$ et $B\in\A$, alors
-  \[
-    A\cap B=(A\cup B)\setminus\bigl((A\setminus B)\cup(B\setminus A)\bigr)\in\A .
-  \]
-\end{enumerate}
-Ainsi, si $\A$ est un anneau et si $A\in\A$, $B\in\A$, alors $A\cap B\in\A$.
-
-\textbf{\color{bleu}Remarque 4.}
-$\A$ s'appelle un « anneau » car c'est un anneau au sens algébrique.
-$\A$ est un anneau quand on le munit des opérations suivantes :
-\begin{itemize}[leftmargin=1.2cm]
-  \item une addition $\Delta$ qui est la \emph{différence symétrique} :
-        $A\,\Delta\, B=(A\setminus B)\cup(B\setminus A)$ ;
-  \item une multiplication $\cap$, qui est l'intersection.
-\end{itemize}
-$\Delta$ a bien les propriétés de l'addition dans l'anneau $\A$.
-
-\begin{center}
-\begin{tikzpicture}[scale=0.9]
-  \draw[thick,bleu] (0,0) circle (1);
-  \draw[thick,bleu] (1.2,0) circle (1);
-  \draw[thick,bleu] (0.6,-1.0) circle (1);
-  \node at (-1.25,0.9) {$A$};
-  \node at (2.45,0.9) {$B$};
-  \node at (0.6,-2.25) {$C$};
-\end{tikzpicture}
-\end{center}
-
-En effet :
-\begin{itemize}[leftmargin=1.2cm]
-  \item $\Delta$ est commutative.
-  \item $\A$ possède un élément neutre pour $\Delta$ ; en effet $\varnothing=A\,\Delta\,A$, pour tout $A\in\A$.
-  \item $\Delta$ est associative : $(A\,\Delta\, B)\,\Delta\, C=A\,\Delta\,(B\,\Delta\, C)$.
-\end{itemize}
-
-\begin{note}
-Pour être précis : $\varnothing\in\A$ est l'élément neutre ($A\,\Delta\,\varnothing=A$), et la relation
-$A\,\Delta\,A=\varnothing$ signifie que chaque élément est son propre opposé. Le schéma à trois cercles
-accompagne la vérification de l'associativité.
-\end{note}
-
-$\cap$ a bien les propriétés de la multiplication dans l'anneau :
-\begin{itemize}[leftmargin=1.2cm]
-  \item $\cap$ est bien associative, car $(A\cap B)\cap C=A\cap(B\cap C)$, $\ \forall A,B,C\in\A$.
-  \item $\cap$ est bien distributive par rapport à $\Delta$, car
-        $A\cap(B\,\Delta\, C)=(A\cap B)\,\Delta\,(A\cap C)$, $\ \forall A,B,C\in\A$.
-\end{itemize}
-On conclut alors que $(\A,\Delta,\cap)$ est un anneau au sens algébrique.
-
-\textbf{\color{bleu}Exemple 5.}
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Pour tout ensemble $E$, $\A=\Pp(E)$ est un anneau.
-  \item Si $E=\R$, alors $\A$, l'ensemble des réunions finies d'intervalles finis, est un anneau.
-  \begin{center}
-  \begin{tikzpicture}[scale=0.9]
-    \draw (0,0) -- (6,0);
-    \foreach \x/\l in {0.8/a,2.2/c,3.8/b,5.2/d}{\draw (\x,0.08) -- (\x,-0.08); \node[below] at (\x,-0.1) {$\l$};}
-  \end{tikzpicture}
-  \end{center}
-  Alors $[a;b]\setminus[c;d]=[a;c[$.
-  \begin{center}
-  \begin{tikzpicture}[scale=0.9]
-    \draw (0,0) -- (6,0);
-    \foreach \x/\l in {0.8/a,2.2/c,3.4/d,4.6/b}{\draw (\x,0.08) -- (\x,-0.08); \node[below] at (\x,-0.1) {$\l$};}
-  \end{tikzpicture}
-  \end{center}
-  Alors $[a;b]\setminus[c;d]=[a;c[\,\cup\,]d;b]$.
-  \item $\A$, l'ensemble des réunions finies d'intervalles $[a;b[$, fermés à gauche et ouverts à droite,
-        est un anneau.
-  \item $\A$, l'ensemble des réunions finies d'intervalles mixtes $]a;b]$, ouverts à gauche et fermés à droite,
-        est un anneau.
-\end{enumerate}
-
-\begin{note}
-Dans l'exemple 5.2, les deux cas du schéma sont $a<c<b<d$ puis $a<c<d<b$ ; j'ai ajouté ces hypothèses
-d'ordre qui sont implicites sur les dessins.
-\end{note}
-
-\textbf{\color{bleu}Remarque 6.}
-Si $\A$ est un anneau de parties de $E$ et si $E\in\A$, alors $\A$ a un élément neutre.
-
-\begin{enonce}{Définition}{7}
-On dit que la famille $\A$ des parties de $E$ est une \emph{algèbre} si $\A$ est un anneau et si $E\in\A$.
-\end{enonce}
-
-\textbf{\color{bleu}Remarque 8.}
-Si $\A$ est une algèbre des parties de $E$, alors $\forall A\in\A$, $A^{c}\in\A$.
-En effet $\bigl((E\in\A)\ \text{et}\ (A\in\A)\bigr)\Rightarrow A^{c}=E\setminus A\in\A$.
-Les exemples précédemment cités (Exemple 5) ne sont pas des algèbres, car $\R$ n'est pas une réunion finie
-d'intervalles finis.
-
-\textbf{\color{bleu}Exemple 09.}
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item $\A$, l'ensemble des réunions finies d'intervalles finis ou infinis, est une algèbre.
-  \item $\A$, l'ensemble des réunions finies d'intervalles mixtes $[a;b[$ ou $[a;+\infty[$ ou $]-\infty;b]$
-        \ldots
-\end{enumerate}
-
-\begin{note}
-La phrase de l'exemple 09.2 s'arrête là dans le manuscrit (la conclusion « est une algèbre » n'est pas écrite).
-\end{note}
-
-\begin{enonce}{Définition}{10}
-On appelle \emph{$\sigma$-anneau des parties d'un ensemble $E$} un anneau $\A$ qui est stable par réunions
-dénombrables, c'est-à-dire qui possède la propriété suivante :
 \[
-  \forall A_m\in\A,\ m\in\N,\ \text{on a :}\quad \bigcup_{m\in\N}A_m\in\A .
-\]
-\end{enonce}
-
-\begin{enonce}{Définition}{11}
-On appelle \emph{$\sigma$-algèbre des parties d'un ensemble $E$} un $\sigma$-anneau $\A$ tel que $E\in\A$.
-\end{enonce}
-
-\textbf{\color{bleu}Remarque 12.}
-Un ensemble dénombrable est un ensemble qui peut être mis en bijection avec $\N$ (ou une partie de $\N$).
-
-\begin{enonce}{Propriété}{13}
-Tout $\sigma$-anneau $\A$ est stable par intersection dénombrable, c'est-à-dire que pour toute famille
-dénombrable $(A_m)_{m\in\N}\subset\A$, on a :
-\[
-  \bigcap_{n\in\N}A_n\in\A .
-\]
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-\begin{itemize}[leftmargin=1.2cm]
-  \item Si $E\in\A$ (c'est-à-dire que $\A$ est une $\sigma$-algèbre), alors
-  \[
-    \bigcap_{n\in\N}A_n=\Bigl(\bigcup_{n\in\N}A_n^{c}\Bigr)^{c}\in\A .
-  \]
-  \item Si $E\notin\A$, posons $B=\displaystyle\bigcup_{n\in\N}A_n\in\A$ et on a :
-  \[
-    \bigcap_{n\in\N}A_n=B\setminus\Bigl(\bigcup_{n\in\N}(B\setminus A_n)\Bigr).
-  \]
-\end{itemize}
-
-\textbf{\color{bleu}Exemple 14.}
-Si $E$ est un ensemble, alors $\Pp(E)$ est un $\sigma$-anneau, et c'est même une $\sigma$-algèbre.
-
-\textbf{\color{bleu}Remarque 15.}
-On utilise aussi les noms de « tribu » pour $\sigma$-algèbre et « clan » pour $\sigma$-anneau.
-
-\begin{note}
-Le mot « clan » est difficile à lire dans le manuscrit ; c'est le terme usuel pour $\sigma$-anneau.
-\end{note}
-
-\begin{enonce}{Proposition}{16}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item Si $(\A_i)_{i\in I}$ est une famille d'anneaux de parties de $E$, alors $\bigcap_{i\in I}\A_i$ est un anneau.
-  \item Si $(\A_i)_{i\in I}$ est une famille d'algèbres des parties de $E$, alors $\bigcap_{i\in I}\A_i$ est une algèbre.
-  \item Si $(\A_i)_{i\in I}$ est une famille de $\sigma$-anneaux de parties de $E$, alors $\bigcap_{i\in I}\A_i$ est un $\sigma$-anneau.
-  \item Si $(\A_i)_{i\in I}$ est une famille de $\sigma$-algèbres de parties de $E$, alors $\bigcap_{i\in I}\A_i$ est une $\sigma$-algèbre.
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-(Exercice.)
-
-\begin{enonce}{Théorème et définition}{17}
-\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=1.2cm]
-  \item Soit $\Ee$ une famille de parties d'un ensemble $E$ ($\Ee\subset\Pp(E)$). Parmi les anneaux contenant $\Ee$,
-        il existe un plus petit anneau appelé « \emph{anneau engendré par $\Ee$} ».
-  \item Parmi les $\sigma$-anneaux contenant $\Ee$, il existe un plus petit $\sigma$-anneau, appelé
-        « \emph{$\sigma$-anneau engendré par $\Ee$} ».
-  \item Parmi les tribus contenant $\Ee$, il existe une plus petite tribu appelée « \emph{tribu engendrée} ».
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Soit $(\A_i)_{i\in I}$ la famille de toutes les tribus contenant $\Ee$. Cette famille n'est pas vide car elle
-contient $\Pp(E)$. Posons $\A=\bigcap_{i\in I}\A_i$. Alors d'après la proposition 16.4, $\A$ est encore une tribu
-qui contient $\Ee$ et $\A$ est contenue dans toute tribu qui contient $\Ee$.
-
-%---------------------------------------------------------------------
-\datepage{19-09-2026}
-
-
-\begin{enonce}{Définition}{18}
-On appelle \emph{semi-anneau des parties de l'ensemble $E$} une famille $\Ss$ de parties de $E$ telle que :
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item $\forall A,B\in\Ss$, $A\cap B\in\Ss$ (stabilité par l'intersection) ;
-  \item $\forall A,B\in\Ss$, il existe une famille finie d'éléments de $\Ss$ deux à deux disjoints
-        $(C_i)_{i=1,\dots,p}$ telle que
-        \[
-          A\setminus B=\bigcup_{i=1}^{p}C_i .
-        \]
-\end{enumerate}
-\end{enonce}
-
-\textbf{\color{bleu}Exemple 19.} Si $E=\R$ :
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item l'ensemble $\Ii$ des intervalles est un semi-anneau ;
-  \item l'ensemble $\Ii_g$ des intervalles finis de la forme $[a;b[$ est un semi-anneau ;
-  \item l'ensemble $\Ii_d$ des intervalles finis de la forme $]a;b]$ est un semi-anneau.
-\end{enumerate}
-Dans $E=\R^n$ :
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item Les pavés forment un semi-anneau.
-\end{enumerate}
-
-\begin{note}
-Le manuscrit écrit « un anneau » à l'exemple 19 pour les pavés de $\R^n$ ; le résultat correct (confirmé
-par la remarque suivante) est qu'ils forment un \emph{semi-anneau}. J'ai aussi omis la mention « dans $E=\R^n$ »
-qui apparaît en fin de la ligne 3).
-\end{note}
-
-\textbf{\color{bleu}Remarque.}
-Un pavé de $\R^n$ est une partie $I_n$ de la forme
-\[
-  I_n=[a_1,b_1]\times[a_2,b_2]\times\cdots\times[a_n;b_n]
-\]
-(avec $a_i,b_i\in\R$, $\forall\,1\le i\le n$, $a_i\le b_i$).
-Les pavés de la forme $[a_1;b_1[\times[a_2;b_2[\times\cdots\times[a_n;b_n[$ forment un semi-anneau.
-
-\begin{enonce}{Proposition}{20}
-L'anneau engendré par le semi-anneau $\Ss$ est formé de réunions finies des éléments de $\Ss$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Tout anneau qui contient $\Ss$ contient les réunions finies d'éléments de $\Ss$.
-Désignons par $\A$ l'ensemble des réunions finies d'éléments de $\Ss$. Alors tout anneau qui contient $\Ss$
-va contenir $\A$. Il reste à démontrer que $\A$ est un anneau.
-
-\textbf{1) Stabilité de $\A$ par réunion de deux éléments.}
-Soit $A,B\in\A$, alors $A$ et $B$ sont des réunions finies d'éléments de $\Ss$, donc $A\cup B$ est aussi
-une réunion finie d'éléments de $\Ss$.
-
-\textbf{2) Stabilité par différence.} Soit $A,B\in\A$, alors
-\[
-  A=S_1\cup S_2\cup\cdots\cup S_p,\qquad B=S'_1\cup S'_2\cup\cdots\cup S'_q .
-\]
-Donc
-\[
-  A\setminus B=\Bigl(\bigl((A\setminus S'_1)\setminus S'_2\bigr)\setminus\cdots\Bigr)\setminus S'_q .
-\]
-Il suffit alors de montrer que $\forall A\in\A$, $S\in\Ss$, $A\setminus S\in\A$.
-Mais
-\[
-  A\setminus S=(S_1\setminus S)\cup(S_2\setminus S)\cup\cdots\cup(S_p\setminus S).
-\]
-Or, par hypothèse, chaque $S_1\setminus S$, $S_2\setminus S$, \ldots{} est une réunion finie d'éléments de $\Ss$.
-Donc $A\setminus S$ est aussi une réunion finie d'éléments de $\Ss$.
-
-
-
-\begin{enonce}{Définition}{21}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item On appelle \emph{$\sigma$-algèbre des boréliens} la $\sigma$-algèbre engendrée par l'ensemble $\Oo$ d'ouverts
-        de $\R$ ou $\R^n$. On la note $\B_{\R}$ ou $\B_{\R^n}$.
-  \item Plus généralement, dans tout espace topologique, on appelle \emph{$\sigma$-algèbre de Boréliens}
-        la $\sigma$-algèbre engendrée par l'ensemble des ouverts de l'espace.
-  \item Soit $\B$ l'ensemble des boréliens de l'espace topologique $E$, et soit $\A$ la $\sigma$-algèbre
-        engendrée par l'ensemble $\Ff$ des fermés de $E$.
-\end{enumerate}
-\end{enonce}
-
-Montrons que $\A=\B$.
-
-\textbf{i) Montrons que $\B\supset\A$.} Il suffit de montrer que $\B\supset\Ff$.
-Or $\B$ est une tribu, donc elle contient tous les ouverts de $E$, c'est-à-dire qu'elle contient $\Oo$,
-et comme les complémentaires des éléments de $\Oo$ font partie de $\B$, alors $\B\supset\Ff$.
-Il vient que $\B\supset\A$.
-
-\textbf{ii) Montrons que $\A$ contient $\B$ ($\A\supset\B$).} Il suffit de montrer que $\A$ contient $\Oo$.
-Mais $\A\supset\Ff$ et les complémentaires des éléments de $\Ff$ appartiennent aussi à $\A$. Donc $\A\supset\Oo$.
-Il en résulte que $\A\supset\B$.
-
-\textbf{\color{bleu}Remarque.} Si $\A$ est la tribu engendrée par une famille $\Ee$, on peut noter $\A=\sigma(\Ee)$.
-
-\begin{note}
-$\Oo$ désigne l'ensemble des ouverts de $E$ (cerclé dans le manuscrit).
-\end{note}
-
-
-
-\begin{enonce}{Proposition}{22}
-La tribu borélienne de $\R$, $\B_{\R}$, est aussi la tribu engendrée par l'ensemble $\Ii$ des intervalles.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Appelons $\A$ la tribu engendrée par $\Ii$. $\B_{\R}$ contient les intervalles ouverts qui sont des ouverts
-et les intervalles fermés.
-
-De plus, $]a,b]=\,]a,b[\,\cup\{b\}$ et $\{b\}$ est fermé, donc appartient à $\B_{\R}$. Alors $]a,b]\in\B_{\R}$.
-De même, $[a,b[\,=\,]a,b[\,\cup\{a\}$, donc $[a,b[\,\in\B_{\R}$.
-Par conséquent $\B_{\R}\supset\Ii$, d'où $\B_{\R}\supset\A$.
-
-Montrons que $\B_{\R}\subset\A$. Il suffira de montrer que $\A$ contient les ouverts de $\R$.
-Or sur $\R$ tout ouvert est une réunion dénombrable d'intervalles ouverts
-(en effet les intervalles $]a;b[$, $a,b\in\Q$, forment une base dénombrable des ouverts de $\R$).
-Donc $\B_{\R}\subset\A$.
-
-
-
-\begin{enonce}{Proposition}{23}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item $\B_{\R}$ est la $\sigma$-algèbre engendrée par l'ensemble $\Ii_g$ des intervalles $[a;b[$.
-  \item $\B_{\R}$ est la $\sigma$-algèbre engendrée par l'ensemble $\Ii_d$ des intervalles $]a;b]$.
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Exercice.
-
-\begin{enonce}{Proposition}{24}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $]-\infty;a]$, $a\in\R$.
-  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $]-\infty;a[$, $a\in\R$.
-  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $[a;+\infty[$, $a\in\R$.
-  \item $\B_{\R}$ est la tribu engendrée par l'ensemble des intervalles $]a;+\infty[$, $a\in\R$.
-\end{enumerate}
-\end{enonce}
-
-
-
-\begin{enonce}{Remarque}{25}
-$\B_{\R}$ ne contient pas toutes les parties de $\R$ (preuve en TD).
-\end{enonce}
-
-Sur $\R^n$ :
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item $\B_{\R^n}$ est aussi la tribu engendrée par l'ensemble des pavés de $\R^n$ (pavés fermés ou ouverts).
-  \item $\B_{\R^n}$ est aussi la tribu engendrée par l'ensemble des pavés de la forme
-        \[
-          [a_1;b_1[\times\cdots\times[a_n;b_n[\quad\text{ou}\quad ]a_1;b_1]\times\cdots\times]a_n;b_n].
-        \]
-\end{enumerate}
-
-%=====================================================================
-\newpage
-\datepage{Mardi 22 septembre 2026}
-\section*{Chapitre 2 : Espaces mesurables, applications mesurables}
-\subsection*{2-1 Généralités}
-
-\begin{enonce}{Définition}{1}
-On appelle \emph{espace mesurable} $(E,\B)$ où $E$ est un ensemble et $\B$ une tribu des parties de $E$.
-\end{enonce}
-
-\textbf{\color{bleu}Exemple 2.} $(\R,\B_{\R})$ est un espace mesurable.
-
-\begin{enonce}{Définition}{3}
-Soient $(E,\A)$ et $(F,\B)$ deux espaces mesurables : une application $f:E\to F$ est dite \emph{mesurable}
-si pour tout $A\in\B$, $f^{-1}(A)\in\A$.
-\end{enonce}
-
-Les éléments d'une tribu s'appellent des \emph{mesurables}.
-
-\textbf{\color{bleu}Remarque.}
-$f$ est mesurable si l'image réciproque par $f$ d'un mesurable de $F$ est un mesurable de $E$.
-
-\begin{note}
-La phrase « les éléments d'une tribu s'appellent des mesurables » est écrite en haut de la page suivante
-du cahier ; je la place juste après la définition 3.
-\end{note}
-
-\begin{enonce}{Définition}{4}
-Une application $f:\R\to\R$ est dite \emph{mesurable} si elle est mesurable de $(\R,\B_{\R})$ vers $(\R,\B_{\R})$.
-\end{enonce}
-
-\begin{enonce}{Théorème}{5}
-Soit $E$ un ensemble, $(F,\B)$ un espace mesurable et $f:E\to F$, alors :
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item $f^{-1}(\B)=\bigl\{f^{-1}(A),\ A\in\B\bigr\}$ est une tribu des parties de $E$.
-  \item Si $\Qq$ est une famille des parties de $F$ qui engendre la tribu $\B$ (i.e.\ $\B=\sigma(\Qq)$),
-        alors $f^{-1}(\Qq)$ engendre la tribu $f^{-1}(\B)$.
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-\textbf{Preuve du point 1.}
-
-$\ast$ \emph{Stabilité par réunions dénombrables.} Soit $(A_n)_{n\in\N}\subset f^{-1}(\B)$, alors $\forall n\in\N$
-il existe $B_n\in\B$ tel que $A_n=f^{-1}(B_n)$. Ainsi
-\[
-  \bigcup_{n\in\N}A_n=\bigcup_{n\in\N}f^{-1}(B_n)=f^{-1}\Bigl(\bigcup_{n\in\N}B_n\Bigr)\in f^{-1}(\B)
-\]
-car $\bigcup_{n\in\N}B_n\in\B$.
-
-$\ast$ \emph{Stabilité par la différence.} Soit $A_1=f^{-1}(B_1)$, $A_2=f^{-1}(B_2)$, $B_1,B_2\in\B$, alors
-\[
-  A_1\setminus A_2=f^{-1}(B_1)\setminus f^{-1}(B_2)=f^{-1}(B_1\setminus B_2)\in f^{-1}(\B)
-\]
-car $B_1\setminus B_2\in\B$.
-
-$\ast$ On sait que $E=f^{-1}(F)$ et $F\in\B$, donc $E\in f^{-1}(\B)$.
-
-\medskip
-\textbf{Preuve du point 2.}
-
-Notons $\A$ la tribu engendrée par $f^{-1}(\Qq)$, et montrons que $\A=f^{-1}(\B)$.
-Puisque $\B\supset\Qq$, alors $f^{-1}(\B)\supset f^{-1}(\Qq)$, d'où $f^{-1}(\B)\supset\A$,
-la tribu engendrée par $f^{-1}(\Qq)$.
-
-Il reste à montrer que $f^{-1}(\B)\subset\A$. Posons
-\[
-  \M=\bigl\{M\in\B \ \big/\ f^{-1}(M)\in\A\bigr\}\qquad(\text{par définition } \M\subset\B).
-\]
-Mais nous voulons démontrer que $\M=\B$, ce qui reviendra à conclure que $\B\subset\M$.
-
-$\bullet$ Montrons d'abord que $\M$ est une tribu.
-
-i) Soit $M_n\in\M$, $\forall n\in\N$. Alors $M_n\in\B$ et $f^{-1}(M_n)\in\A$ $\ \forall n\in\N$.
-Comme $\bigcup_{n\in\N}M_n\in\B$ (car $\B$ est une tribu), alors
-\[
-  f^{-1}\Bigl(\bigcup_{n\in\N}M_n\Bigr)=\bigcup_{n\in\N}f^{-1}(M_n)\in\A\qquad(\text{car }\A\text{ est une tribu}),
-\]
-ainsi $\bigcup_{n\in\N}M_n\in\M$.
-
-ii) Soient $M_1$ et $M_2\in\M$ alors $M_1,M_2\in\B$ et $f^{-1}(M_1),f^{-1}(M_2)\in\A$, donc
-$M_1\setminus M_2\in\B$ et
-\[
-  f^{-1}(M_1\setminus M_2)=f^{-1}(M_1)\setminus f^{-1}(M_2)\in\A .
-\]
-Ainsi $M_1\setminus M_2\in\M$.
-
-iii) On sait que $F\in\B$ et $f^{-1}(F)=E\in\A$, ainsi $F\in\M$.
-
-$\ast$ Il reste à voir que $\B\subset\M$. Or $\A=\sigma\bigl(f^{-1}(\Qq)\bigr)\supset f^{-1}(\Qq)$.
-Donc $\M\supset\Qq$. D'où $\M\supset\B$, la tribu engendrée par $\Qq$.
-
-\begin{enonce}{Théorème}{6}
-Soient $(E,\A)$, $(F,\B)$ deux espaces mesurables. Soit $\Qq$ une famille de parties qui engendre $\B$.
-Soit $f:E\to F$ une application. Pour que $f$ soit mesurable il faut et il suffit que $f^{-1}(\Qq)\subset\A$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-\textbf{1- Hypothèse :} $f$ est mesurable de $(E,\A)$ vers $(F,\B)$. Comme $f$ est mesurable, $f^{-1}(\B)\subset\A$,
-or $\Qq\subset\B$, donc $f^{-1}(\Qq)\subset\A$.
-
-\textbf{2- Hypothèse :} $f^{-1}(\Qq)\subset\A$, donc la tribu $\A$ contient aussi la tribu engendrée par
-$f^{-1}(\Qq)$, donc $\A\supset f^{-1}(\B)$ d'après le théorème 5.
-
-\begin{tcolorbox}[colback=gray!8,colframe=gray!60,boxrule=0pt,leftrule=2pt,arc=0pt,left=6pt,top=2pt,bottom=2pt]
-\textbf{Note :} Toute application $f:(\R,\B_{\R})\to(\R,\B_{\R})$ qui est continue est mesurable, car si $O$ est un ouvert de $\R$,
-alors $f^{-1}(O)$ est un ouvert. Donc c'est un élément de $\B_{\R}$ et ceci est suffisant, car l'ensemble des ouverts
-engendre $\B_{\R}$ (Théorème 6).
-\end{tcolorbox}
-
-\begin{enonce}{Application}{7}
-Si $E$ et $F$ sont des espaces topologiques, et si $\A$ est la tribu des boréliens de $E$ et $\B$ la tribu des
-boréliens de $F$, alors toute application $f:E\to F$ continue est une application mesurable de $(E,\A)\to(F,\B)$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Par définition des boréliens de $F$, l'ensemble $\Oo$ des ouverts de $F$ engendre $\B$.
-Pour montrer que $f$ est mesurable il suffit de montrer que $f^{-1}(\Oo)\subset\A$.
-Or $f$ étant continue, $\forall A\in\Oo$, $f^{-1}(A)$ est un ouvert de $E$, donc $f^{-1}(A)\in\A$.
-
-Soit $f:(\R,\B_{\R})\to(\R,\B_{\R})$. Puisque la famille $]-\infty,a]$ $(a\in\R)$ engendre $\B_{\R}$,
-pour montrer que $f$ est mesurable, il suffit de montrer que
-\[
-  f^{-1}\bigl(]-\infty,a]\bigr)\in\B_{\R}\qquad\forall a\in\R .
+  \overline{\lim}\,u_n=\inf_{n}\ \sup_{k\ge n}u_k ,\qquad\qquad
+  \underline{\lim}\,u_n=\sup_{n}\ \inf_{k\ge n}u_k .
 \]
 
-\begin{enonce}{Théorème}{8 \textnormal{(Fonctions composées mesurables)}}
-Soient $(E,\A)$, $(F,\B)$, $(G,\C)$ trois espaces mesurables. Soient $f:E\to F$, $g:F\to G$ mesurables, alors
-l'application $g\circ f:(E,\A)\to(G,\C)$ est mesurable.
-\end{enonce}
-
-\begin{note}
-Le numéro du théorème est raturé sur le cahier ; je lis « 8 » d'après la suite de la numérotation (le prochain
-numéro écrit est 10).
-\end{note}
-
-\begin{preuve}\end{preuve}
-Soit $C\in\C$, montrons que $(g\circ f)^{-1}(C)\in\A$. Or
-\[
-  (g\circ f)^{-1}(C)=f^{-1}\bigl(g^{-1}(C)\bigr).
-\]
-Comme $g$ est mesurable, alors $g^{-1}(C)\in\B$ et $f$ étant mesurable, $f^{-1}\bigl(g^{-1}(C)\bigr)\in\A$,
-d'où $(g\circ f)^{-1}(C)\in\A$.
-
-\begin{note}
-\textbf{Numéro 9 reconstitué} d'après le cours de F.~Wamon (MAT~303), Remarque 3.1 ; absent du manuscrit.
-\end{note}
-
-\begin{enonce}{Remarque}{9 \textnormal{(reconstituée)}}
-Si $E$ est un espace topologique, sauf mention du contraire, $E$ sera muni de la tribu $\B_E$ des boréliens de $E$.
-
-Soit $F$ un espace topologique et $(E,\A)$ un espace mesurable. Une application $f$ de $E$ dans $F$ est dite
-mesurable si $f$ est mesurable de $(E,\A)$ dans $(F,\B_F)$. En particulier,
-\[
-  f:E\to\R \text{ mesurable}\iff f:(E,\A)\to(\R,\B_{\R}) \text{ mesurable}\iff \forall A\in\B_{\R},\ f^{-1}(A)\in\A .
-\]
-\end{enonce}
-
-%---------------------------------------------------------------------
-\subsection*{2-2 Fonctions numériques mesurables}
-\subsubsection*{L'ensemble $\Rb$}
-
-\begin{enonce}{Définition}{10}
-L'ensemble $\Rb$ est l'ensemble $\R$ auquel on ajoute deux éléments notés $+\infty$ et $-\infty$.
-Donc $\Rb=\R\cup\{+\infty,-\infty\}$.
-
-$\Rb$ est muni d'une relation d'ordre totale ainsi définie :
-$\forall x,y\in\R$, $x\le y$ dans $\Rb\iff x\le y$ dans $\R$ ;
-$\forall y\in\Rb$, $-\infty\le y$ ; $\ \forall x\in\Rb$, $x\le+\infty$.
-\end{enonce}
-
-\begin{enonce}{Conséquence}{11}
-$\Rb$ a un plus grand élément $(+\infty)$ et un plus petit élément $(-\infty)$.
-\end{enonce}
-
-\begin{enonce}{Propriété}{12}
-Dans $\Rb$, toute partie $A$ admet une borne supérieure et une borne inférieure.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Soit $A\subset\Rb$.
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Si $A$ est majorée dans $\R$, $A$ admet une borne sup dans $\R$ qui l'est dans $\Rb$.
-  \item Si $A\subset\Rb$ et non majorée dans $\R$, puisque $A$ est non majorée dans $\R$, alors $A$ n'admet qu'un seul
-        majorant dans $\Rb$, et sa borne sup est $+\infty$.
-  \item Si $A\not\subset\R$ :
-  \begin{itemize}[leftmargin=0.8cm]
-    \item si $+\infty\in A$, $+\infty$ est l'unique majorant, donc la borne sup ;
-    \item si $-\infty\in A$ et $+\infty\notin A$ :
-    \begin{itemize}[leftmargin=0.8cm]
-      \item si $A\cap\R\neq\varnothing$, $A$ a la même borne sup que $A\cap\R$ ;
-      \item si $A\cap\R=\varnothing$, $A=\{-\infty\}$, donc sa borne sup est $-\infty$.
-    \end{itemize}
-  \end{itemize}
-\end{enumerate}
-
-
-
-\begin{note}
-Seule la borne supérieure est traitée dans le manuscrit ; la borne inférieure se montre de la même façon.
-\end{note}
-
-\begin{enonce}{Notation}{13}
-$\sup A$ désigne la borne supérieure de $A$ ; $\ \inf A$ désigne la borne inférieure de $A$.
-\end{enonce}
-
-\textbf{Topologie de $\Rb$} \textit{(suite des définitions de $\Rb$)}.
-La famille des intervalles ouverts de $\Rb$ : $]a,b[$, $[-\infty,a[$, $]a;+\infty]$ est une base d'ouverts
-définissant la topologie de $\Rb$.
-
-\begin{enonce}{Conséquence}{14}
-$\forall x\in\Rb$, les intervalles ouverts contenant $x$ forment une base de voisinages dans $\Rb$
-comme dans $\R$.
-\end{enonce}
-
-\textbf{\color{bleu}Remarque.}
-\begin{itemize}[leftmargin=1.2cm]
-  \item Si $a=-\infty$, les $[-\infty,a[$ forment une base de voisinages de $-\infty$.
-  \item Si $a=+\infty$, les $]a,+\infty]$ forment une base de voisinages de $+\infty$.
-  \item Tout ouvert de $\Rb$ est une réunion dénombrable d'intervalles ouverts.
-\end{itemize}
-
-\begin{enonce}{Propriété}{15}
-\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=1.2cm]
-  \item Dans $\Rb$ toute suite monotone est convergente (faux dans $\R$).
-  \item L'ensemble des boréliens de $\Rb$, $\B_{\Rb}$, se déduit de $\B_{\R}$ ainsi : $\forall A\in\B_{\Rb}$,
-        ou bien $A\in\B_{\R}$, ou $A=B\cup\{+\infty\}$, $B\in\B_{\R}$, ou $A=B\cup\{-\infty\}$, $B\in\B_{\R}$,
-        ou $A=B\cup\{-\infty,+\infty\}$, $B\in\B_{\R}$.
-\end{enumerate}
-\end{enonce}
-
-\begin{enonce}{Conséquence}{16}
-De la topologie de $\Rb$, on déduit la topologie de $\Rb\times\Rb$.
-On a une base ouverte de $\Rb\times\Rb$ en prenant les pavés définis par les produits de deux intervalles ouverts de $\Rb$.
-
-L'ensemble des boréliens de $\Rb\times\Rb$, $\B_{\Rb\times\Rb}$, se déduit de $\B_{\R\times\R}$ ainsi :
-si $A\in\B_{\Rb\times\Rb}$, alors ou bien $A\in\B_{\R\times\R}$, ou $A=B\cup C$ où $B\in\B_{\R\times\R}$ et
-\[
-  C=\{+\infty\}\times K_1\ \cup\ \{-\infty\}\times K_2\ \cup\ K_3\times\{-\infty\}\ \cup\ K_4\times\{+\infty\},
-\]
-où $K_1,K_2,K_3,K_4\in\B_{\R}$.
-\end{enonce}
-
-\begin{note}
-Les quatre points $(\pm\infty,\pm\infty)$ ne sont couverts par cette écriture que si l'on autorise $K_i\in\B_{\Rb}$ ; le manuscrit écrit $K_i\in\B_{\R}$.
-\end{note}
-
-%=====================================================================
-\newpage
-\datepage{Mardi 29 septembre 2026}
-\section*{Chapitre 2 (suite)}
-\subsubsection*{Opérations sur $\Rb$ (fin de la définition de $\Rb$)}
-
-$\Rb$ est muni de deux opérations ainsi définies :
-
-\textbf{a) L'addition.} L'addition est commutative et :
-\begin{itemize}[leftmargin=1.2cm]
-  \item $\forall x,y\in\R$, $x+y$ a la même valeur dans $\Rb$ que dans $\R$.
-  \item $\forall x\in\R$, $x+(+\infty)=+\infty$, $\ x+(-\infty)=-\infty$,\\
-        $(+\infty)+(+\infty)=+\infty$, $\ (-\infty)+(-\infty)=-\infty$.
-\end{itemize}
-L'addition est donc définie seulement sur la partie
-$\Sigma=\Rb\times\Rb\setminus\bigl\{(-\infty,+\infty),(+\infty,-\infty)\bigr\}$ de $\Rb\times\Rb$.
-
-\begin{enonce}{Conséquence}{17}
-L'addition est associative.
-\end{enonce}
-
-\textbf{b) La multiplication.} La multiplication dans $\Rb$ est commutative et ainsi définie :
-\begin{itemize}[leftmargin=1.2cm]
-  \item $\forall x,y\in\R$, $x\cdot y$ a la même valeur dans $\Rb$ que dans $\R$.
-  \item $\forall x\in\R$, $\ x\cdot(+\infty)=\begin{cases}+\infty&\text{si }x>0\\-\infty&\text{si }x<0\end{cases}$
-  \item $\forall x\in\R$, $\ x\cdot(-\infty)=\begin{cases}-\infty&\text{si }x>0\\+\infty&\text{si }x<0\end{cases}$
-  \item $(+\infty)\cdot(+\infty)=+\infty$, $\ (+\infty)\cdot(-\infty)=-\infty$, $\ (-\infty)\cdot(-\infty)=+\infty$ ;
-        $\ 0\cdot(-\infty)=0$, $\ 0\cdot(+\infty)=0$.
-\end{itemize}
-
-\begin{enonce}{Conséquence}{18}
-\begin{enumerate}[label=\textbf{\roman*)},leftmargin=1.2cm]
-  \item La multiplication dans $\Rb$ est associative : $\forall x,y,z\in\Rb$, $(x\cdot y)\cdot z=x\cdot(y\cdot z)$.
-  \item L'addition est une opération continue de $\Sigma=\Rb\times\Rb\setminus\{(+\infty,-\infty),(-\infty,+\infty)\}$ dans $\Rb$.
-        D'où elle est mesurable.
-  \item La multiplication n'est pas continue aux points $(+\infty,0)$, $(0,+\infty)$, $(-\infty,0)$, $(0,-\infty)$, mais elle est
-        mesurable de $(\Rb\times\Rb,\B_{\Rb\times\Rb})$ dans $(\Rb,\B_{\Rb})$.
-\end{enumerate}
-\end{enonce}
-
-\begin{note}
-Dans le manuscrit, le cas $x\cdot(-\infty)$ pour $x>0$ est écrit avec un signe peu lisible (« $x\ge0$ » raturé) ; je lis « $x>0$ »,
-comme dans la feuille de cours du 29-09-26.
-\end{note}
-
-%---------------------------------------------------------------------
-\subsubsection*{Limites supérieures, limites inférieures, limite}
-
-Soit $(x_n)_{n\in\N}\subset\Rb$ une suite. Alors $A_n=\{x_n,x_{n+1},\dots\}$ est une partie non vide (et bornée dans $\Rb$ par $+\infty$ et $-\infty$).
-Donc $\sup(A_n)=\sup_{p\ge n}x_p$ et $\inf(A_n)=\inf_{p\ge n}x_p$ existent.
-
-\textbf{\color{bleu}Remarque.} Comme $A_{n+1}\subset A_n$, alors $\sup A_{n+1}\le\sup A_n$ et $\inf A_{n+1}\ge\inf A_n$.
-
-Donc $\sup_{p\ge n}x_p$ est décroissante dans $\Rb$ et minorée, donc converge vers sa borne inférieure ; ainsi
-\[
-  \lim_{n\to+\infty}\ \sup_{p\ge n}x_p=\inf_{n\in\N}\ \sup_{p\ge n}x_p=\overline{\lim}\,x_n .
-\]
-De même, $\inf_{p\ge n}x_p$ est croissante et majorée dans $\Rb$, donc converge vers sa borne supérieure ; ainsi
-\[
-  \lim_{n\to+\infty}\ \inf_{p\ge n}x_p=\sup_{n\in\N}\ \inf_{p\ge n}x_p=\underline{\lim}\,x_n .
-\]
-On observe aussi que
-\[
-  \inf_{p\ge n}x_p\ \le\ x_n\ \le\ \sup_{p\ge n}x_p .
-\]
-Donc
-\[
-  \lim_{n\to+\infty}\ \inf_{p\ge n}x_p\ \le\ \lim x_n\ \le\ \lim_{n\to+\infty}\ \sup_{p\ge n}x_p ,
-\]
-il vient que $\underline{\lim}\,x_n\le\lim x_n\le\overline{\lim}\,x_n$.
-
-\begin{enonce}{Définition}{19}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item On appelle \emph{limite supérieure} de la suite $(x_n)_{n\in\N}$ dans $\Rb$ le nombre ainsi défini :
-  \[
-    \limsup x_n=\lim_{n\to+\infty}\ \sup_{p\ge n}x_p=\inf_{n\in\N}\ \sup_{p\ge n}x_p .
-  \]
-  On écrit aussi $\overline{\lim}\,x_n$ et on dit « plus grande limite ».
-  \item On appelle \emph{limite inférieure} de la suite $(x_n)_{n\in\N}$ dans $\Rb$ le nombre ainsi défini :
-  \[
-    \liminf x_n=\lim_{n\to+\infty}\ \inf_{p\ge n}x_p=\sup_{n\in\N}\ \inf_{p\ge n}x_p .
-  \]
-  On écrit aussi $\underline{\lim}\,x_n$ et on dit aussi « plus petite limite ».
-\end{enumerate}
-\end{enonce}
-
-\begin{enonce}{Proposition}{20}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item Pour que $\ell$ soit la limite supérieure de la suite $(x_n)_{n\in\N}$, il faut et il suffit que :
-  \begin{itemize}[leftmargin=0.8cm]
-    \item $\forall z>\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>z$ ;
-    \item $\forall z<\ell$, il y a un nombre fini d'indices $n$ tels que $x_n>z$.
-  \end{itemize}
-  \item Pour que $m$ soit la limite inférieure de la suite $(x_n)_{n\in\N}$, il faut et il suffit que :
-  \begin{itemize}[leftmargin=0.8cm]
-    \item $\forall z<m$, il y a un nombre fini d'indices $n$ tels que $x_n<z$ ;
-    \item $\forall z>m$, il y a une infinité d'indices $n$ tels que $x_n<z$.
-  \end{itemize}
-\end{enumerate}
-\end{enonce}
-
-\begin{note}
-Dans le manuscrit, la deuxième condition du point 1) est écrite « il y a un nombre fini d'indices » ; la preuve (nécessité) conclut
-à « une infinité » et la feuille de cours du 29-09-26 écrit « une infinité » : c'est sans doute un lapsus. Je transcris le manuscrit tel quel.
-\end{note}
-
-\begin{preuve}\end{preuve}
-\textbf{1) Nécessité.} Supposons que $\ell=\limsup x_n=\inf_{n\in\N}\sup_{p\ge n}x_p$. Posons $y_n=\sup_{p\ge n}x_p$, alors
-$\ell=\inf_{n\in\N}y_n$, car la suite $(y_n)$ est décroissante et converge vers $\ell$.
-
-Donc $\forall z>\ell$, $\exists n_0\in\N$ tel que $y_{n_0}<z$, d'où $\sup_{p\ge n_0}x_p<z$.
-
-\emph{Rappel :} $\theta=\inf A\iff\begin{cases}\forall x\in A,\ \theta\le x\\ \forall\varepsilon>0,\ \exists x_0\in A,\ x_0<\theta+\varepsilon.\end{cases}$
-Posons $\varepsilon=z-\ell>0$, $\exists n_0\in\N$ tel que $y_{n_0}<\ell+(z-\ell)$.
-
-Donc si $x_p>z$ alors $p<n_0$ ; d'où il y a un nombre fini d'indices.
-
-Si $z<\ell$ alors $\forall n\in\N$, $z\le y_n$. Donc $\forall n\in\N$, $z\le\sup_{p\ge n}x_p$ ; ainsi il existe $p_0\ge n$ tel que $z<x_{p_0}$.
-Comme c'est vrai pour tout $n\in\N$, alors il existe une infinité de $x_{p_0}>z$.
-
-\textbf{Suffisance.} $\ell$ est un nombre tel que $\forall z>\ell$ il y a un nombre fini d'indices $n$ tels que $x_n>z$ et $\forall z>\ell$
-il y a une infinité d'indices $n$ tels que $x_n>z$.
-
-\begin{note}
-Dans la suffisance, le manuscrit écrit « $\forall z>\ell$ » pour la seconde condition ; d'après la suite de la preuve, il faut lire « $\forall z<\ell$ ».
-\end{note}
-
-On veut montrer que $\ell=\limsup x_n$ : posons $\ell'=\limsup x_n$ et montrons que $\ell=\ell'$.
-
-Soit $z>\ell$ et $n_0$ le plus grand indice tel que $x_n>z$, donc pour $n>n_0$, $x_n\le z$. Ainsi $y_n=\sup_{p\ge n}x_p\le z$ pour $n>n_0$,
-d'où $\ell'=\inf y_n\le z$, donc $\forall z>\ell$, $\ell'\le z$, d'où $\ell'\le\ell$.
-
-Soit $z<\ell$, alors $\forall n\in\N$, $y_n=\sup_{p\ge n}x_p\ge z$. Comme parmi l'infinité des $x_n>z$, il y en a dont l'indice $p\ge n$ ; alors
-$\ell'=\inf y_n\ge z$, donc $\forall z<\ell$, $\ell'\ge z$, d'où $\ell'\ge\ell$.
-
-\begin{note}
-La preuve du point 2) (limite inférieure) n'est pas écrite dans le manuscrit.
-\end{note}
-
-\begin{enonce}{Proposition}{21}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item $\limsup x_n$ est la plus grande valeur d'adhérence de la suite $(x_n)$.
-  \item $\liminf x_n$ est la plus petite valeur d'adhérence de la suite $(x_n)$.
-\end{enumerate}
-\end{enonce}
-
-\textbf{\color{bleu}Rappel.}
-\begin{enumerate}[label=\textbf{\arabic*)},leftmargin=1.2cm]
-  \item $a$ est une valeur d'adhérence (ou point d'accumulation) de la suite $(x_n)$ si
-  $\forall\varepsilon>0$, il existe une infinité de termes de la suite tels que $|x_n-a|<\varepsilon$, ou de façon équivalente
-  $\forall\varepsilon>0$, $\forall N\in\N$, $\exists n\in\N$, $n>N$ et $|x_n-a|<\varepsilon$.
-  \item Ainsi $a$ est valeur d'adhérence de $(x_n)$ si et seulement si $\forall\varepsilon>0$, $\forall N\in\N$, $\exists n\ge N$ tel que
-  $x_n\in]a-\varepsilon,a+\varepsilon[$ et $x_n\neq a$
-  \[
-    \iff\ \forall\varepsilon>0,\ \forall N\in\N,\ ]a-\varepsilon,a+\varepsilon[\,\cap A_N\neq\varnothing
-    \iff a\in\overline{A_N},\ \forall N\in\N
-    \iff a\in\bigcap_{n\in\N}\overline{A_n},\quad A_n=\{x_n,x_{n+1},\dots\}.
-  \]
-\end{enumerate}
-
-\begin{preuve}\end{preuve}
-\textbf{1) Cas de $\limsup x_n$.} Posons $A=\bigcap_{n\in\N}\overline{A_n}$, l'ensemble des valeurs d'adhérence de la suite $(x_n)_{n\in\N}$.
-Montrons que $\limsup x_n\in A$ et que $\limsup x_n=\sup A$.
-
-\emph{Remarque :} si $B\subset\R$, alors $\sup B\in\overline B$ (s'il existe). En effet, $\sup B$ est un majorant de $B$ et $\sup B\ge a$ $\forall a\in B$.
-De plus $\forall\varepsilon>0$, $\exists a_0\in B$ tel que $a_0>\sup B-\varepsilon$ ; ainsi $\forall\varepsilon>0$, $\exists a_0\in B$ tel que
-$\sup B-\varepsilon\le a_0\le\sup B+\varepsilon$, donc $]\sup B-\varepsilon,\sup B+\varepsilon[\,\cap B\neq\varnothing$ $\forall\varepsilon>0$, d'où $\sup B\in\overline B$.
-
-Posons $y_n=\sup_{p\ge n}x_p=\sup A_n$, donc $y_n\in\overline{A_n}$. Or $A_{n+1}\subset A_n$, donc $\overline{A_{n+1}}\subset\overline{A_n}$, ainsi
-$\forall m\ge n$, $y_m\in\overline{A_m}\subset\overline{A_n}$, donc $\ell=\inf y_n\in\overline{A_n}$, d'où $\forall n\in\N$, $\ell\in\overline{A_n}$,
-c'est-à-dire $\ell\in\bigcap_{n\in\N}\overline{A_n}=A$.
-
-Donc $\limsup x_n$ est une valeur d'adhérence.
-
-Il reste à montrer que $\ell=\limsup x_n=\sup A$. $\forall n\in\N$, on a $\overline{A_n}=[-\infty,y_n]$, donc
-\[
-  A=\bigcap_{n\in\N}\overline{A_n}=\bigcap_{n\in\N}[-\infty,y_n]=[-\infty,\ell],
-\]
-donc $\ell=\sup A$.
-
-\begin{note}
-La preuve du point 2) (valeur d'adhérence la plus petite pour $\liminf$) n'est pas écrite dans le manuscrit.
-\end{note}
-
-
-%=====================================================================
-% Partie issue du premier document (Théorème 22 et suivants)
-\datepage{Mardi 6 octobre 2026}
-\section*{Limites de suites dans $\Rb$}
-
-\begin{enonce}{Théorème}{22}
-Pour que la suite $(x_n)_n$ dans $\Rb$ ait une limite $\ell$, il faut et il suffit que
-\[
-  \limsup x_n \;=\; \liminf x_n \;=\; \ell .
-\]
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-\textbf{1-} \textit{Hypothèse :} la suite $(x_n)_n$ converge vers $\ell$.
-$\Rb$ étant séparé, il n'y a qu'une unique valeur d'adhérence $\ell$,
-donc $\limsup x_n=\ell$ et $\liminf x_n=\ell$.
-
-\textbf{2-} \textit{Hypothèse :} $\limsup x_n=\liminf x_n=\ell$.
-La suite $(x_n)_n$ a donc une seule valeur d'adhérence $\ell$.
-
-Montrons que $(x_n)_n$ converge vers $\ell$.
-
-Supposons que la suite $(x_n)_n$ ne tend pas vers $\ell$.
-Alors il existe $V$ voisinage de $\ell$ tel que
-\[
-  \forall N\in\N,\ \exists\, n>N \text{ et } x_n\notin V .
-\]
-On peut donc former une sous-suite $(x_{n_i})$ telle que $x_{n_i}\notin V$. En effet :
-\begin{itemize}[leftmargin=2cm,label={},itemsep=2pt]
-  \item Pour $N=1$, $\exists\, n_1>1$ tel que $x_{n_1}\notin V$.
-  \item Pour $N=n_1$, $\exists\, n_2>n_1$ tel que $x_{n_2}\notin V$.
-  \item[\hspace{0.3cm}$\vdots$]
-  \item Pour $N=n_{i-1}$, $\exists\, n_i>n_{i-1}$ tel que $x_{n_i}\notin V$.
-\end{itemize}
-La suite $(x_{n_i})_{i\in\N}$ dans $\Rb$ admet au moins une valeur d'adhérence $\ell'$
-qui ne peut être $\ell$ puisque les $x_{n_i}\notin V$. D'où la contradiction.
-
-\begin{note}
-Pour que $\ell'\neq\ell$, il faut choisir $V$ \emph{ouvert} : une valeur d'adhérence d'une suite
-qui reste hors d'un ouvert contenant $\ell$ ne peut pas être $\ell$.
-\end{note}
-
-%=====================================================================
-\section*{Rappels de définitions sur les fonctions numériques}
-
-Soit $f,g : E\to\R$ deux applications. On définit :
-\begin{align*}
-  f+g &: E\to\R, & x&\longmapsto (f+g)(x)=f(x)+g(x),\\
-  f\cdot g &: E\to\R, & x&\longmapsto (f\cdot g)(x)=f(x)\,g(x),\\
-  \sup(f,g) &: E\to\R, & x&\longmapsto \sup(f,g)(x)=\sup\bigl(f(x),g(x)\bigr),\\
-  \inf(f,g) &: E\to\R, & x&\longmapsto \inf(f,g)(x)=\inf\bigl(f(x),g(x)\bigr).
-\end{align*}
-\[
-  f^{+}:E\to\R,\quad x\longmapsto f^{+}(x)=
-  \begin{cases} f(x) & \text{si } f(x)\ge 0\\ 0 & \text{si } f(x)\le 0\end{cases}
-  \;=\;\sup(f,0)
-\]
-\[
-  f^{-}:E\to\R,\quad x\longmapsto f^{-}(x)=
-  \begin{cases} 0 & \text{si } f(x)\ge 0\\ -f(x) & \text{si } f(x)\le 0\end{cases}
-  \;=\;\sup(-f,0)
-\]
-Et on a : $f=f^{+}-f^{-}$.
-
-Les définitions sont les mêmes si $f,g : E\to\Rb$.
-Mais $f+g$ n'est pas définie s'il existe un $x\in E$ tel que $f(x)=+\infty$ et $g(x)=-\infty$.
-
-\begin{note}
-Même problème si $f(x)=-\infty$ et $g(x)=+\infty$ : les deux cas sont exclus (voir Théorème 24, point 2).
-\end{note}
-
-Soit $(f_i)_{i\in I}: E\to\Rb$ une famille quelconque de fonctions. On pose :
-\begin{align*}
-  \sup_{i\in I} f_i &: E\to\Rb, & x&\longmapsto \Bigl(\sup_{i\in I} f_i\Bigr)(x)=\sup_{i\in I}\bigl(f_i(x)\bigr),\\
-  \inf_{i\in I} f_i &: E\to\Rb, & x&\longmapsto \Bigl(\inf_{i\in I} f_i\Bigr)(x)=\inf_{i\in I}\bigl(f_i(x)\bigr),
-\end{align*}
-qui existent toujours car $\Rb$ est borné.
-
-Si $f_n:E\to\Rb$ est une suite de fonctions, on définit :
-\[
-  \limsup f_n=\inf_{n\in\N}\Bigl(\sup_{p\ge n} f_p\Bigr)
-  \qquad\text{et}\qquad
-  \liminf f_n=\sup_{n\in\N}\Bigl(\inf_{p\ge n} f_p\Bigr),
-\]
-avec $\limsup f_n(x)=\limsup\bigl(f_n(x)\bigr)$.
-
-$\limsup f_n=\liminf f_n$ équivaut à dire que $(f_n)$ converge simplement.
-
-\begin{note}
-La définition de $\liminf$ est peu lisible dans le manuscrit ; j'ai rétabli la définition usuelle
-$\sup_n\inf_{p\ge n}$.
-\end{note}
-
-%=====================================================================
-\section*{2-3) Fonctions numériques mesurables}
-
-\begin{enonce}{Proposition}{23}
-Soit $(E,\A)$ un espace mesurable. Soit $f,g:E\to\R$ (ou $\Rb$) deux applications mesurables,
-alors l'application
-\[
-  h:E\to\R\times\R,\qquad x\longmapsto h(x)=\bigl(f(x),g(x)\bigr)
-\]
-est mesurable de $(E,\A)$ dans $(\R\times\R,\B_{\R\times\R})$ (ou $(\Rb\times\Rb,\B_{\Rb\times\Rb})$).
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-\begin{center}
-\begin{tikzpicture}[>=Stealth,thick,node distance=5cm]
-  \node (E)  at (0,3) {$E$};
-  \node (RR) at (7,3) {$\Rb\times\Rb$};
-  \node (R)  at (7,0) {$\Rb$};
-  \draw[->] (E) -- node[above]{$h$} node[below]{\small$x\mapsto(f(x),g(x))$} (RR);
-  \draw[->] (RR) -- node[right]{$p$} (R);
-  \draw[->] (E) -- node[below left,sloped]{$f\cdot g=p\circ h$} (R);
-  \node[right=2pt of R,xshift=0.2cm,font=\small] {$f(x)\cdot g(x)$};
-\end{tikzpicture}
-\end{center}
-
-Soit $x\in E$. Alors
-\[
-  (p\circ h)(x)=p\bigl(h(x)\bigr)=p\bigl(f(x),g(x)\bigr)=f(x)\cdot g(x)=(f\cdot g)(x).
-\]
-Dans le cas de $\R\times\R$, comme les pavés $[a,b]\times[c,d]$ engendrent $\B_{\R\times\R}$,
-il suffit de montrer que
-\[
-  h^{-1}\bigl([a,b]\times[c,d]\bigr)\in\A .
-\]
-Or :
-\begin{align*}
-  h^{-1}\bigl([a,b]\times[c,d]\bigr)
-    &=\bigl\{x\in E : h(x)\in[a,b]\times[c,d]\bigr\}\\
-    &=\bigl\{x\in E : f(x)\in[a,b]\ \text{et}\ g(x)\in[c,d]\bigr\}\\
-    &=f^{-1}\bigl([a,b]\bigr)\cap g^{-1}\bigl([c,d]\bigr)\in\A
-\end{align*}
-car $f$ et $g$ sont mesurables et $\A$ est une tribu.
-
-%---------------------------------------------------------------------
-\begin{enonce}{Théorème}{24}
-Soit $(E,\A)$ un espace mesurable. Soit $f,g:E\to\Rb$ mesurables, alors
-$f+g$, $f\cdot g$, $\alpha f\ (\alpha\in\R)$, $\sup(f,g)$, $\inf(f,g)$, $f^{+}$ et $f^{-}$ sont mesurables.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-\textbf{1- Pour $f\cdot g : E\to\Rb$.} $f\cdot g$ est la composée de deux fonctions suivantes :
-\[
-  h:E\to\Rb\times\Rb,\ \ x\mapsto h(x)=\bigl(f(x),g(x)\bigr)
-  \qquad\text{et}\qquad
-  p:\Rb\times\Rb\to\Rb,\ \ (u,v)\mapsto u\cdot v .
-\]
-$h$ et $p$ étant mesurables, alors $f\cdot g=p\circ h$ est mesurable.
-
-\textbf{2- Pour $f+g$ :} utiliser l'application de $E\to\Rb\times\Rb\setminus\{(-\infty,+\infty),(+\infty,-\infty)\}$.
-
-\begin{note}
-La preuve est seulement esquissée dans le manuscrit : on compose $h$ avec l'addition $(u,v)\mapsto u+v$,
-mesurable sur $\Rb\times\Rb$ privé des deux couples ci-dessus.
-\end{note}
-
-\textbf{3- Pour $\sup(f,g)$.} $\sup(f,g)$ est la composée de :
-\[
-  h:E\to\Rb\times\Rb,\ \ x\mapsto h(x)=\bigl(f(x),g(x)\bigr)
-  \qquad\text{et}\qquad
-  S:\Rb\times\Rb\to\Rb,\ \ (u,v)\mapsto\sup(u,v).
-\]
-Donc $\sup(f,g)=S\circ h$. $h$ étant mesurable, il reste à montrer que
-$S:(\Rb\times\Rb,\B_{\Rb\times\Rb})\to(\Rb,\B_{\Rb})$ est mesurable.
-
-Or la famille des $\bigl([-\infty,a],\ a\in\R\bigr)$ engendre $\B_{\Rb}$, il suffit donc de montrer que
-les $S^{-1}([-\infty,a])$ sont des mesurables (appartiennent à $\B_{\Rb\times\Rb}$). Or :
-\[
-  S^{-1}\bigl([-\infty,a]\bigr)=\bigl\{(x,y)\in\Rb\times\Rb : S(x,y)\in[-\infty,a]\bigr\}
-  =[-\infty,a]\times[-\infty,a]\in\B_{\Rb\times\Rb}.
-\]
-Ainsi, $\sup(f,g)$ est mesurable.
-
-\textbf{4- Pour $f^{+}$.} On a $f^{+}=\sup(f,0)$. Comme $f$ est mesurable et $0$ est mesurable,
-alors $f^{+}$ est mesurable.
-
-\begin{note}
-Les cas $\inf(f,g)$, $\alpha f$ et $f^{-}$ ne sont pas détaillés dans le manuscrit.
-Ils se traitent de même : $\inf(f,g)=-\sup(-f,-g)$ et $f^{-}=\sup(-f,0)$.
-\end{note}
-
-%---------------------------------------------------------------------
-\begin{enonce}{Théorème}{25}
-Soit $(f_n)$ une suite de fonctions numériques mesurables à valeurs dans $\Rb$, alors :
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Les fonctions $\sup f_n$, $\inf f_n$, $\limsup f_n$ et $\liminf f_n$ sont mesurables.
-  \item Si la suite $f_n$ converge simplement vers $f$, alors $f$ est mesurable.
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-\textbf{1-} On a $\displaystyle\limsup f_n=\inf_{n\in\N}\Bigl(\sup_{p\ge n}f_p\Bigr)$.
-On montre que $\limsup f_n$ est mesurable lorsqu'on a au préalable montré que
-$\sup f_n$ et $\inf f_n$ sont mesurables.
-
-Posons $g=\sup f_n : (E,\A)\to(\Rb,\B_{\Rb})$ avec $f_n$ mesurable.
-Comme les $[-\infty,a]$ engendrent $\B_{\Rb}$, il suffit de montrer que
-\[
-  \forall a\in\R,\quad g^{-1}\bigl([-\infty,a]\bigr)\in\A .
-\]
-Soit $a\in\R$, alors :
-\[
-  g^{-1}\bigl([-\infty,a]\bigr)=\bigl\{x\in E : g(x)\in[-\infty,a]\bigr\}
-  =\bigl\{x\in E : \sup_n f_n(x)\le a\bigr\}
-  =\bigcap_{n\in\N} f_n^{-1}\bigl([-\infty,a]\bigr)\in\A
-\]
-car $f_n$ est mesurable et $\A$ est une tribu.
-
-\begin{enonce}{Remarque}{26}
-Ceci marche pour le $\sup$ ou le $\inf$ d'une famille dénombrable.
-\end{enonce}
-
-\begin{note}
-Le manuscrit s'arrête ici : les preuves pour $\inf f_n$, $\limsup f_n$, $\liminf f_n$
-et le point 2 du Théorème 25 ne sont pas écrites.
-\end{note}
-
-%=====================================================================
-\section*{2-4) Fonctions étagées mesurables}
-
-\begin{enonce}{Définition}{27}
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Une application $f:E\to F$ est dite \emph{étagée} si elle prend un nombre fini de valeurs
-        $(y_1,y_2,\dots,y_n)$ de $F$. Donc si $f(E)=\{y_1,y_2,\dots,y_n\}$.
-  \item Si $\A$ est une famille de parties de $E$ ($\A\subset\Pp(E)$), $f:E\to F$ est dite
-        \emph{étagée sur $\A$} si elle est étagée et si pour toute valeur $y_i\in F$ prise par $f$,
-        $f^{-1}(\{y_i\})\in\A$.
-\end{enumerate}
-\end{enonce}
-
-\begin{enonce}{Proposition}{28}
-Pour qu'une application étagée $f:(E,\A)\to(\R,\B_{\R})$ soit mesurable,
-il faut et il suffit qu'elle soit étagée sur $\A$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-($\Rightarrow$) \textit{Hypothèse :} $f$ est étagée et mesurable. Montrons que $f$ est étagée sur $\A$.
-Soit $y_i\in\R$, alors $\{y_i\}$ est un borélien ; $f$ étant mesurable, alors $f^{-1}(\{y_i\})\in\A$.
-D'où $f$ est étagée sur $\A$.
-
-($\Leftarrow$) \textit{Hypothèse :} $f^{-1}(\{y_i\})\in\A$ pour $i=1,2,\dots,n$.
-Montrons que $f$ est mesurable. Soit $A\in\B_{\R}$, a-t-on $f^{-1}(A)\in\A$ ? On a :
-\[
-  f^{-1}(A)=\bigcup_{y_i\in A} f^{-1}\bigl(\{y_i\}\bigr)\in\A
-\]
-car réunion finie d'éléments de $\A$, où $A=\bigcup_{y_i\in A}\{y_i\}$.
-
-\begin{note}
-Plus précisément, la réunion porte sur les $y_i\in A\cap f(E)$ : $f^{-1}(A)=f^{-1}(A\cap f(E))$.
-Le symbole $A$ désigne ici un borélien et ailleurs la tribu $\A$ (notations proches dans le manuscrit).
-\end{note}
-
-%---------------------------------------------------------------------
-\begin{enonce}{Proposition}{29}
-L'ensemble des fonctions étagées sur la $\sigma$-algèbre $\A$ et à valeurs dans $\R$
-est un espace vectoriel $\Ee(\A,\R)$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-Soit $f(E)=\{y_1,y_2,\dots,y_n\}$ et $g(E)=\{z_1,z_2,\dots,z_p\}$.
-Alors $f+g$ prend des valeurs dans l'ensemble fini $\{y_i+z_j\}_{\,i=1,\dots,n;\ j=1,\dots,p}$.
-
-Soit $x$ une valeur prise par $f+g$ ; on veut montrer que $(f+g)^{-1}(x)\in\A$.
-Il y a un nombre fini de couples $(i,j)$ tels que $y_i+z_j=x$, et
-$f^{-1}(\{y_i\})\cap g^{-1}(\{z_j\})\in\A$ car $f$ et $g$ sont étagées sur $\A$ et $\A$ est une tribu.
-Ainsi :
-\[
-  \bigcup_{(i,j)\in I}\Bigl(f^{-1}(\{y_i\})\cap g^{-1}(\{z_j\})\Bigr)\in\A,
-  \qquad\text{où } I=\bigl\{(i,j) : y_i+z_j=x\bigr\}.
-\]
-D'où $(f+g)^{-1}(x)\in\A$.
-
-\begin{note}
-Seule la stabilité par addition est écrite dans le manuscrit ;
-la stabilité par multiplication par un scalaire ($\lambda f$) se traite de la même façon.
-\end{note}
-
-%---------------------------------------------------------------------
-\begin{enonce}{Théorème}{30}
-Soit $(E,\A)$ un espace mesurable. Toute fonction mesurable positive (à valeurs dans $\overline{\R_+}$)
-est limite d'une suite croissante de fonctions étagées positives sur $\A$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-Soit $f:E\to\overline{\R_+}$ mesurable. Construisons une suite $(f_n)$ croissante de fonctions étagées
-et positives qui tend vers $f$.
-
-\begin{center}
-\begin{tikzpicture}[scale=1,>=Stealth]
-  % bande [k/2^n,(k+1)/2^n[
-  \fill[bleuclair!15] (-0.2,2.2) rectangle (11.2,3.6);
-  \foreach \y in {0.9,2.2,3.6,4.9}{\draw[gray!70,thin] (-0.2,\y) -- (11.2,\y);}
-  % axes
-  \draw[->,thick] (-0.2,0) -- (11.4,0);
-  \draw[->,thick] (0,-0.5) -- (0,5.6);
-  % graphe de f
-  \draw[thick,red!60!black,smooth] plot coordinates
-    {(0.3,1.4)(1.0,1.9)(1.8,1.6)(2.6,0.9)(3.4,1.0)(4.2,1.7)(4.9,2.9)(5.7,3.4)(6.6,3.0)(7.4,3.2)(8.2,3.5)(9.0,2.6)(9.8,1.4)(10.6,1.1)};
-  % étiquettes
-  \node[left] at (0,2.2) {$\dfrac{k}{2^n}$};
-  \node[left] at (0,3.6) {$\dfrac{k+1}{2^n}$};
-  \node[red!60!black] at (10.8,4.2) {$f(x)$};
-  % Q_{n,k}
-  \draw[bleuclair,line width=2.5pt] (4.62,-0.18) -- (8.75,-0.18);
-  \draw[bleuclair,dotted] (4.62,-0.18) -- (4.62,2.2);
-  \draw[bleuclair,dotted] (8.75,-0.18) -- (8.75,2.2);
-  \node[bleuclair,below] at (6.7,-0.3) {$Q_{n,k}=f^{-1}\!\left(\left[\frac{k}{2^n},\frac{k+1}{2^n}\right[\right)$};
-\end{tikzpicture}
-\end{center}
-
-On construit $(f_n)$ de la manière suivante.
-\begin{itemize}[leftmargin=1.2cm]
-  \item Dans $R_n=f^{-1}\bigl([n,+\infty]\bigr)$, on pose : $f_n(x)=n$.
-  \item Dans chaque $Q_{n,k}=f^{-1}\Bigl(\Bigl[\dfrac{k}{2^n},\dfrac{k+1}{2^n}\Bigr[\Bigr)$, on pose :
-        $f_n(x)=\dfrac{k}{2^n}$ \quad (lorsque $\dfrac{k}{2^n}\le f(x)<\dfrac{k+1}{2^n}$).
-\end{itemize}
-Alors $0\le k\le n\times 2^n$.
-
-\begin{note}
-Le manuscrit écrit « $f_n(x)=n$ ($x\ge n$) » et « $\frac{k}{2^n}\le x<\frac{k+1}{2^n}$ » :
-c'est en réalité $f(x)$ qui intervient (et non $x$). De plus, avec ces intervalles semi-ouverts,
-on a $0\le k\le n\,2^n-1$.
-\end{note}
-
-\textbf{1-} Les premiers points sont étagés sur $\A$ car $Q_{n,k}$ et $R_n\in\A$.
-
-\textbf{2-} Montrons que la suite $(f_n)$ est croissante. Il suffit de montrer que dans chaque domaine
-$Q_{n,k}$, $R_n$ on a : $f_n(x)\le f_{n+1}(x)$.
-
-On a :
-\[
-  \Bigl[\frac{k}{2^n},\frac{k+1}{2^n}\Bigr[
-  =\Bigl[\frac{2k}{2^{n+1}},\frac{2k+1}{2^{n+1}}\Bigr[\ \cup\ \Bigl[\frac{2k+1}{2^{n+1}},\frac{2k+2}{2^{n+1}}\Bigr[
-\]
-Donc $Q_{n,k}=Q_{n+1,2k}\cup Q_{n+1,2k+1}$.
-
-Si $x\in R_n$ : $[n,+\infty]=[n,n+1[\ \cup\ [n+1,+\infty]$, soit
-\[
-  [n,+\infty]=\Biggl(\bigcup_{n\times 2^{n+1}\,\le\,k\,\le\,(n+1)2^{n+1}}
-  \Bigl[\frac{k}{2^{n+1}},\frac{k+1}{2^{n+1}}\Bigr[\Biggr)\ \cup\ [n+1,+\infty].
-\]
-Ainsi :
-\[
-  R_n=\Biggl(\bigcup_{n\times 2^{n+1}\,\le\,k\,\le\,(n+1)2^{n+1}} Q_{n+1,k}\Biggr)\cup R_{n+1},
-\]
-où, selon le cas :
-\begin{itemize}[leftmargin=1.2cm]
-  \item $f_{n+1}(x)=\dfrac{k}{2^{n+1}}\ \ge\ n=f_n(x)$ ;
-  \item ou bien $f_{n+1}(x)=n+1>n=f_n(x)$.
-\end{itemize}
-Donc $f_n$ est croissante.
-
-\begin{note}
-Dans la réunion, $k$ doit aller de $n\,2^{n+1}$ à $(n+1)\,2^{n+1}-1$ pour que les $Q_{n+1,k}$
-soient bien contenus dans $R_n$.
-\end{note}
-
-\textbf{3-} Montrons que $f_n\to f$ simplement.
-
-\emph{1\textsuperscript{er} cas :} si $f(x)\neq+\infty$, alors $\exists\, n_0\in\N$ tel que $n_0>f(x)$.
-Pour $n\ge n_0$, $x\in Q_{n,k}$ tel que
-\[
-  \frac{k}{2^n}\le f(x)<\frac{k+1}{2^n}\qquad\text{et}\qquad f_n(x)=\frac{k}{2^n},
-\]
-ainsi $f(x)-f_n(x)<\dfrac{1}{2^n}\xrightarrow[n\to+\infty]{}0$.
-
-\emph{2\textsuperscript{e} cas :} si $f(x)=+\infty$, alors $\forall n$, $x\in R_n$, donc
-$f_n(x)=n\xrightarrow[n\to+\infty]{}+\infty=f(x)$.
-
-Ainsi, $f_n(x)\to f(x)$.
-
-%---------------------------------------------------------------------
-\begin{enonce}{Corollaire}{31}
-Soit $(E,\A)$ un espace mesurable. Toute fonction numérique mesurable est limite simple
-d'une suite de fonctions étagées sur $\A$ à valeurs dans $\R$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-
-On écrit $f=f^{+}-f^{-}$, et $f^{+}$ et $f^{-}$ sont des fonctions mesurables positives.
-On peut leur appliquer le théorème précédent.
-
-Donc il existe une suite croissante $(g_n)$ de fonctions étagées positives sur $\A$ telle que
-$g_n\to f^{+}$. De même, il existe une suite croissante $(h_n)$ de fonctions étagées positives
-sur $\A$ telle que $h_n\to f^{-}$.
-
-$g_n-h_n$ est étagée sur $\A$ et à valeurs dans $\R$, et
-\[
-  g_n-h_n\longrightarrow f^{+}-f^{-}=f .
-\]
-
-\begin{note}
-« Étagée sur $\A$ » résulte de la Proposition 29 (espace vectoriel).
-\end{note}
-
-%=====================================================================
-\newpage
-\datepage{Vendredi 09 octobre 2026}
-\section*{Chapitre 3 : Mesures positives}
-
-\begin{note}
-Le manuscrit note la mesure par un symbole proche d'un « t » (avec une boucle) ; je lis et transcris $\mu$ partout.
-\end{note}
-
-\begin{enonce}{Définition}{1}
-Soit $\A$ une famille de parties d'un ensemble $E$, soit $\mu:\A\to\Rb_+$.
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item $\mu$ est dite \emph{simplement additive} si pour toute famille $(A_1,A_2,\dots,A_p)$ d'éléments deux à deux disjoints de $\A$
-        telle que $\displaystyle\bigcup_{i=1}^{p}A_i\in\A$ on a
-        \[
-          \mu\Bigl(\bigcup_{i=1}^{p}A_i\Bigr)=\sum_{i=1}^{p}\mu(A_i).
-        \]
-  \item $\mu$ est dite \emph{$\sigma$-additive} si pour toute famille dénombrable $(A_n)_{n\in\N}$ d'éléments deux à deux disjoints de $\A$
-        telle que $\displaystyle\bigcup_{n\in\N}A_n\in\A$, on a
-        \[
-          \mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\sum_{n=0}^{+\infty}\mu(A_n).
-        \]
-\end{enumerate}
-\end{enonce}
-
-\textbf{\color{bleu}Remarque 2.}
-Si $\A$ est un anneau, il suffit de dire : $\mu$ est simplement additive si
-$\forall A_1,A_2\in\A$, $A_1\cap A_2=\varnothing\Rightarrow\mu(A_1\cup A_2)=\mu(A_1)+\mu(A_2)$.
-
-\textbf{\color{bleu}Exemple 3.} Soit $E$ un ensemble et $\A=\Pp(E)$.
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Si $\mu(A)=\operatorname{Card}(A)$, $\forall A\subseteq E$, alors $\mu$ est additive mais pas $\sigma$-additive.
-  \item Si $\mu(A)=+\infty$, $\forall A\subseteq E$, alors $\mu$ est additive et $\sigma$-additive.
-\end{enumerate}
-
-\begin{enonce}{Proposition}{4}
-Soit $\A$ un anneau de parties de $E$ et soit $\mu:\A\to\Rb_+$ une application. Si $\mu$ est simplement additive et différente de
-l'application constante $+\infty$, $\mu$ a les propriétés suivantes :
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item $\mu(\varnothing)=0$.
-  \item $\forall A,B\in\A$, $A\subset B\Rightarrow\mu(A)\le\mu(B)$.
-  \item $\forall A,B\in\A$, $\mu(A\cup B)\le\mu(A)+\mu(B)$.
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-\textbf{1-} Soit $A\in\A$ tel que $\mu(A)<+\infty$. Comme $A\cap\varnothing=\varnothing$ alors
-$\mu(A\cup\varnothing)=\mu(A)+\mu(\varnothing)=\mu(A)$. $\mu(A)$ étant fini, alors $\mu(\varnothing)=0$.
-
-\textbf{2-} Soit $A,B\in\A$ tel que $A\subset B$, alors $B=A\cup(B\setminus A)$ et $B\setminus A\in\A$ ;
-de plus $A\cap(B\setminus A)=\varnothing$, donc $\mu(B)=\mu(A)+\mu(B\setminus A)$, d'où $\mu(B)\ge\mu(A)$ puisque $\mu(B\setminus A)\ge0$.
-
-\textbf{3-} Soit $A,B\in\A$. Alors $A\cup B=A\cup(B\setminus A)$ et $A\cap(B\setminus A)=\varnothing$, ainsi
-$\mu(A\cup B)=\mu(A)+\mu(B\setminus A)$. Or $B\setminus A\subset B\Rightarrow\mu(B\setminus A)\le\mu(B)$.
-Il vient que $\mu(A\cup B)\le\mu(A)+\mu(B)$.
-
-\begin{enonce}{Définition}{5}
-Soit $\A$ un anneau de parties de $E$. On appelle \emph{mesure positive} sur $\A$, une application $\mu:\A\to\Rb_+$, différente de
-l'application constante $+\infty$ et qui est $\sigma$-additive.
-\end{enonce}
-
-\begin{enonce}{Définition}{6}
-Soit $(E,\B)$ un espace mesurable. Si $\mu$ est une mesure sur la $\sigma$-algèbre $\B$, le triplet $(E,\B,\mu)$ est appelé
-\emph{espace mesuré}.
-\begin{itemize}[leftmargin=1.2cm]
-  \item Si $\mu$ prend ses valeurs dans $\R_+$, $\mu$ est dite \emph{finie}.
-  \item Si l'ensemble des valeurs prises par $\mu$ est borné supérieurement alors $\mu$ est dite \emph{bornée}.
-\end{itemize}
-\end{enonce}
-
-\textbf{\color{bleu}Exemple 7.} Si $\A$ est une $\sigma$-algèbre, alors $\forall A\in\A$, on a $\mu(A)\le\mu(E)$ et si $\mu(E)<+\infty$ alors
-$\mu$ est bornée.
-
-\textbf{\color{bleu}Exemple 8.} Soit $\A$ l'anneau des parties finies de $E$. Posons $\forall A\in\A$, $\mu(A)=\operatorname{Card}(A)$ ; alors $\mu$ est finie.
-Si $E$ est un espace infini, $\mu$ n'est pas bornée.
-
-\begin{enonce}{Théorème}{9}
-Si $\A$ est un anneau de parties de $E$, et $\mu:\A\to\Rb_+$ simplement additive et différente de l'application constante $+\infty$.
-Pour que $\mu$ soit une mesure, il faut et il suffit que : quelle que soit la suite croissante $(A_n)_{n\in\N}\subset\A$, telle que
-$\displaystyle\bigcup_{n\in\N}A_n\in\A$, on ait
-\[
-  \mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n)
-  \qquad\text{(propriété de limite croissante des mesures).}
-\]
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Remarquons d'abord que $A_n\subset A_{n+1}\Rightarrow\mu(A_n)\le\mu(A_{n+1})$.
-
-\textbf{1- Hypothèse :} $\mu$ est $\sigma$-additive.
-Soit $(A_n)_{n\in\N}$ une suite croissante avec $A_n\in\A$ $\forall n\in\N$ et $\bigcup_{n\in\N}A_n\in\A$.
-Montrons que $\mu\bigl(\bigcup_{n\in\N}A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
-
-Posons $B_0=A_0$, $B_1=A_1\setminus A_0\in\A$, \dots, $B_n=A_n\setminus A_{n-1}$.
-Par construction les $B_n$ sont deux à deux disjoints et $A_n=\bigcup_{p=0}^{n}B_p$, donc $\bigcup_{n=0}^{+\infty}A_n=\bigcup_{p=0}^{+\infty}B_p$.
-
-$\mu$ étant simplement additive, $\mu(A_n)=\sum_{p=0}^{n}\mu(B_p)$.
-$\mu$ étant $\sigma$-additive,
-\[
-  \mu\Bigl(\bigcup_{n=0}^{+\infty}A_n\Bigr)=\mu\Bigl(\bigcup_{p=0}^{+\infty}B_p\Bigr)=\sum_{p=0}^{+\infty}\mu(B_p)
-  =\lim_{n\to+\infty}\sum_{p=0}^{n}\mu(B_p)=\lim_{n\to+\infty}\mu(A_n).
-\]
-
-\textbf{2- Hypothèse :} pour toute suite croissante $(A_n)_{n\in\N}$ avec $A_n\in\A$ $\forall n\in\N$ et $\bigcup_{n\in\N}A_n\in\A$, on a
-$\mu\bigl(\bigcup A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
-
-Montrons que $\mu$ est $\sigma$-additive. Soit $(B_n)_{n\in\N}$ une suite telle que $B_n\in\A$, $\forall n\in\N$, les $B_n$ sont deux à deux disjoints
-et $\bigcup_{n\in\N}B_n\in\A$.
-
-Posons $A_n=\bigcup_{p=0}^{n}B_p$. La suite $(A_n)_{n\in\N}$ est croissante et $\bigcup_{n\in\N}A_n=\bigcup_{p\in\N}B_p\in\A$,
-donc $\mu\bigl(\bigcup_{n\in\N}A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
-
-Comme les $B_p$ sont deux à deux disjoints et que $\mu$ est simplement additive, alors $\mu(A_n)=\sum_{p=0}^{n}\mu(B_p)$. Ainsi
-\[
-  \mu\Bigl(\bigcup_{p\in\N}B_p\Bigr)=\mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n)
-  =\lim_{n\to+\infty}\Bigl(\sum_{p=0}^{n}\mu(B_p)\Bigr)=\sum_{p=0}^{+\infty}\mu(B_p).
-\]
-
-\begin{enonce}{Corollaire}{10}
-Soit $\mu$ une mesure sur l'anneau $\A$, si $S\in\A$ et si $R_n\in\A$ pour tout $n\in\N$ avec $S\subset\bigcup_{n\in\N}R_n$, alors
-\[
-  \mu(S)\le\sum_{n\in\N}\mu(R_n).
-\]
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Comme $S\subset\bigcup R_n$ alors $S=\bigcup_{n\in\N}(R_n\cap S)$ avec $R_n\cap S\in\A$.
-
-Posons $A_n=\bigcup_{i=0}^{n}(R_i\cap S)\in\A$ ; les $A_n$ forment une suite croissante et $\bigcup_{n\in\N}A_n=S$.
-D'après la propriété de limite croissante,
-\[
-  \mu(S)=\mu\Bigl(\bigcup_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n).
-\]
-Or $\mu(A_n)\le\sum_{i=0}^{n}\mu(R_i\cap S)\le\sum_{i=0}^{n}\mu(R_i)$. Ainsi $\mu(A_n)\le\sum_{i=0}^{n}\mu(R_i)$,
-d'où
-\[
-  \lim_{n\to+\infty}\mu(A_n)\le\lim_{n\to+\infty}\Bigl(\sum_{i=0}^{n}\mu(R_i)\Bigr)=\sum_{i=0}^{+\infty}\mu(R_i),
-  \qquad\text{d'où}\qquad \mu(S)\le\sum_{i=0}^{+\infty}\mu(R_i).
-\]
-
-\begin{enonce}{Théorème}{11}
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Soit $\A$ un anneau de parties de $E$ et $\mu:\A\to\Rb_+$ une mesure sur $\A$, alors pour toute suite décroissante
-        $(A_n)_{n\in\N}\subset\A$ telle que $\bigcap_{n\in\N}A_n\in\A$ et $\mu(A_0)<+\infty$ on a
-        \[
-          \mu\Bigl(\bigcap_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n).
-        \]
-  \item Soit $\mu:\A\to\Rb_+$ une application simplement additive. Pour que $\mu$ soit une mesure, il suffit que pour toute suite décroissante
-        $(A_n)_{n\in\N}\subset\A$ telle que $\bigcap_{n\in\N}A_n=\varnothing$, $\mu(A_n)\xrightarrow[n\to+\infty]{}0$.
-\end{enumerate}
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-\textbf{1- Hypothèse :} $\mu$ est une mesure.
-
-Soit $(A_n)$ une suite décroissante de $\A$ telle que $\bigcap_{n\in\N}A_n\in\A$ et $\mu(A_0)<+\infty$.
-Montrons que $\mu\bigl(\bigcap_{n\in\N}A_n\bigr)=\lim_{n\to+\infty}\mu(A_n)$.
-
-\begin{note}
-Le manuscrit écrit ici « $\mu(A_0)\neq+\infty$ » (avec une rature), alors que l'énoncé dit $\mu(A_0)<+\infty$ ; c'est équivalent.
-\end{note}
-
-Posons $B_n=A_0\setminus A_n\in\A$. Les $B_n$ forment une suite croissante et
-$\bigcup_{n\in\N}B_n=A_0\setminus\bigcap_{n\in\N}A_n\in\A$.
-$\mu$ étant une mesure, on peut appliquer le théorème des suites croissantes à $(B_n)$ :
-\[
-  \mu\Bigl(\bigcup_{n\in\N}B_n\Bigr)=\lim_{n\to+\infty}\mu(B_n).
-\]
-Or $A_0=A_n\cup(A_0\setminus A_n)$ et $B_n=A_0\setminus A_n$. Ainsi $\mu(A_0)=\mu(A_n)+\mu(B_n)$,
-d'où $\mu(B_n)=\mu(A_0)-\mu(A_n)$ car $\mu(A_0)<+\infty$ et $(A_n)_{n\in\N}$ est décroissante.
-
-De même, $\mu\bigl(\bigcup B_n\bigr)=\mu(A_0)-\mu\bigl(\bigcap_{n\in\N}A_n\bigr)$. Donc
-\[
-  \mu(A_0)-\mu\Bigl(\bigcap_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\bigl[\mu(A_0)-\mu(A_n)\bigr].
-\]
-Ainsi $\displaystyle\mu\Bigl(\bigcap_{n\in\N}A_n\Bigr)=\lim_{n\to+\infty}\mu(A_n)$.
-
-\textbf{\color{bleu}Exemple 12.} $\A=\Pp(E)$ et $\mu(A)=\operatorname{Card}(A)$. $A_n=\{n,n+1,n+2,\dots\}$ ; $\mu(A_n)=+\infty$,
-$\bigcap_{n\in\N}A_n=\varnothing$ et $\mu\bigl(\bigcap_{n\in\N}A_n\bigr)=0$.
-
-\textbf{2- Hypothèse :} $\mu$ est simplement additive, et pour toute suite décroissante $(A_n)_{n\in\N}\subset\A$ telle que $\bigcap_{n\in\N}A_n=\varnothing$,
-$\mu(A_n)\xrightarrow[n\to+\infty]{}0$.
-
-Montrons que $\mu$ est $\sigma$-additive. Soit $(B_n)$ une suite d'éléments deux à deux disjoints de $\A$ telle que
-$\bigcup_{n\in\N}B_n\in\A$ ; montrons que
-\[
-  \mu\Bigl(\bigcup_{n\in\N}B_n\Bigr)=\sum_{n=0}^{+\infty}\mu(B_n).
-\]
-Posons $A_p=\bigcup_{n=0}^{p}B_n\in\A$ et $\mu(A_p)=\sum_{n=0}^{p}\mu(B_n)$.
-
-Posons $B=\bigcup_{n\in\N}B_n=\bigcup_{p=0}^{+\infty}A_p\in\A$.
-La suite $(B\setminus A_p)_{p\in\N}$ est une suite décroissante et $\bigcap_{p\in\N}(B\setminus A_p)=\varnothing$ ;
-par hypothèse, $\mu(B\setminus A_p)\to0$.
-
-Or $B=A_p\cup(B\setminus A_p)$ donc $\mu(B)=\mu(A_p)+\mu(B\setminus A_p)$.
-Comme $\mu(B\setminus A_p)\to0$, il est fini à partir d'un certain rang et on peut écrire :
-\[
-  \mu(A_p)=\mu(B)-\mu(B\setminus A_p).
-\]
-Il vient : $\displaystyle\sum_{n=0}^{+\infty}\mu(B_n)=\mu(B)-\mu(B\setminus A_p)$, il en résulte que
-$\displaystyle\sum_{n=0}^{+\infty}\mu(B_n)=\mu(B)$.
-
-\begin{note}
-Dans l'avant-dernière ligne, le manuscrit écrit la somme jusqu'à $+\infty$ avec $\mu(B\setminus A_p)$ ; il faut lire
-$\sum_{n=0}^{p}\mu(B_n)=\mu(B)-\mu(B\setminus A_p)$, puis passer à la limite quand $p\to+\infty$.
-\end{note}
-
-%---------------------------------------------------------------------
-\subsubsection*{1- Mesure image}
-
-Soit $(X_1,\A_1,\mu_1)$ un espace mesuré. Soit $(X_2,\A_2)$ un espace mesurable, et $f:(X_1,\A_1)\to(X_2,\A_2)$ une application mesurable.
-Comment construire à partir de $\mu_1$ et de $f$ une mesure $\mu_2$ sur $(X_2,\A_2)$ ?
+\subsection*{Lien avec le cours de Mesure}
 
 \begin{center}
 \begin{tikzpicture}[>=Stealth,thick]
-  \node (a) at (0,2.4) {$(X_1,\A_1)$};
-  \node (b) at (6.2,2.4) {$(X_2,\A_2)$};
-  \node (c) at (0,0) {$\Rb_+$};
-  \draw[->] (a) -- (b) node[midway,above] {$f$};
-  \draw[->] (a) -- (c) node[midway,left] {$\mu_1$};
-  \draw[->] (b) -- (c) node[midway,above right] {$\mu_2$};
+  \draw[bleuclair,rounded corners=18pt] (0,0) -- (1.2,1.4) -- (3.2,1.7) -- (4.8,1.1) -- (5.2,-0.3) -- (3.6,-1.2) -- (1.2,-1.1) -- cycle;
+  \draw[bleu] (1.1,0.1) .. controls (1.6,0.9) and (2.8,1.0) .. (3.0,0.2) .. controls (3.1,-0.5) and (1.8,-0.7) .. (1.1,0.1);
+  \node[bleu] at (2.1,0.2) {$A$};
+  \fill[bleu] (4.0,0.75) circle (1.6pt);
+  \draw[->] (4.0,0.75) -- (5.6,1.25) node[right] {$dx$};
+  \node[right] at (5.5,0.5) {$\mu(dx)$ \small(mesure de $dx$)};
 \end{tikzpicture}
 \end{center}
 
-Alors $\mu_2=\mu_1\circ f^{-1}=f_*\mu_1$ est une mesure sur $\A_2$ appelée \emph{mesure image} de $\mu_1$ par $f$.
-
-En effet, $\forall B\in\A_2$,
+Pour $A\subset E$ :
 \[
-  \mu_2(B)=(f_*\mu_1)(B)=\mu_1\bigl(f^{-1}(B)\bigr).
+  \mu(A)=\int_A\mu(dx)=\int_A d\bigl(\mu(x)\bigr)=\int_E\ind_A\,d\mu(x)=\mu(A).
 \]
 
-\datepage{Mardi 13 octobre 2026}
-\subsubsection*{2- Mesures discrètes}
+\subsection*{Mesure de probabilité}
 
-Soit $E$ un ensemble et $(x_i)_{i\in I}$ une famille dénombrable de points de $E$ ($\forall i\in I$, $x_i\in E$), $(a_i)_{i\in I}$ une famille dénombrable
-de nombres strictement positifs ($\forall i\in I$, $a_i\in\R_+^*$).
-
-Soit $\A$ un anneau de parties de $E$. $\forall A\in\A$, on pose
+Soit $\mu:\Ff\to\Rb_+$ une mesure finie ($A\subset E$ ; $\mu(A)\le\mu(E)$, $\mu\ge0$). On définit
 \[
-  \mu(A)=\sum_{i\,/\,x_i\in A}a_i .
-\]
-Alors $\mu$ est une mesure positive sur $E$.
-
-$\ast$ \emph{Vérifions l'additivité de $\mu$.} Soit $A,B\in\A$, $A\cap B=\varnothing$. Alors
-\[
-  \mu(A\cup B)=\sum_{i\,/\,x_i\in A\cup B}a_i=\sum_{i\,/\,x_i\in A}a_i+\sum_{i\,/\,x_i\in B}a_i=\mu(A)+\mu(B).
+  \PP:\ A\longmapsto\frac{\mu(A)}{\mu(E)} .
 \]
 
-$\ast$ \emph{Vérifions que $\mu$ est $\sigma$-additive.} Soit $(B_n)_{n\in\N}\subset\A$, les $B_n$ deux à deux disjoints. Alors
+%=====================================================================
+\section*{Propriétés de continuité des probabilités}
+
+Soit $(A_i)$ une suite d'événements et $B_i\subset A_i$ ; alors
 \[
-  \mu\Bigl(\bigcup_{n\in\N}B_n\Bigr)=\sum_{i\,/\,x_i\in\bigcup B_n}a_i=\sum_{n\in\N}\Bigl(\sum_{i\,/\,x_i\in B_n}a_i\Bigr)=\sum_{n\in\N}\mu(B_n).
+  \PP\Bigl(\bigcup A_i\Bigr)=\PP\Bigl(\bigcup B_i\Bigr)=\sum\PP(B_i)=\lim_{n\to+\infty}\sum_{i=1}^{n}\PP(B_i)\ \le\ \lim\sum_{i=1}^{n}\PP(A_i)=\sum\PP(A_i),
 \]
-La mesure $\mu$ ainsi définie s'appelle une \emph{mesure discrète}.
+puisque $\PP(B_i)\le\PP(A_i)$.
 
-\textbf{\color{red!70!black}Remarque 14 :} \textit{(le manuscrit écrit le titre « Remarque 14 : » en bas de page, puis passe à la page suivante.)}
-
-Si $\A=\Pp(E)$, $\mu$ est finie si et seulement si $\sum_{i\in I}a_i<+\infty$. Si $\sum_{i\in I}a_i=1$ alors $a_i$ est la probabilité de $\{x_i\}$
-et $\mu(A)$ est la probabilité de $A$.
-
-\begin{note}
-Le manuscrit ne numérote pas ce paragraphe sur les mesures discrètes (« 2- » après la mesure image) ; le titre « Remarque 14 : » est laissé en fin de page.
-Je place la phrase du haut de la page suivante, qui parle de $\mu$ finie, comme contenu de cette remarque, ce qui est une interprétation.
-\end{note}
-
-%---------------------------------------------------------------------
-\subsubsection*{Construction de la mesure de Lebesgue}
-
-\begin{enonce}{Proposition}{15}
-Soit $\Ss$ un semi-anneau de parties de $E$. L'anneau $\A$ engendré par $\Ss$ ($\A=\sigma(\Ss)$) est formé de réunions d'éléments deux à deux
-disjoints de $\Ss$.
-\end{enonce}
-
-\begin{preuve}\end{preuve}
-Si $A=\bigcup_{k=1}^{n}S_k$, $S_k\in\Ss$, on vérifie que
+\textbf{\color{bleu}P6)} $(A_i)_{i\ge1}\nearrow$, c'est-à-dire $A_i\subset A_{i+1}$.
 \[
-  A=S_1\cup(S_2\setminus S_1)\cup\dots\cup\bigl(S_n\setminus(S_1\cup\dots\cup S_{n-1})\bigr).
+  B_i=A_i\setminus\Bigl(\bigcup_{k<i}A_k\Bigr).
+\]
+$B_1=A_1$, $B_2=A_2\setminus A_1$, $B_1\cup B_2=A_1\cup(A_2\setminus A_1)=A_2$, \dots, $B_1\cup\dots\cup B_n=A_n$.
+\[
+  A_n=\bigcup_{i=1}^{n}B_i,\qquad \bigcup_{n\in\N}A_n=\bigcup_{n\in\N}\bigcup_{i=1}^{n}B_i=\bigcup_{i}B_i .
 \]
 
-\begin{enonce}{Théorème}{16}
-Soit $\Ss$ un semi-anneau de parties de $E$ et $\lambda:\Ss\to\Rb_+$ une application.
-\begin{enumerate}[label=\textbf{\arabic*-},leftmargin=1.2cm]
-  \item Si $\lambda$ est simplement additive, $\lambda$ se prolonge de manière unique en une application simplement additive
-        $\overline\lambda:\A\to\Rb_+$ où $\A$ est l'anneau engendré par $\Ss$ ($\A=\sigma(\Ss)$).
-  \item Si $\lambda$ est de plus $\sigma$-additive, le prolongement $\overline\lambda$ est $\sigma$-additif.
-\end{enumerate}
-\end{enonce}
+Posons $B_1=A_1$, $B_i=A_i\cap\Bigl(\bigcup_{k\le i-1}A_k\Bigr)^c$.\\
+$B_2=A_2\cap A_1^c$, \quad $B_3=A_3\cap(A_1\cup A_2)^c$.
 
-\begin{note}
-Le manuscrit écrit « $\A=\sigma(\Ss)$ » pour l'anneau engendré ; cela désigne ici l'anneau (et non la tribu) engendré par $\Ss$, comme dans la Proposition 15.
-Les repères \textcircled{\scriptsize i} et \textcircled{\scriptsize ii} du manuscrit sont notés (i) et (ii).
-\end{note}
-
-\begin{preuve}\end{preuve}
-\textbf{1-} $\ast$ \emph{Unicité de $\overline\lambda$.} Soit $\A=\sigma(\Ss)$ et $A\in\A$. Alors
+\textbf{Montrons que les $B_i$ sont deux à deux disjoints.} Soit $i\neq j$ ; sans perte de généralité, $i<j$, c'est-à-dire $i\le j-1$.
 \[
-  A=\bigcup_{i=1}^{n}S_i,\qquad S_i\in\Ss\text{ et les }S_i\text{ sont deux à deux disjoints.}\tag{i}
+  B_j=A_j\cap\Bigl(\bigcup_{k=1}^{j-1}A_k\Bigr)^c,\qquad B_i=A_i\cap\Bigl(\bigcup_{l=1}^{i-1}A_l\Bigr)^c .
 \]
-S'il existe un prolongement $\overline\lambda$ de $\lambda$ simplement additif, alors on doit avoir
+Comme $i\le j-1$ : $A_i\subset A_{j-1}$, donc $A_i\cap A_{j-1}^c=\varnothing$. Alors
 \[
-  \overline\lambda(A)=\sum_{i=1}^{n}\lambda(S_i).\tag{ii}
-\]
-Donc la valeur de $\overline\lambda$ est déterminée.
-
-$\ast$ \emph{Existence de $\overline\lambda$.} En général $A$ peut s'écrire de plusieurs manières sous la forme (i). On ne peut définir $\overline\lambda(A)$ par (ii)
-que si le nombre trouvé dans (ii) est indépendant de la décomposition de $A$ choisie.
-
-Supposons que $A=\bigcup_{i=1}^{n}S_i=\bigcup_{j=1}^{m}T_j$ où $S_i,T_j\in\Ss$, les $S_i$ et $T_j$ étant deux à deux disjoints (chacune des familles $(S_i)$ et $(T_j)$ étant formée d'éléments deux à deux disjoints dans $\Ss$).
-
-On veut montrer $\displaystyle\sum_{i=1}^{n}\lambda(S_i)=\sum_{j=1}^{m}\lambda(T_j)$.
-Remarquons que $S_i\cap T_j\in\Ss$ et les $S_i\cap T_j$ sont deux à deux disjoints.
-\begin{align*}
-  S_i\subset A=\bigcup_{j=1}^{m}T_j&\Rightarrow S_i=\bigcup_{j=1}^{m}(S_i\cap T_j)\Rightarrow\lambda(S_i)=\sum_{j=1}^{m}\lambda(S_i\cap T_j),\\
-  T_j\subset A=\bigcup_{i=1}^{n}S_i&\Rightarrow T_j=\bigcup_{i=1}^{n}(S_i\cap T_j)\Rightarrow\lambda(T_j)=\sum_{i=1}^{n}\lambda(S_i\cap T_j).
-\end{align*}
-Ainsi,
-\[
-  \sum_{i=1}^{n}\lambda(S_i)=\sum_{i=1}^{n}\Bigl(\sum_{j=1}^{m}\lambda(S_i\cap T_j)\Bigr)=\sum_{j=1}^{m}\sum_{i=1}^{n}\lambda(S_i\cap T_j)=\sum_{j=1}^{m}\lambda(T_j).
+  B_i\cap B_j=A_i\cap\Bigl(\bigcup_{k<i}A_k\Bigr)^c\cap A_j\cap\Bigl(\bigcap_{\substack{l<j\\ l\neq j-1}}A_l^c\Bigr)\cap A_{j-1}^c=\varnothing .
 \]
 
-$\ast$ \emph{Montrons que $\overline\lambda(A)$ définie par (ii) est simplement additive.}
-Soit $A,B\in\A$ avec $A\cap B=\varnothing$. $A=\bigcup_{i=1}^{n}S_i$, $S_i\in\Ss$, $S_i$ deux à deux disjoints ;
-$B=\bigcup_{j=1}^{m}T_j$, $T_j\in\Ss$, $T_j$ deux à deux disjoints.
-Alors $A\cup B=\bigl(\bigcup_{i=1}^{n}S_i\bigr)\cup\bigl(\bigcup_{j=1}^{m}T_j\bigr)$, $S_i,T_j\in\Ss$, les $S_i,T_j$ deux à deux disjoints car $A\cap B=\varnothing$.
+\[
+  B_1\cup B_2=A_1\cup[A_2\cap A_1^c]=(A_1\cup A_2)\cap\underbrace{(A_1\cup A_1^c)}_{=\Omega}=A_1\cup A_2 ,
+\]
+\[
+  B_1\cup B_2\cup B_3=(A_1\cup A_2)\cup\bigl[A_3\cap(A_1\cup A_2)^c\bigr]
+  =(A_1\cup A_2\cup A_3)\cap\bigl((A_1\cup A_2)\cup(A_1\cup A_2)^c\bigr)=A_1\cup A_2\cup A_3 .
+\]
+
+On a montré que $\displaystyle\bigcup A_i=\bigcup B_i$ avec $B_i\cap B_j=\varnothing$. Donc
+\[
+  \PP\Bigl(\bigcup A_i\Bigr)=\PP\Bigl(\bigcup B_i\Bigr)=\sum_{i=1}^{\infty}\PP(B_i)=\lim_{n\to+\infty}\sum_{i=1}^{n}\PP(B_i)
+  =\lim_{n\to+\infty}\PP\Bigl(\bigcup_{i=1}^{n}B_i\Bigr)=\lim_{n\to+\infty}\PP(A_n).
+\]
+
+\textbf{\color{bleu}P7)} Soit $(A_i)\searrow$, c'est-à-dire $A_{i+1}\subset A_i\Rightarrow A_i^c\subset A_{i+1}^c\Rightarrow\{A_i^c\}\nearrow$, d'où
+\[
+  \PP\Bigl(\bigcup A_i^c\Bigr)=\lim_{n\to+\infty}\PP(A_n^c).
+\]
 Donc
 \[
-  \overline\lambda(A\cup B)=\sum_{i=1}^{n}\lambda(S_i)+\sum_{j=1}^{m}\lambda(T_j)=\overline\lambda(A)+\overline\lambda(B).
+  \PP\Bigl[\Bigl(\bigcap A_i\Bigr)^c\Bigr]=1-\lim\PP(A_n),\qquad\text{et}\qquad 1-\PP\Bigl(\bigcap A_i\Bigr)=1-\lim\PP(A_i),
 \]
+soit $\PP\bigl(\bigcap A_i\bigr)=\lim\PP(A_i)$.
 
-\textbf{2-} Supposons que $\lambda$ soit $\sigma$-additive et montrons que son prolongement $\overline\lambda$ est $\sigma$-additif.
+%=====================================================================
+\section*{Mesure image}
 
-Soit $(A_n)_{n\in\N}\subset\A$ une suite d'éléments deux à deux disjoints et $A=\bigcup_{n\in\N}A_n\in\A$.
-Montrons que $\overline\lambda(A)=\sum_{n\in\N}\overline\lambda(A_n)$.
-
-Or $\forall n\in\N$, $A_n\in\A=\sigma(\Ss)$. Donc $A_n=\bigcup_{i=1}^{p}S_{n,i}$ avec $S_{n,i}\in\Ss$, les $S_{n,i}$ étant deux à deux disjoints.
-Ainsi $\overline\lambda(A_n)=\sum_{i=1}^{p}\lambda(S_{n,i})$.
-
-Or $A=\bigcup_{n\in\N}A_n\in\A$. Alors $A=\bigcup_{k=1}^{n}T_k$, $T_k\in\Ss$ et sont deux à deux disjoints. Ainsi, $\overline\lambda(A)=\sum_{k=1}^{n}\lambda(T_k)$.
-
-De plus
+Soit $T:(E,\Ff)\to(E',\Ff')$ mesurable et $\mu:\Ff\to\Rb_+$ une mesure.
 \[
-  A=\bigcup_{n\in\N}A_n=\bigcup_{n\in\N}\Bigl(\bigcup_{i=1}^{p}S_{n,i}\Bigr)=\bigcup_{n,i}S_{n,i}.
+  \mu:\ \Ff\longrightarrow\Rb_+,\qquad A\longmapsto\mu(A),
 \]
-$T_k\subset A\Rightarrow T_k=\bigcup_{n,i}(T_k\cap S_{n,i})$ (les $T_k\cap S_{n,i}$ étant deux à deux disjoints)
-$\Rightarrow\lambda(T_k)=\sum_{n,i}\lambda(T_k\cap S_{n,i})$.
+\[
+  \mu_T:\ \Ff'\longrightarrow\Rb_+,\qquad A\longmapsto\mu_T(A)=\mu\bigl(T^{-1}(A)\bigr).
+\]
 
-Ainsi, $\displaystyle\overline\lambda(A)=\sum_{k=1}^{n}\sum_{n,i}\lambda(T_k\cap S_{n,i})$.
+\begin{note}
+Le manuscrit s'arrête à « $\mu_T(A)=\mu($ » ; la définition est complétée par celle du cours de mesure.
+\end{note}
 
-De même, $S_{n,i}\subset A\Rightarrow S_{n,i}=\bigcup_{k=1}^{n}(S_{n,i}\cap T_k)\Rightarrow\lambda(S_{n,i})=\sum_{k=1}^{n}\lambda(S_{n,i}\cap T_k)$.
+%=====================================================================
+\section*{Fonction de répartition}
+
+\textbf{\color{bleu}$\ast$ Croissance.} Soit $x,y\in\R$ tels que $x\le y$. Montrons que $F_X(x)\le F_X(y)$.
+
+On a : $F_X(x)=\PP(X\le x)$ et
+\[
+  (X\le x)=\{\omega\in\Omega\ /\ X(\omega)\le x\}\subset\{\omega\in\Omega\ /\ X(\omega)\le y\}\quad\text{car }x\le y .
+\]
+$\PP(X\le x)\le\PP(X\le y)$, donc $F_X(x)\le F_X(y)$.
+
+\medskip
+\textbf{\color{bleu}4)} \quad $\displaystyle\lim_{x\to-\infty}F_X(x)=\lim_{n\to+\infty}F_X(-n)$
+\begin{align*}
+  &=\lim_{n\to+\infty}\PP(X\le-n)=\lim_{n\to+\infty}\PP\bigl(X^{-1}(]-\infty;-n])\bigr)=\lim_{n\to+\infty}\PP_X\bigl(\underbrace{]-\infty;-n]}_{A_n}\bigr)\\
+  &=\lim_{n\to+\infty}\PP(A_n)\ \text{ avec }(A_n)\searrow\\
+  &=\PP_X\Bigl(\bigcap A_n\Bigr)=\PP_X(\varnothing)=\PP_X\bigl(X^{-1}(\varnothing)\bigr)=\PP(\varnothing)=0 .
+\end{align*}
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick,x=1cm,y=1cm]
+  \draw (0,0) -- (7,0);
+  \foreach \x/\l in {1/$-n$,2.5/$0$,4/$n$,5.5/$n+1$} {\draw (\x,0.1) -- (\x,-0.1) node[below,font=\small] {\l};}
+  \begin{scope}[yshift=-1.6cm]
+  \draw (0,0) -- (7,0);
+  \foreach \x/\l in {1.2/$-n+1$,2.4/$-n$,4/$0$,5.5/$n$} {\draw (\x,0.1) -- (\x,-0.1) node[below,font=\small] {\l};}
+  \draw[bleuclair] (0.2,0.15) .. controls (1.5,0.8) and (3,0.8) .. (4,0.15);
+  \draw[bleuclair] (0.2,0.15) .. controls (1.0,0.5) and (1.8,0.5) .. (2.4,0.15);
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\textbf{\color{bleu}2) Continuité à droite.}
+On veut montrer que $\displaystyle\lim_{x\to x_0^+}F_X(x)=F_X(x_0)$. On a :
+\begin{align*}
+  \lim_{x\to x_0^+}F_X(x)&=\lim_{n\to+\infty}F_X\Bigl(x_0+\frac1n\Bigr)\\
+  &=\lim_{n\to+\infty}\PP\Bigl(X\le x_0+\frac1n\Bigr)=\lim_{n\to+\infty}\PP\Bigl(X^{-1}\bigl(]-\infty;x_0+\tfrac1n]\bigr)\Bigr)\\
+  &=\lim_{n\to+\infty}\PP_X\Bigl(]-\infty;x_0+\tfrac1n]\Bigr).
+\end{align*}
+$n<n+1\Rightarrow\dfrac1{n+1}<\dfrac1n\Rightarrow A_{n+1}\subset A_n$ et $A_n\searrow$ :
+\[
+  =\PP_X\Bigl(\bigcap_{n}\,]-\infty;x_0+\tfrac1n]\Bigr).
+\]
+Soit $x\in\bigcap_n\,]-\infty;x_0+\frac1n]\Rightarrow\forall n$, $x\le x_0+\frac1n$. En passant à la limite, on a : $x\le x_0\Rightarrow x\in\,]-\infty;x_0]$.
+Si $x\in\,]-\infty;x_0]$, $x\le x_0$ or $x_0\le x_0+\frac1n$ $\forall n$.
+
+Donc $\displaystyle\bigcap_{n}\,]-\infty;x_0+\tfrac1n]=\,]-\infty;x_0]$.
+\[
+  \lim_{x\to x_0^+}F_X(x)=\PP_X\Bigl(\bigcap_n\,]-\infty;x_0+\tfrac1n]\Bigr)=\PP_X\bigl(]-\infty;x_0]\bigr)=\PP(X\le x_0)=F_X(x_0).
+\]
+
+\subsection*{Probabilité d'un intervalle}
+
+$\blacksquare$\quad $\PP(a\le X<b)\neq\PP(a<X\le b)\neq\PP(a\le X\le b)$
+
+\textit{Preuve.}
+
+\underline{Cas 1 :} $\PP(a<X\le b)=F_X(b)-F_X(a)$.
+
+\begin{center}
+\begin{tikzpicture}[thick]
+  \draw (0,0) -- (6,0);
+  \draw (2,0.1) -- (2,-0.1) node[below] {$a$};
+  \draw (4,0.1) -- (4,-0.1) node[below] {$b$};
+\end{tikzpicture}
+\end{center}
+
+$]a,b]=\,]-\infty;b]\setminus\,]-\infty;a]$.
+\begin{align*}
+  \PP(a<X\le b)&=\PP_X\bigl(X^{-1}(]a,b])\bigr)=\PP_X(]a,b])\\
+  &=\PP_X\bigl(]-\infty;b]\setminus\,]-\infty;a]\bigr)\\
+  &=\PP_X(]-\infty;b])-\PP_X(]-\infty;a])\\
+  &=\PP(X\le b)-\PP(X\le a)=F_X(b)-F_X(a).
+\end{align*}
+
+\underline{Cas 2 :} $\PP(a\le X<b)$. $\ [a,b[\,=\,]-\infty;b[\setminus\,]-\infty;a[$.
+\begin{align*}
+  \PP(a\le X<b)&=\PP_X([a,b[)\\
+  &=\PP_X\bigl(]-\infty;b[\setminus\,]-\infty;a[\bigr)\\
+  &=\PP_X(]-\infty;b[)-\PP_X(]-\infty;a[)\\
+  &=\PP(X<b)-\PP(X<a)\\
+  &=\lim_{x\to b^-}F_X(x)-\lim_{x\to a^-}F_X(x).
+\end{align*}
+
+%=====================================================================
+\section*{Convergence d'une variable aléatoire}
+
+\textbf{Pb :} On veut justifier le passage suivant
+\[
+  \lim_{n\to+\infty}\EE\bigl[f(X_n)\bigr]=\EE\Bigl(\lim_{n\to+\infty}f(X_n)\Bigr).
+\]
+
+\textbf{\color{bleu}Rappels :} notion de convergence de la V.A.
+
+En $\R$ : $u_n\to u\iff\forall\varepsilon>0$, $\exists n_\varepsilon\in\N$, $n\ge N_\varepsilon\Rightarrow|u_n-u|<\varepsilon$.
+
+Si $\{X_n\}$ est une suite de V.A, alors comment comprendre $X_n\to X$ ?
+
+On pourrait penser à écrire
+\[
+  X_n\to X\ \text{ ssi }\ \forall\varepsilon>0,\ \exists n_\varepsilon\in\N\ /\ n\ge N_\varepsilon\Rightarrow|X_n-X|<\varepsilon .
+\]
+\textbf{Difficulté} (mode de convergence en probabilité) :
+\begin{enumerate}[label=\textbf{\roman*)},leftmargin=1.2cm]
+  \item $|X_n-X|$ est un évènement ;
+  \item $|X_n-X|<\varepsilon\Rightarrow\{\omega\in\Omega\ /\ |X_n(\omega)-X(\omega)|<\varepsilon\}$ ;
+  \item c'est un évènement et dire que $A_n$ se réalise avec une certaine probabilité.
+\end{enumerate}
+
+\subsection*{1\textsuperscript{er} mode de convergence}
+
+\begin{enonce}{Convergence}{en probabilité}
+\[
+  X_n\xrightarrow{\ \PP\ }X\iff\forall\varepsilon>0,\ \exists n_\varepsilon\in\N,\quad n\ge N_\varepsilon\Rightarrow\PP(|X_n-X|<\varepsilon)\to1 .
+\]
+\end{enonce}
+
+Comme $\PP(|X_n-X|<\varepsilon)=1-\PP(|X_n-X|\ge\varepsilon)$, on a de façon équivalente :
+\[
+  X_n\xrightarrow{\ \PP\ }X\iff\forall\varepsilon>0,\ \lim_{n\to+\infty}\PP(|X_n-X|>\varepsilon)=0 .
+\]
+
+\subsection*{2\textsuperscript{ème} mode (convergence presque sûre)}
+
+\[
+  X_n\xrightarrow{\ \text{p.s}\ }X\ \text{ ssi }\ \PP\bigl(\lim X_n=X\bigr)=1
+\]
+ssi $\exists\,\Omega_1\subset\Omega$ tel que $\PP(\Omega_1)=1$ et $\forall\omega_0\in\Omega_1$, $\displaystyle\lim_{n\to+\infty}X_n(\omega_0)=X(\omega_0)$.
+
+Avec $\PP(\Omega\setminus\Omega_1)=0$ et $\forall\omega_0\in\Omega\setminus\Omega_1$, $\displaystyle\lim_{n\to+\infty}X_n(\omega_0)\neq X(\omega_0)$ (ou la limite n'existe pas).
+
+\subsection*{3\textsuperscript{ème} mode (convergence en distribution)}
+
+Soit $(X_n)$ une suite de V.A de fonction de répartition $F_{X_n}$.
+\[
+  X_n\xrightarrow{\ d\ }X\iff F_{X_n}(x)\longrightarrow F_X(x),\qquad\forall x\in F_X^{\,c}\ \ (\text{point de continuité de }F_X).
+\]
+
+%=====================================================================
+\section*{Lois limites}
+
+\textbf{\color{bleu}$\bullet$ LFGN} (loi faible des grands nombres). Si $(X_i)$ est une suite de V.A telle que $\EE(X_1)<+\infty$ et les $X_i$ sont iid, i.e.\ $\mu=\EE(X)$, $\sigma^2=\Var(X)$.
+Alors
+\[
+  \frac1n\sum X_i\xrightarrow{\ \PP\ }\EE(X_1).
+\]
+
+\textbf{\color{bleu}$\bullet$ LPGN} (loi forte des grands nombres). $(X_i)$ iid telle que $\EE(X_i^{+})<+\infty$, $\mu=\EE(X_i)$, $\sigma^2=\Var(X_i)$ ; alors
+\[
+  \frac1n\sum X_i\xrightarrow{\ \text{p.s}\ }\EE(X_1).
+\]
+
+\textbf{\color{bleu}$\bullet$ TCL.} Si on a $(X_i)$ iid de moyenne $\mu=\EE(X_i)$, $\sigma^2=\Var(X_i)$ :
+\[
+  \sqrt n\,(\overline X_n-\mu)\xrightarrow{\ d\ }\mathcal N(0,\sigma^2).
+\]
+De même,
+\[
+  \frac{\sqrt n\,(\overline X_n-\mu)}{\sigma}\xrightarrow{\ d\ }\mathcal N(0,1),\qquad\text{où }\ \overline X_n=\frac1n\sum_{i=1}^{n}X_i .
+\]
+
+\begin{note}
+La page « Lois limites » n'est reliée aux autres par aucune phrase ; elle est placée après les trois modes de convergence, dont elle utilise les notations.
+\end{note}
+
+%=====================================================================
+\section*{Passage de la limite dans l'espérance}
+
+On veut répondre à la question du passage de la limite dans l'espérance.
+
+\textbf{3 résultats principaux :}
+\begin{enumerate}[label=\textbf{(\roman*)},leftmargin=1.2cm]
+  \item Beppo-Levi ;
+  \item Convergence dominée ;
+  \item Lemme de Fatou.
+\end{enumerate}
+
+\textbf{(i)} Si $X_n\nearrow$ ou $X_n\searrow$ tel que $X_n\to X$, on montre que (B.~Levi)
+\[
+  \lim_{n\to+\infty}\EE\bigl(f(X_n)\bigr)=\EE\bigl(\lim_n f(X_n)\bigr).
+\]
+
+\textbf{(ii) \underline{Convergence dominée.}} Soit $(X_n)_n$ une suite de V.A telle que $X_n\to X$ et il existe $Y$ tel que $|X_n|\le Y$ avec $Y\in L^1$
+(espérance de valeur absolue est finie). Alors
+\[
+  \lim\EE\bigl(f(X_n)\bigr)=\EE\bigl(\lim f(X_n)\bigr).
+\]
+
+\begin{note}
+Le lemme de Fatou (iii) est annoncé mais n'est pas développé dans le manuscrit.
+\end{note}
+
+%=====================================================================
+\section*{Inégalité de Markov}
+
+Soit $A\subset\Omega$ ; $\ind_A=\begin{cases}1&\text{si }x\in A\\0&\text{sinon}\end{cases}$, $\ \ind_\Omega=1$ \qquad(l'indicatrice est positive).
+
+Soit $X$ une V.A positive et $a>0$.
+\[
+  X=X\times1=X\ind_\Omega .
+\]
+$\Omega=\{X<a\}\cup\{X\ge a\}$, donc
+\[
+  \ind_\Omega=\ind_{\{X<a\}}+\ind_{\{X\ge a\}},
+\]
+\[
+  X\ind_\Omega=\underbrace{X\ind_{\{X<a\}}}_{\ge0}+X\ind_{\{X\ge a\}} .
+\]
+$X\ind_\Omega\ge X\ind_{\{X\ge a\}}$.
+\[
+  X\ge X\ind_{\{X\ge a\}}\ge a\ind_{\{X\ge a\}}\ \Longrightarrow\ X\ge a\ind_{\{X\ge a\}} .
+\]
+
+\textbf{Rappel :} (lien entre $\EE$ et $\PP$)
+\[
+  \PP(A)=\int_A d\PP=\int_\Omega\ind_A\,d\PP=\EE[\ind_A].
+\]
 
 D'où
 \[
-  \overline\lambda(A)=\sum_{n,i}\sum_{k=1}^{n}\lambda(S_{n,i}\cap T_k)=\sum_{n}\sum_{i}\lambda(S_{n,i})=\sum_{n}\overline\lambda(A_n).
+  X\ge a\ind_{\{X\ge a\}}\Rightarrow\EE(X)\ge a\,\EE\bigl(\ind_{\{X\ge a\}}\bigr)\Rightarrow\EE(X)\ge a\,\PP(X\ge a).
+\]
+
+\begin{enonce}{Inégalité}{de Markov}
+\[
+  \PP(X\ge a)\le\frac{\EE(X)}{a}.
+\]
+\end{enonce}
+
+Si $X$ est une V.A quelconque, on pose $Y=|X|\ge0$, $a>0$ :
+\[
+  \PP(|X|\ge a)\le\frac{\EE|X|}{a},\qquad\PP(X^2\ge a^2)\le\frac{\EE(X^2)}{a^2}.
+\]
+
+Soit $X$ une V.A telle que $\EE(X)=\mu$ et $\Var(X)=\sigma^2$.
+$Y=|X-\EE(X)|$.
+\[
+  \PP\bigl(|X-\EE(X)|\ge a\bigr),\ a>0\ =\ \PP\bigl(|X-\EE(X)|^2\ge a^2\bigr)\ \le\ \frac{\EE\bigl(|X-\EE(X)|^2\bigr)}{a^2}=\frac{\Var(X)}{a^2}=\frac{\sigma^2}{a^2}.
 \]
 
 \begin{note}
-Dans cette preuve, le manuscrit utilise la même lettre $n$ pour le nombre de $T_k$ et pour l'indice de la suite $(A_n)$ ; je transcris tel quel.
-Les sommes sur $(n,i)$ de $\lambda(T_k\cap S_{n,i})$ sont dénombrables et la $\sigma$-additivité de $\lambda$ sur $\Ss$ s'applique à $T_k=\bigcup_{n,i}(T_k\cap S_{n,i})$.
+Le manuscrit alterne les écritures $\{X>a\}$ et $\{X\ge a\}$ ; j'ai uniformisé avec $\{X\ge a\}$, forme usuelle de l'inégalité de Markov. La mention « $\mu=\PP$ » écrite dans l'en-tête de la feuille n'est pas transcrite.
 \end{note}
 
-\textbf{\color{bleu}Exemple 17.} Soit $E=\R$, $\Ss=\Ii_g=\bigl\{[a,b[\ ,\ a<b,\ a,b\in\R\bigr\}$. Posons
+%=====================================================================
+\section*{Inégalité de Cauchy-Schwarz}
+
 \[
-  \lambda:\Ii_g\longrightarrow\R_+,\qquad [a,b[\ \longmapsto\lambda([a,b[)=b-a .
+  \Bigl|\sum u_iv_i\Bigr|\le\sqrt{\Bigl(\sum u_i^2\Bigr)\Bigl(\sum v_i^2\Bigr)}.
+\]
+Soit $X,Y$ deux variables aléatoires.
+\[
+  \int|X|\cdot|Y|\,d\PP\le\sqrt{\int X^2\,d\PP\cdot\int Y^2\,d\PP}.
+\]
+Mieux encore,
+\[
+  \int|X-\EE(X)|\,|Y-\EE(Y)|\,d\PP\le\sqrt{\int\bigl(X-\EE(X)\bigr)^2d\PP}\times\sqrt{\int\bigl(Y-\EE(Y)\bigr)^2d\PP}
+\]
+\[
+  \EE\bigl[|X-\EE(X)|\,|Y-\EE(Y)|\bigr]\le\sqrt{\Var(X)\Var(Y)}
+\]
+\[
+  |\Cov(X,Y)|\le\sqrt{\Var(X)\Var(Y)},\qquad\Biggl|\frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}}\Biggr|\le1 .
 \]
 
-\textbf{1- Montrons que $\lambda$ est simplement additive.}
-Soit $(I_i)_{i\in\{1,\dots,n\}}$ une famille d'éléments de $\Ii_g$ telle que $\bigcup_{i=1}^{n}I_i=I$, $I_i=[a_i,b_i[$ et $I=[a,b[$, les $I_1,\dots,I_n$ deux à deux disjoints.
+%=====================================================================
+\section*{Paramètre de position}
 
-Comme les $I_i$ sont en nombre fini on peut les ranger par ordre croissant :
+On se place sur $(\Omega,\A,\PP)$. $X:\Omega\to\R$,
 \[
-  a=a_1<b_1=a_2<b_2=a_3<b_3\dots=a_n<b_n=b .
+  \EE(X)=\EE_{\PP}(X)=\int_\Omega X\,d\PP .
 \]
-On veut montrer $\lambda(I)=\sum_{i=1}^{n}\lambda(I_i)$. On a
-\[
-  \lambda(I)=b-a=(b_1-a_1)+\dots+(b_n-a_n)=\sum_{i=1}^{n}\lambda(I_i).
-\]
+Théorème de transfert : $\displaystyle\EE(X)=\int_\Omega X\,d\PP=\int_\R x\,d\PP_X(x)$.
 
-\textbf{2- Montrons que $\lambda$ est $\sigma$-additive.}
-Soit $(I_n)_{n\in\N}$ de $\Ii_g$ deux à deux disjoints telle que $\bigcup_{n\in\N}I_n=I\in\Ii_g$.
-Comme $I_n\in\Ii_g$ $\forall n\in\N$, alors $I_n=[\alpha_n,\beta_n[$. Alors $I=[a,b[$.
-On veut montrer que $\lambda(I)=\sum_{n\in\N}\lambda(I_n)$.
-
-\emph{$\bullet$ Montrons que $\lambda(I)\ge\sum_{n\in\N}\lambda(I_n)$.}
-Soit $I_1,\dots,I_n\subset I$ (deux à deux disjoints), on peut les ranger par ordre croissant (en changeant la numérotation). On aura alors
+On montre que
 \[
-  a\le\alpha_1<\beta_1\le\alpha_2<\beta_2<\dots\le\alpha_n<\beta_n\le b .
+  \mu_X=\argmin_{c\in\R}\ \EE\bigl[(X-c)^2\bigr].
 \]
-Donc
-\[
-  \lambda(I)=b-a\ge(\beta_1-\alpha_1)+(\beta_2-\alpha_2)+\dots+(\beta_n-\alpha_n)=\sum_{i=1}^{n}\lambda(I_i).
-\]
-Comme ceci est vrai pour tout $n$, $\displaystyle\lambda(I)\ge\sum_{i=1}^{+\infty}\lambda(I_i)$.
-
-\emph{$\bullet$ Montrons que $\lambda(I)\le\sum_{n\in\N}\lambda(I_n)$.}
-Soit $\varepsilon>0$, soit $I'=[a,b']$, $b'<b$ et $b-b'<\varepsilon$. On a bien $I'\subset I$.
-Soit $I'_n=\,]\alpha'_n,\beta_n[\ \supset I_n$, $\alpha'_n<\alpha_n$ tel que $\alpha_n-\alpha'_n<\dfrac{\varepsilon}{2^n}$.
-On a bien donc
-\[
-  I'\subset I=\bigcup_{n\in\N}I_n\subset\bigcup_{n\in\N}I'_n .
-\]
-$I'$ est un intervalle fermé fini qui est recouvert par la famille des intervalles ouverts $I'_n$. On peut donc extraire des $I'_n$ une famille finie qui recouvre $I'$.
-Soit $I'_{n_1},\dots,I'_{n_p}$ cette famille ; alors $I'\subset\bigcup_{k=1}^{p}I'_{n_k}$. Or
-\[
-  [a,b'[\ \subset[a,b']\subset\bigcup_{k=1}^{p}\,]\alpha'_{n_k},\beta_{n_k}[\ \subset\bigcup_{k=1}^{p}[\alpha'_{n_k},\beta_{n_k}[ .
-\]
-$\lambda$ étant simplement additive sur $\Ii_g$, on a :
-\[
-  \lambda([a,b'[)\le\sum_{k=1}^{p}\lambda\bigl([\alpha'_{n_k},\beta_{n_k}[\bigr).
-\]
-Donc
-\[
-  b-a-\varepsilon<b'-a\le\sum_{k=1}^{p}(\beta_{n_k}-\alpha'_{n_k})\le\sum_{k=1}^{p}\Bigl[(\beta_{n_k}-\alpha_{n_k})+\frac{\varepsilon}{2^{n_k}}\Bigr].
-\]
-Ainsi
-\[
-  \lambda(I)\le\sum_{k=1}^{p}\lambda(I_{n_k})+2\varepsilon\le\sum_{n=1}^{+\infty}\lambda(I_n)+2\varepsilon .
-\]
-D'où $\displaystyle\lambda(I)\le\sum_{n=1}^{+\infty}\lambda(I_n)$.
+On pose $\varphi(c)=\EE\bigl[(X-c)^2\bigr]$
+\begin{align*}
+  &=\EE\bigl(X^2-2cX+c^2\bigr)\\
+  &=\EE(X^2)-2c\,\EE(X)+c^2 ,
+\end{align*}
+$\varphi'(c)=-2\,\EE(X)+2c$, $\ \varphi''(c)=2>0$,\\
+$\varphi'(c)=0\iff c=\EE(X)$.
 
 \begin{note}
-Dans le manuscrit, $\lambda(I)\le\dots+2\varepsilon$ est suivi de $\sum_{k=1}^{+\infty}\lambda(I_n)$ avec l'indice $k$ ; je lis $\sum_{n=1}^{+\infty}$. La ligne « $\lambda(I)\ge\sum_{i=1}^{+\infty}\lambda(I_i)$ » en haut de page est la conclusion de la partie précédente.
-Le choix du recouvrement par des intervalles ouverts (compacité de $[a,b']$, Borel--Lebesgue) n'est pas nommé dans le cahier.
+La page est photographiée en travers dans l'original ; elle a été redressée dans le PDF réorganisé.
+\end{note}
+
+\newpage
+%=====================================================================
+\section*{Inverse généralisée d'une fonction de répartition}
+
+Soit $q\in\,]0,1[$ :
+\[
+  F^{(-1)}(q)=\inf\bigl\{x\in\R,\ F(x)\ge q\bigr\}.
+\]
+
+\begin{note}
+Le titre de cette section est de moi ; le manuscrit commence directement par la définition. Il écrit tantôt $F^{-1}$, tantôt $F^{(-1)}$ pour l'inverse généralisé :
+j'écris toujours $F^{(-1)}$ et je réserve $F^{-1}$ à la bijection réciproque du cas (P1). Les énoncés de (P1), (P2), (P3) ne sont pas écrits dans le cahier ;
+je les déduis de leurs preuves.
+\end{note}
+
+\textbf{\color{bleu}(P1)} \textit{Si $F$ est une bijection, $F^{(-1)}=F^{-1}$.}
+
+\textit{Preuve (P1).} Si $F$ est bijective (continue et strictement croissante) :
+
+\begin{center}
+\begin{tikzpicture}[>=Stealth,thick,x=1cm,y=1cm]
+  \draw[->] (0,0) -- (5.4,0);
+  \draw[->] (0,0) -- (0,2.7);
+  \draw[bleuclair] (0.2,0.15) .. controls (2,0.4) and (3.2,1.4) .. (5,2.3);
+  \draw[dashed] (0,1.0) -- (2.5,1.0) -- (2.5,0);
+  \node[left] at (0,1.0) {$q$};
+  \node[left] at (0,2.3) {$1$};
+  \node[left] at (0,0.05) {$0$};
+  \node[below] at (2.5,0) {$x_0$};
+  \node[below] at (0.3,0) {$-\infty$};
+  \node[below] at (5.0,0) {$+\infty$};
+  \node[right,bleu] at (4.4,2.05) {$F$};
+\end{tikzpicture}
+\end{center}
+
+Si $q\in\,]0,1[$, $\exists!\,x_0\in\R$ tel que $F(x_0)=q$, c'est-à-dire $x_0=F^{-1}(q)$. Donc
+\[
+  \{x\in\R,\ F(x)\ge q\}=[F^{-1}(q),+\infty[\,.
+\]
+Ainsi $\inf\{x\in\R,\ F(x)\ge q\}=F^{-1}(q)$, d'où $F^{(-1)}(q)=F^{-1}(q)$.
+
+\medskip
+\textbf{\color{bleu}(P2)} \textit{$F^{(-1)}$ est croissante.}
+
+\textit{Preuve (P2).} Soit $q_1,q_2\in\,]0,1[$ tels que $q_1\le q_2$. Alors
+\[
+  \{x\in\R,\ F(x)\ge q_2\}\subset\{x\in\R,\ F(x)\ge q_1\}.
+\]
+Donc
+\[
+  \inf\{x\in\R,\ F(x)\ge q_2\}\ \ge\ \inf\{x\in\R,\ F(x)\ge q_1\},
+\]
+d'où $F^{(-1)}(q_2)\ge F^{(-1)}(q_1)$.
+
+\medskip
+\textbf{N.B.} Avant la preuve (P3) on a le lemme suivant.
+
+\begin{enonce}{Lemme}{}
+Si $q\in\,]0,1[$ on a toujours $F\bigl(F^{(-1)}(q)\bigr)\ge q$.
+\end{enonce}
+
+\textit{Preuve.} Par caractérisation de l'inf, on a :
+
+\begin{center}
+\begin{tikzpicture}[thick,>=Stealth]
+  \draw (0,0) -- (8,0);
+  \foreach \x/\l in {0.8/$F^{(-1)}(q)$,3.2/$u_{n+1}$,5.0/$u_n$,6.8/$F^{(-1)}(q)+\frac1n$} {\draw (\x,0.1) -- (\x,-0.1) node[below,font=\small] {\l};}
+\end{tikzpicture}
+\end{center}
+
+$\forall n\ge1$, $\exists u_n$ tel que $F(u_n)\ge q$ qui vérifie
+\[
+  F^{(-1)}(q)\le u_n\le F^{(-1)}(q)+\frac1n .
+\]
+$F$ étant croissante :
+\[
+  F\Bigl(F^{(-1)}(q)+\frac1n\Bigr)\ge F(u_n)\ge q .
+\]
+En passant à la limite et en se servant du fait que $F$ est continue à droite, on a :
+\[
+  \lim_{n\to+\infty}F\Bigl(F^{(-1)}(q)+\frac1n\Bigr)\ge q,
+\]
+donc $F\bigl(F^{(-1)}(q)\bigr)\ge q$.
+
+\begin{note}
+Le schéma de droite (points $u_n$, $u_{n+1}$ et bornes de l'intervalle) est peu lisible dans le cahier ; je le redessine de façon schématique. Le N.B. annonce le lemme « avant la preuve (P2) » ;
+c'est (P3) qui l'utilise (voir plus bas), je lis donc (P3).
+\end{note}
+
+\medskip
+\textbf{\color{bleu}(P3)} \textit{$\forall x\in\R$, $\forall q\in\,]0,1[$ : $F(x)\ge q\iff x\ge F^{(-1)}(q)$.}
+
+\textit{Preuve (P3).} $\forall x\in\R$, $\forall q\in\,]0,1[$ :
+\[
+  F(x)\ge q\iff x\ge F^{(-1)}(q).
+\]
+$(\Rightarrow)$ Si $F(x)\ge q$ alors $x\in\{y\in\R,\ F(y)\ge q\}$, donc
+\[
+  x\ge\inf\{y\in\R,\ F(y)\ge q\}=F^{(-1)}(q),
+\]
+d'où $x\ge F^{(-1)}(q)$.
+
+$(\Leftarrow)$ Supposons $x\ge F^{(-1)}(q)$. $F$ étant croissante, $F(x)\ge F\bigl(F^{(-1)}(q)\bigr)$. Or le lemme prouvé entraîne $F\bigl(F^{(-1)}(q)\bigr)\ge q$, d'où $F(x)\ge q$.
+
+%=====================================================================
+\section*{Caractérisation du quantile}
+
+\begin{enonce}{Définition}{(caractérisation du quantile)}
+Soit $q_\beta$, $\beta\in\,]0,1[$, on a toujours
+\[
+  \PP(X\ge q_\beta)\ge1-\beta\qquad\text{et}\qquad\PP(X\le q_\beta)\ge\beta,
+\]
+où $q_\beta=\inf\{x\in\R,\ F(x)\ge\beta\}$.
+\end{enonce}
+
+\textit{Preuve.} En posant $u_n=q_\beta-\dfrac1n$, on a $u_n\nearrow$, $u_n<q_\beta$ et $u_n\to q_\beta$.
+On pose ensuite $C_n=\{X\le u_n\}$.
+
+\textbf{i)} Montrons que $\displaystyle\bigcup_nC_n=\{X<q_\beta\}$.
+
+$(\Rightarrow)$ Soit $\omega\in\bigcup C_n$, c'est-à-dire $\exists n_0$ tel que $\omega\in C_{n_0}$ :
+\[
+  X(\omega)\le u_{n_0}<q_\beta\Rightarrow\omega\in\{X<q_\beta\}\Rightarrow\bigcup C_n\subset\{X<q_\beta\}.
+\]
+$(\Leftarrow)$ Soit $\omega\in\{X<q_\beta\}$, c'est-à-dire $X(\omega)<q_\beta$, c'est-à-dire $q_\beta-X(\omega)>0$.
+$u_n\to q_\beta\Rightarrow$ pour $\varepsilon=q_\beta-X(\omega)$, $\exists n_\varepsilon\in\N$ tel que
+\[
+  n\ge n_\varepsilon\Rightarrow-\bigl(q_\beta-X(\omega)\bigr)\le u_n-q_\beta\le q_\beta-X(\omega),
+\]
+d'où
+\[
+  -q_\beta+X(\omega)\le u_n-q_\beta\Rightarrow X(\omega)\le u_n .
+\]
+C'est-à-dire $\exists n_0$ tel que $n\ge n_0$, $X(\omega)\le u_n$, c'est-à-dire $\omega\in\displaystyle\bigcup_n\{X\le u_n\}$.
+
+\textbf{ii)} On part du fait que $\bigcup C_n=\{X<q_\beta\}$. D'une part,
+\begin{align*}
+  \PP(X<q_\beta)&=\PP\Bigl(\bigcup_nC_n\Bigr)\\
+  &=\lim_{n\to+\infty}\PP(C_n)\quad\text{car }C_n\nearrow\\
+  &=\lim_{n\to+\infty}\PP\bigl(\{X\le u_n\}\bigr)=\lim_{n\to+\infty}\PP(X\le u_n)\\
+  &=\lim_{n\to+\infty}F(u_n)\le\beta
+\end{align*}
+(car $u_n<q_\beta=\inf\{x\in\R,\ F(x)\ge\beta\}$, donc $F(u_n)<\beta$).
+
+\textbf{N.B.} $q_\beta=\inf\{x,\ F(x)\ge\beta\}\Rightarrow\begin{cases}F(q_\beta)\ge\beta\\ \text{si }q^\circ<q_\beta\Rightarrow F(q^\circ)<\beta\end{cases}$
+
+Pour avoir $F(q_\beta)=\beta$ il faut que $F^{(-1)}=F^{-1}$.
+
+D'où $\PP(X<q_\beta)\le\beta$, donc
+\[
+  1-\PP(X<q_\beta)\ge1-\beta\ \Rightarrow\ \PP(X\ge q_\beta)\ge1-\beta .
+\]
+D'autre part,
+\[
+  \PP(X\le q_\beta)=F(q_\beta)=F\bigl(F^{(-1)}(\beta)\bigr)\ge\beta .
+\]
+
+\subsection*{Remarque importante (utilisée dans les IC et les tests)}
+
+Si $X$ est une v.a. et $q_\alpha$, $q_{\alpha'}$ sont des quantiles associés tels que $q_\alpha<q_{\alpha'}$, alors
+\begin{align*}
+  \PP(q_\alpha\le X\le q_{\alpha'})&=F(q_{\alpha'})-\PP(X<q_\alpha)\\
+  &\ge\alpha'-\bigl(1-\PP(X\ge q_\alpha)\bigr)\\
+  &\ge\alpha'-1+\PP(X\ge q_\alpha)\\
+  &\ge\alpha'-1+1-\alpha\\
+  &\ge\alpha'-\alpha .
+\end{align*}
+Donc $\PP(q_\alpha\le X\le q_{\alpha'})\ge\alpha'-\alpha$.
+
+En particulier si $\alpha'=1-\dfrac\beta2$ et $\alpha=\dfrac\beta2$ :
+\[
+  \PP\bigl(q_{\beta/2}\le X\le q_{1-\beta/2}\bigr)\ge1-\beta .
+\]
+
+\begin{note}
+Le manuscrit écrit $\PP(q_\alpha<X\le q_{\alpha'})=F(q_{\alpha'})-F(q_\alpha)$, et de même $q_{\beta/2}<X<q_{1-\beta/2}$ à la fin ; mais la minoration qui suit utilise $\PP(X<q_\alpha)=1-\PP(X\ge q_\alpha)$ à la place de $F(q_\alpha)=\PP(X\le q_\alpha)$.
+Les deux ne coïncident que si $\PP(X=q_\alpha)=0$ ; j'ai donc écrit l'énoncé exact (inégalités larges), qui est celui que la suite des calculs démontre.
+\end{note}
+
+%=====================================================================
+\section*{Espérance conditionnelle}
+
+Soit $X,Y$ deux v.a. On veut donner un sens à $\EE[X\mid Y]$. On se place dans le cas discret :
+$\EE[X\mid Y=y]=\;?$
+
+\begin{align*}
+  \EE\bigl[X\mid\underbrace{\{Y=y\}}_{\text{évènement}}\bigr]&=\sum_xx\,\PP(X=x\mid Y=y)\\
+  &=\sum_xx\,\frac{\PP(X=x,\,Y=y)}{\PP(Y=y)}\\
+  &=\frac1{\PP(Y=y)}\sum_xx\,\EE\bigl[\ind_{\{X=x\}\cap\{Y=y\}}\bigr]\\
+  &=\frac1{\PP(Y=y)}\,\EE\Bigl[\sum_xx\,\ind_{\{X=x\}}\ind_{\{Y=y\}}\Bigr].
+\end{align*}
+
+\textbf{Remarque :} $\displaystyle\sum_xx\,\ind_{\{X=x\}}=X$.
+Soit $\omega\in\Omega$, $\exists x_0$ tel que $X(\omega)=x_0$ :
+\[
+  \sum_xx\,\ind_{\{X=x\}}(\omega)=\sum_xx\,\ind_{\{X(\omega)=x\}}=x_0=X(\omega).
+\]
+$\Rightarrow\ \EE[X\mid Y=y]=\dfrac1{\PP(Y=y)}\,\EE\bigl(X\ind_{\{Y=y\}}\bigr)$.
+
+De façon générale, on définit pour tout évènement $B$ :
+\begin{equation*}
+  \EE(X\mid B)=\frac1{\PP(B)}\,\EE(X\ind_B).\tag{1}
+\end{equation*}
+Si on se rappelle sur $(\Omega,\Ff,\PP)$ que $\EE(X)=\displaystyle\int_\Omega X\,d\PP$, en passant à l'espérance sur (1), on a :
+
+\textbf{Rappel :} $\displaystyle\int_Bf(x)\ind_A\,dx=\int_{A\cap B}f(x)\,dx$.
+\begin{align*}
+  \int_\Omega\EE(X\mid B)\,d\PP&=\frac1{\PP(B)}\int_\Omega\EE(X\ind_B)\,d\PP\\
+  &=\frac1{\PP(B)}\,\EE\Bigl[\int_\Omega X\ind_B\,d\PP\Bigr]\\
+  &=\frac1{\PP(B)}\,\EE\Bigl[\int_BX\,d\PP\Bigr].
+\end{align*}
+Pour $B=\Omega$, $\ \EE\bigl(\EE(X\mid\Omega)\bigr)=\EE(X)$.
+
+\begin{note}
+Le calcul de $\int_\Omega\EE(X\mid B)\,d\PP$ est transcrit tel quel ; il n'est pas conclu dans le cahier, qui passe directement au cas $B=\Omega$. Le libellé exact du « Rappel » (numéro) est peu lisible ; je ne le reproduis pas.
+\end{note}
+
+\begin{enonce}{Définition}{(espérance conditionnelle)}
+Soit $\mathscr G\subset\Ff$ une tribu contenue dans $\Ff$. On appelle $\EE(X\mid\mathscr G)$ l'unique v.a. $\mathscr G$-mesurable et qui vérifie : $\forall Z$ $\mathscr G$-mesurable, on a toujours
+\[
+  \EE\bigl(Z\,\EE(X\mid\mathscr G)\bigr)=\EE(XZ).
+\]
+\end{enonce}
+
+Pour donner un sens à $\EE(X\mid Y)$ on écrit $\EE(X\mid Y):=\EE\bigl(X\mid\sigma(Y)\bigr)$ où $\sigma(Y)=\bigl\{Y^{-1}(A):A\in\B(\R)\bigr\}$.
+
+\subsection*{Quelques propriétés}
+
+\textbf{\color{bleu}P1)} $\EE\bigl(\EE(X\mid Y)\bigr)=\EE(X)$.
+
+\textbf{\color{bleu}P2)} $\forall\alpha,\beta\in\R$,
+\[
+  \EE[\alpha X+\beta Y\mid Z]=\alpha\,\EE(X\mid Z)+\beta\,\EE(Y\mid Z).
+\]
+Posons $V=\alpha\,\EE(X\mid Z)+\beta\,\EE(Y\mid Z)$. Soit $T$ une v.a. $Z$-mesurable.
+\[
+  \EE[TV]=\EE\bigl(T(\alpha X+\beta Y)\bigr)\ \text{ à montrer :}
+\]
+\begin{align*}
+  \EE(T\cdot V)&=\EE\bigl(T\cdot(\alpha\,\EE(X\mid Z)+\beta\,\EE(Y\mid Z))\bigr)\\
+  &=\EE\bigl(T\cdot\alpha\,\EE(X\mid Z)+T\cdot\beta\,\EE(Y\mid Z)\bigr)\\
+  &=\EE\bigl(T\alpha\,\EE(X\mid Z)\bigr)+\EE\bigl(T\beta\,\EE(Y\mid Z)\bigr)\\
+  &=\EE(T\cdot\alpha X)+\EE(T\cdot\beta Y)\\
+  &=\EE\bigl(T(\alpha X+\beta Y)\bigr).
+\end{align*}
+
+\begin{note}
+La dernière ligne de la preuve de P2 est inachevée dans le manuscrit (« $=\EE(\alpha$ ») ; je la complète par $\EE\bigl(T(\alpha X+\beta Y)\bigr)$, qui est le terme à obtenir.
+La phrase « Soit $T$ une v.a. $Z$-mesurable » est à demi barrée dans le cahier.
+\end{note}
+
+\textbf{\color{bleu}P3)} On part de ce qu'on connaît : si $X,Y$ sont deux v.a.,
+\[
+  \EE[XY\mid Y]=Y\,\EE(X\mid Y).
+\]
+De façon générale
+\[
+  \EE[X\,g(Y)\mid Y]=g(Y)\,\EE(X\mid Y).
+\]
+
+\textbf{\color{bleu}P4) Indépendance.} Si $X\perp\!\!\!\perp Y$, $\ \EE(X\mid Y)=\EE(X)$.
+
+\textbf{\color{bleu}P5)} Si $\Ff_1\subset\Ff_2$ :
+\begin{align*}
+  \EE(X\mid\Ff_1)&=\EE\bigl(\EE(X\mid\Ff_2)\mid\Ff_1\bigr)\\
+  &=\EE\bigl(\EE(X\mid\Ff_1)\mid\Ff_2\bigr),
+\end{align*}
+\begin{align*}
+  \EE(X\mid\Ff_2)&=\EE\bigl(\EE(X\mid\Ff_2)\mid\Ff_2\bigr).
+\end{align*}
+
+\begin{note}
+Les trois lignes de P5 sont difficiles à lire (les indices $1$ et $2$ se ressemblent et deux lignes semblent identiques). Je lis la propriété de la tour :
+$\EE(X\mid\Ff_1)=\EE(\EE(X\mid\Ff_2)\mid\Ff_1)=\EE(\EE(X\mid\Ff_1)\mid\Ff_2)$, et $\EE(X\mid\Ff_2)$ est invariante par conditionnement par $\Ff_2$.
+\end{note}
+
+\textbf{\color{bleu}P6)}
+\[
+  \Var(X)=\Var\bigl(\EE(X\mid Y)\bigr)+\EE\bigl(\Var(X\mid Y)\bigr).
+\]
+
+\textbf{Remarque :}
+$\begin{cases}\EE(X)=\text{cte}\\ \EE(X\mid Y)\text{ est une v.a.}\end{cases}$
+\[
+  \EE(X\mid Y):\ \Omega\longrightarrow\R,\qquad \omega\longmapsto\EE\bigl(X\mid Y=Y(\omega)\bigr).
+\]
+
+Commençons par définir $\Var(X\mid Y)=\;?$
+
+On sait que
+\[
+  \Var(X)=\EE\bigl[(X-\EE(X))^2\bigr],\qquad
+  \Var(X\mid Y)=\EE\bigl[\bigl((X\mid Y)-\EE(X\mid Y)\bigr)^2\bigr]
+\]
+(cette écriture de $\Var(X\mid Y)$ n'a pas de sens en probabilité).
+On va donc remplacer $\EE\bigl[\bigl((X\mid Y)-\EE(X\mid Y)\bigr)^2\bigr]$ par $\EE\bigl[\bigl(X-\EE(X\mid Y)\bigr)^2\mid Y\bigr]$.
+
+\begin{align*}
+  \Var(X)&=\EE\bigl[(X-\EE(X))^2\bigr]\\
+  &=\EE\bigl[\bigl(X-\EE(X\mid Y)+\EE(X\mid Y)-\EE(X)\bigr)^2\bigr]\\
+  &=\EE\bigl[(X-\EE(X\mid Y))^2\bigr]+\EE\bigl[(\EE(X\mid Y)-\EE(X))^2\bigr]\\
+  &\quad+2\,\EE\bigl[(X-\EE(X\mid Y))(\EE(X\mid Y)-\EE(X))\bigr]\\
+  &=A+B+2C .
+\end{align*}
+
+\textbf{$\ast$ Analysons $A$ :}
+\begin{align*}
+  A&=\EE\bigl[(X-\EE(X\mid Y))^2\bigr]\\
+  &=\EE\Bigl[\EE\bigl((X-\EE(X\mid Y))^2\mid Y\bigr)\Bigr]\\
+  &=\EE\bigl[\Var(X\mid Y)\bigr].
+\end{align*}
+
+\textbf{$\ast$ Analysons $B$ :}
+\begin{align*}
+  B&=\EE\bigl[(\EE(X\mid Y)-\EE(X))^2\bigr]\\
+  &=\EE\bigl[(\EE(X\mid Y)-\EE(\EE(X\mid Y)))^2\bigr]\\
+  &=\Var\bigl(\EE(X\mid Y)\bigr)\qquad(\EE(X\mid Y)=\varphi(Y)).
+\end{align*}
+
+\textbf{Analysons $C$ :}
+\begin{align*}
+  C&=\EE\bigl[(X-\EE(X\mid Y))(\EE(X\mid Y)-\EE(X))\bigr]\\
+  &=\EE\Bigl[\EE\bigl((X-\EE(X\mid Y))(\EE(X\mid Y)-\EE(X))\mid Y\bigr)\Bigr]\\
+  &=\EE\Bigl[(\EE(X\mid Y)-\EE(X))\,\underbrace{\EE\bigl((X-\EE(X\mid Y))\mid Y\bigr)}_{\gamma}\Bigr],
+\end{align*}
+\begin{align*}
+  \gamma&=\EE\bigl[(X-\EE(X\mid Y))\mid Y\bigr]\\
+  &=\EE(X\mid Y)-\EE\bigl(\EE(X\mid Y)\mid Y\bigr)\\
+  &=\EE(X\mid Y)-\EE(X\mid Y)\,\underbrace{\EE(1\mid Y)}_{1}\\
+  &=0 .
+\end{align*}
+D'où
+\[
+  \boxed{\ \Var(X)=\Var\bigl(\EE(X\mid Y)\bigr)+\EE\bigl[\Var(X\mid Y)\bigr]\ }
+\]
+
+\begin{note}
+Dans les deux premières lignes du calcul de $C$, le manuscrit semble écrire $\EE(Y)$ au lieu de $\EE(X)$ dans le second facteur ; comme $C$ est défini ci-dessus avec $\EE(X)$ et que le calcul ne dépend que de la $\sigma(Y)$-mesurabilité de ce facteur, je lis $\EE(X)$ partout.
+\end{note}
+
+\subsection*{Exercice}
+
+Si $X\sim\mathcal U([a,b])$, $X\perp\!\!\!\perp Y$, $Y\sim\mathcal U([a,b])$. Calculer $\PP(X<Y)=\;?$
+
+\subsection*{Pratique de $\EE(X\mid Y)$}
+
+Se rappeler que, d'après le lemme de Doob, $\exists\varphi$ mesurable telle que $\EE(X\mid Y)=\varphi(Y)$.
+
+En pratique, pour avoir $\EE(X\mid Y)$, on procède en deux étapes.
+
+\textbf{i)} On calcule $\EE(X\mid Y=y)$, on obtient $\varphi(y)$.
+
+\textbf{ii)} On déduit $\EE(X\mid Y)$ en remplaçant $y$ par $Y$ dans $\varphi(y)$.
+
+Si $X,Y$ sont continues :
+\[
+  \EE(X\mid Y=y)=\int x\,f_{X\mid Y=y}(x)\,dx\qquad\text{où}\qquad f_{X\mid Y=y}(x)=\frac{f_{X,Y}(x,y)}{f_Y(y)} .
+\]
+Si $X$ et $Y$ sont discrètes,
+\[
+  \EE(X\mid Y=y)=\sum x\,\PP(X=x\mid Y=y)\qquad\text{où}\qquad\PP(X=x\mid Y=y)=\frac{\PP(X=x,\,Y=y)}{\PP(Y=y)} .
+\]
+
+\textbf{Solution de l'exercice.} On a :
+\begin{align*}
+  \PP(X<Y)&=\EE\bigl[\ind_{\{X<Y\}}\bigr]\\
+  &=\EE\bigl[\EE\bigl(\ind_{\{X<Y\}}\mid Y\bigr)\bigr]\\
+  &=\EE\bigl(\varphi(Y)\bigr)\quad\text{où}
+\end{align*}
+\begin{align*}
+  \varphi(y)&=\EE\bigl(\ind_{\{X<Y\}}\mid Y=y\bigr)\\
+  &=\EE\bigl(\ind_{\{X<y\}}\mid Y=y\bigr)\\
+  &=\EE\bigl[\ind_{\{X<y\}}\bigr]\quad\text{car }X\perp\!\!\!\perp Y\\
+  &=\PP(X<y)\\
+  &=\int_a^y\frac1{b-a}\,dx\\
+  &=\frac{y-a}{b-a}\,\ind_{[a,b]}(y)
+\end{align*}
+$\Rightarrow\ \varphi(y)=\dfrac{y-a}{b-a}$
+
+$\Rightarrow\ \EE\bigl(\varphi(Y)\bigr)=\dfrac{\EE(Y)-a}{b-a}$.
+
+Or $Y\sim\mathcal U([a,b])$, $\EE(Y)=\dfrac{a+b}2$, d'où
+\[
+  \EE\bigl(\varphi(Y)\bigr)=\frac{\frac{a+b}2-a}{b-a}=\frac12 .
+\]
+D'où $\PP(X<Y)=\dfrac12$.
+
+\begin{note}
+Dans la ligne $\varphi(y)=\frac{y-a}{b-a}\ind_{[a,b]}(y)$ l'indicatrice disparaît ensuite : c'est licite car $Y\in[a,b]$ presque sûrement.
+\end{note}
+
+%---------------------------------------------------------------------
+\subsection*{Exercice 7}
+
+Soient $X\sim\mathcal P(\lambda)$, $Y\sim\mathcal P(t)$ indépendantes. Montrer que $X+Y\sim\mathcal P(\lambda+t)$.
+
+\begin{align*}
+  \{X+Y=k\}&=(X+Y=k)\cap\Omega\\
+  &=(X+Y=k)\cap\Bigl(\bigcup_i\{X=i\}\Bigr)\\
+  &=\bigcup_i\,[X+Y=k,\ X=i].
+\end{align*}
+Ainsi
+\begin{align*}
+  \PP(X+Y=k)&=\sum_i\PP(X+Y=k,\ X=i)\\
+  &=\sum_i\PP(X+Y=k\mid X=i)\,\PP(X=i)\\
+  &=\sum_i\PP(Y=k-i\mid X=i)\,\PP(X=i)\\
+  &=\sum_i\PP(Y=k-i,\ X=i)\\
+  &=\sum_{\substack{i\\ k-i\ge0}}\PP(Y=k-i,\ X=i)+\sum_{\substack{i\\ k-i<0}}\PP(Y=k-i,\ X=i)\\
+  &=\sum_{i=0}^{k}\PP(Y=k-i,\ X=i)\\
+  &=\sum_{i=0}^{k}\PP(Y=k-i)\times\PP(X=i)\qquad\text{car }X\perp\!\!\!\perp Y\\
+  &=\sum_{i=0}^{k}\frac{e^{-t}\,t^{k-i}}{(k-i)!}\times\frac{e^{-\lambda}\lambda^{i}}{i!}\\
+  &=\frac{e^{-(\lambda+t)}}{k!}\sum_{i=0}^{k}C_k^i\,\lambda^it^{k-i}\\
+  &=\frac{e^{-(\lambda+t)}\,(\lambda+t)^k}{k!}.\qquad\blacksquare
+\end{align*}
+D'où $X+Y\sim\mathcal P(\lambda+t)$.
+
+\begin{note}
+Dans l'avant-dernière étape de la première chaîne, la seconde somme (indices $i$ avec $k-i<0$) est nulle puisque $\PP(Y=k-i)=0$ pour $k-i<0$ ; elle disparaît dans la ligne suivante.
+\end{note}
+
+%---------------------------------------------------------------------
+\subsection*{Exercice 11}
+
+\begin{note}
+Le manuscrit annonce « Exercice 11 : » en haut d'une page, mais l'énoncé n'est pas écrit (la page est vierge).
+\end{note}
+
+%=====================================================================
+\newpage
+\datepage{Lundi 19 octobre 2026}
+\section*{Chapitre 2 : Concepts fondamentaux}
+
+L'objectif de ce chapitre est de décrire le cadre mathématique dans lequel s'inscrit la démarche statistique.
+Avant de présenter rigoureusement ce cadre, nous introduisons deux exemples motivants qui permettront de mieux appréhender les problématiques statistiques usuelles.
+
+\subsection*{2.1) Exemples et problématiques}
+
+\textbf{\color{bleu}Exemple 2.1} (Sondage d'opinion). Un projet de loi est soumis à un référendum. À cette occasion on interroge $n$ individus issus de la population camerounaise.
+On note $X_i=1$ si le $i$-ème individu répond « oui » et $X_i=0$ s'il répond « non ».
+
+En supposant que les individus sont choisis au hasard de manière indépendante, on modélise les variables aléatoires $X_1,\dots,X_n$ comme étant i.i.d.\ selon une loi de Bernoulli de paramètre $\theta$, $\mathcal B(\theta)$, $\theta\in\,]0,1[$.
+Le paramètre $\theta$ représente la proportion théorique de citoyens favorables au projet de loi. À partir des données observées $(x_1,\dots,x_n)$ les objectifs sont :
+\begin{itemize}
+  \item Estimer la valeur du paramètre $\theta$.
+  \item Tester si le projet de loi sera adopté, c'est-à-dire trancher entre les hypothèses $\theta>\frac12$ et $\theta\le\frac12$.
+\end{itemize}
+
+\textbf{\color{bleu}Exemple 2.2} (Modélisation du trafic téléphonique). Une entreprise de téléphonie souhaite modéliser le nombre journalier d'appels passés par ses clients à l'aide d'une loi de Poisson.
+Cette modélisation lui est indispensable pour ajuster sa grille tarifaire.
+
+Pour valider cette hypothèse, elle collecte le nombre d'appels effectués en une journée par un échantillon de $n$ clients choisis au hasard.
+On dispose ainsi de l'observation de $n$ variables aléatoires $X_1,\dots,X_n$ de loi inconnue.
+
+La démarche comporte deux étapes :
+\begin{itemize}
+  \item Tester si la loi sous-jacente des observations est effectivement une loi de Poisson.
+  \item Estimer le paramètre $\theta$ ($\theta>0$) de cette loi si l'hypothèse est conservée.
+\end{itemize}
+
+L'objet de la statistique inférentielle est de répondre à ce type de questions. Contrairement à la théorie des probabilités où la loi des probabilités est supposée entièrement connue et où l'on étudie le comportement théorique des variables aléatoires, la statistique adopte la démarche inverse : à partir des observations d'un phénomène aléatoire, que peut-on déduire sur la loi des probabilités sous-jacente.
+
+\textbf{\color{bleu}Remarque 2.1.} Un modèle statistique n'est qu'une idéalisation mathématique simplifiée de la réalité ; le choix d'un modèle repose à la fois sur une connaissance préalable du phénomène étudié, sur le protocole expérimental et sur l'analyse exploratoire (ou graphique).
+
+%---------------------------------------------------------------------
+\subsection*{2.2) Modélisation statistique}
+
+\subsubsection*{a) Cadre statistique}
+
+En statistique, on dispose d'un jeu d'observations numériques noté $x=(x_1,\dots,x_n)\in\R^n$.
+On modélise ces observations comme la réalisation d'un vecteur aléatoire $X=(X_1,\dots,X_n)$ sur un espace probabilisé $(\Omega,\A,\PP)$ de telle sorte que :
+\[
+  \forall i\in\{1,\dots,n\},\quad X_i(\Omega)\subset\R\quad\text{et}\quad X_i(\omega)=x_i .
+\]
+En d'autres termes $x_i\in X_i(\Omega)$.
+
+Selon le degré de connaissance de la loi commune des variables $X_i$, la statistique se divise en deux grands domaines :
+\begin{itemize}
+  \item \textbf{La statistique paramétrique :} la forme fonctionnelle de la loi $\mathcal L$ est connue à un paramètre $\theta$ près et dans ce cas l'inférence porte uniquement sur $\theta$.\\
+        Si $\mathcal L=\mathcal B(p)$ alors $\theta=p$ ; si $\mathcal L=\mathcal N(m,\sigma^2)\Rightarrow\theta=(m,\sigma^2)$.
+  \item \textbf{La statistique non paramétrique :} la loi $\mathcal L$ est complètement inconnue et on cherche à estimer les caractéristiques fonctionnelles globales telles que la densité $f$, la fonction de répartition ou la fonction caractéristique.
+\end{itemize}
+
+\subsubsection*{b) Notion de modèle statistique}
+
+\begin{enonce}{Définition}{}
+On appelle \emph{modèle statistique} la structure formée par un espace d'état (ou d'observation) $E$, une tribu $\Ee$ sur $E$ et une famille de mesures de probabilité $\mathscr P$ définie sur $(E,\Ee)$.
+\end{enonce}
+
+La vraie loi de probabilité $\PP$ régissant l'observation $x=(x_1,\dots,x_n)$ est inconnue mais on suppose qu'elle appartienne à la famille $\mathscr P$. (Le but est de trouver $\PP$.)
+
+\textbf{Modèle paramétrique.} Un modèle statistique $(E,\Ee,\mathscr P)$ est dit \emph{paramétrique} s'il existe un ensemble $\Theta\subset\R^d$ appelé espace des paramètres et une application surjective
+\[
+  \Theta\longrightarrow\mathscr P,\qquad\theta\longmapsto P_\theta .
+\]
+On note alors la famille des lois $\mathscr P=\{P_\theta,\ \theta\in\Theta\}$ et le modèle statistique paramétrique sera donc $\bigl(E,\Ee,\{P_\theta\}_{\theta\in\Theta}\bigr)$.
+
+\textbf{N.B.} Notons que la recherche des paramètres dans un modèle statistique n'est possible que si ce dernier est identifiable.
+
+\begin{enonce}{Définition}{(identifiabilité)}
+Un modèle statistique paramétrique est dit \emph{identifiable} si l'application $\theta\mapsto P_\theta$ est injective. En d'autres termes
+\[
+  \forall\theta_1,\theta_2\in\Theta,\qquad\theta_1\neq\theta_2\Rightarrow P_{\theta_1}\neq P_{\theta_2}.
+\]
+\end{enonce}
+
+\begin{enonce}{Définition}{2.3 (support d'une loi)}
+On appelle \emph{support} de la loi $P_\theta$, noté $\operatorname{Supp}(P_\theta)$, l'ensemble fermé minimal contenant toute la masse des probabilités. En d'autres termes :
+\[
+  \operatorname{Supp}(P_\theta)=\bigl\{x\in E\ \big|\ P_\theta(\{x\})>0\bigr\}
+\]
+dans le cas discret, ou plus généralement, l'intersection de tous les fermés de masse $1$.
+\end{enonce}
+
+\textbf{N.B.} Le support peut être discret ou continu et dépend parfois explicitement du paramètre $\theta$.
+
+\textbf{\color{bleu}Exemple : modèle de Bernoulli.}
+$\bigl(E,\Ee,\{\mathcal B(p)\}_{p\in]0,1[}\bigr)$, $E=\{0,1\}$, $\operatorname{Supp}P_\theta=\{0,1\}$.
+
+\textbf{\color{bleu}Exemple : modèle de loi uniforme.}
+$X\sim\mathcal U([0,\theta])$, $\theta>0$, $E=\R_+$, $\operatorname{Supp}P_\theta=[0,\theta]$,
+\[
+  f_\theta(x)=\frac1\theta\,\ind_{[0,\theta]}(x).
+\]
+
+\begin{note}
+Dans l'exemple du modèle de Bernoulli, la première lettre du triplet est peu lisible ; je lis $E$, comme dans la définition d'un modèle statistique.
+La numérotation du cahier est conservée : les définitions du modèle statistique et de l'identifiabilité ne sont pas numérotées, le support est la définition 2.3, le modèle d'échantillonnage la définition 2.5, et le cahier passe du paragraphe 2.2 au paragraphe 2.4.
+\end{note}
+
+\subsubsection*{c) Modèle d'échantillonnage}
+
+Dans la majorité des applications, on dispose d'un ensemble de $n$ réalisations indépendantes du même phénomène.
+
+\begin{enonce}{Définition}{2.5 (modèle d'échantillonnage)}
+Soit $X=(X_1,\dots,X_n)$ un vecteur aléatoire constitué de $n$ v.a.\ de loi commune $P_\theta$. Le modèle d'échantillonnage associé est l'espace produit suivant :
+\[
+  \bigl(E^n,\ \Ee^{\otimes n},\ \mathscr P^n=\{P_\theta^{\otimes n},\ \theta\in\Theta\}\bigr),
+\]
+où $E^n=E\times\dots\times E$ ; $\Ee^{\otimes n}$ est la tribu produit engendrée par les pavés mesurables
+\[
+  \Ee^{\otimes n}=\sigma\Bigl(\Bigl\{\prod_{i=1}^{n}\,]a_i,b_i[\Bigr\}\Bigr),
+\]
+et $P_\theta^{\otimes n}=\displaystyle\bigotimes_{i=1}^{n}P_\theta$.
+\end{enonce}
+
+%---------------------------------------------------------------------
+\subsection*{2.4) Mesure empirique et convergence étroite}
+
+Lorsque l'on observe un $n$-échantillon $(X_1,\dots,X_n)$ i.i.d.\ de loi $P$, une façon naturelle de reconstruire $P$ à partir des données est de considérer la mesure empirique donnée par la définition suivante.
+
+\begin{enonce}{Définition}{(mesure empirique)}
+Soit $(Z_1,Z_2,\dots,Z_n)$ $n$ variables aléatoires à valeurs dans $\R^k$. On appelle \emph{mesure empirique} associée à ces observations, la mesure de probabilité aléatoire
+\[
+  \nu_n:=\frac1n\sum_{i=1}^{n}\delta_{Z_i},
+\]
+où $\delta_z$ désigne la mesure de Dirac en $z$.
+\end{enonce}
+
+Autrement dit, $\forall B\in\B(\R^k)$,
+\begin{align*}
+  \nu_n(B)&=\frac1n\sum_{i=1}^{n}\delta_{Z_i}(B)=\frac1n\sum_{i=1}^{n}\ind_{\{Z_i\in B\}}\\
+  &=\frac1n\,\#\bigl\{i\in\{1,\dots,n\},\ Z_i\in B\bigr\}\qquad(\#=\operatorname{Card}).
+\end{align*}
+
+\begin{note}
+Le manuscrit écrit $\forall B\in\B(\mathbb R)$ alors que les $Z_i$ sont à valeurs dans $\R^k$, et écrit $\ind_{Z_i}(B)$ pour $\delta_{Z_i}(B)$ ; je lis $\B(\R^k)$ et $\delta_{Z_i}(B)$.
+\end{note}
+
+%---------------------------------------------------------------------
+\subsection*{Exercice 15}
+
+Soit $(X,Y)$ de loi jointe
+\[
+  \PP(X=i,\,Y=j)=\frac{i+j}{21},\qquad i,j\in\{1,2,3\}.
+\]
+Calculons $\EE(X\mid Y=1)$.
+\begin{align*}
+  \EE(X\mid Y=1)&=\sum_ii\,\PP(X=i\mid Y=1)\\
+  &=\sum_ii\,\frac{\PP(X=i,\,Y=1)}{\PP(Y=1)} .
+\end{align*}
+Or
+\begin{align*}
+  \PP(Y=1)&=\sum_{i=1}^{3}\PP(X=i,\,Y=1)=\sum_{i=1}^{3}\frac{i+1}{21}\\
+  &=\frac1{21}\sum_{i=1}^{3}(i+1)=\frac1{21}\Bigl(\frac{12}2+3\Bigr)\\
+  &=\frac37 .
+\end{align*}
+\begin{align*}
+  \EE(X\mid Y=1)&=\frac{\displaystyle\sum_{i=1}^{3}i\,\frac{i+1}{21}}{3/7}
+  =\frac{\displaystyle\frac1{21}\Bigl(\sum_{i=1}^{3}i^2+\sum_{i=1}^{3}i\Bigr)}{3/7}\\
+  &=\frac19\Bigl(\frac{3\cdot4\cdot7}6+\frac{3\cdot4}2\Bigr)\\
+  &=\frac19(14+6)=\frac{20}9 .
+\end{align*}
+
+%---------------------------------------------------------------------
+\subsection*{Passage sur le cas où $N$ est aléatoire}
+
+Si $N$ est aléatoire ($N$ pas connu), $S=\displaystyle\sum_{i=1}^{N}X_i$,
+\begin{align*}
+  \EE(S)&=\EE\Bigl(\sum_{i=1}^{N}X_i\Bigr)\\
+  &=\EE\Bigl(\EE\Bigl(\sum_{i=1}^{N}X_i\ \Big|\ N\Bigr)\Bigr)\\
+  &=\EE\bigl(\varphi(N)\bigr),
+\end{align*}
+où
+\begin{align*}
+  \varphi(N)&=\EE\Bigl(\sum_{i=1}^{N}X_i\ \Big|\ N=n\Bigr)=\EE\Bigl(\sum_{i=1}^{n}X_i\ \Big|\ N=n\Bigr)\\
+  &=\EE\Bigl(\sum_{i=1}^{n}X_i\Bigr)\qquad\text{car }X_i\perp\!\!\!\perp N .
+\end{align*}
+
+\begin{note}
+Ce passage n'a ni titre ni énoncé dans le cahier (il est au sommet d'une colonne, juste avant l'exercice 13) ; il s'agit sans doute de la fin d'un exercice dont l'énoncé n'est pas sur les pages reçues. Le titre ci-dessus est de moi.
+\end{note}
+
+%---------------------------------------------------------------------
+\subsection*{Exercice 13}
+
+Soit $X_1,\dots,X_n$ i.i.d.\ de loi $\mathcal B(p)$. Minorons la probabilité $\PP(|\overline X_n-p|<\varepsilon)$ en fonction de $n$, $\varepsilon$ et $p$.
+
+Posons $\overline X_n=\dfrac1n\displaystyle\sum_{i=1}^{n}X_i$. On a
+\begin{align*}
+  \EE(\overline X_n)&=\frac1n\sum_{i=1}^{n}\EE(X_i)=\frac1n(np)\\
+  &=p
+\end{align*}
+et
+\begin{align*}
+  \Var(\overline X_n)&=\Var\Bigl(\frac1n\sum_{i=1}^{n}X_i\Bigr)\\
+  &=\frac1{n^2}\sum_{i=1}^{n}\Var(X_i)\qquad\text{car les }X_i\text{ sont indépendantes}\\
+  &=\frac1{n^2}\times np(1-p)\\
+  &=\frac{p(1-p)}n .
+\end{align*}
+D'après l'inégalité de Bienaymé--Tchebychev, on a :
+\[
+  \PP\bigl(|\overline X_n-\EE(\overline X_n)|\ge\varepsilon\bigr)\le\frac{\Var(\overline X_n)}{\varepsilon^2}.
+\]
+Donc
+\[
+  \PP\bigl(|\overline X_n-p|\ge\varepsilon\bigr)\le\frac{p(1-p)}{n\varepsilon^2},\qquad\text{soit}\qquad
+  \PP\bigl(|\overline X_n-p|<\varepsilon\bigr)\ge1-\frac{p(1-p)}{n\varepsilon^2}.
+\]
+\textbf{A.N. :} $p=0{,}5$, $n=1000$, $\varepsilon=0{,}05$ :
+\[
+  \PP\bigl(|\overline X_n-p|\ge\varepsilon\bigr)\le\frac{0{,}5\times0{,}5}{1000\times(0{,}05)^2}=0{,}1,
+\]
+d'où $\PP\bigl(|\overline X_n-p|<\varepsilon\bigr)\ge0{,}9$.
+
+\begin{note}
+Le manuscrit écrit l'inégalité de Bienaymé--Tchebychev avec l'événement $\{|\overline X_n-\EE(\overline X_n)|<\varepsilon\}$ et conclut « $\PP(|\overline X_n-p|<\varepsilon)\le0{,}1$ » ;
+or cette majoration concerne l'événement contraire $\{|\overline X_n-p|\ge\varepsilon\}$, ce qui donne bien la minoration demandée ($\ge0{,}9$). J'ai écrit la version exacte.
+Les valeurs de l'application numérique ($p=0{,}5$, $n=1000$, $\varepsilon=0{,}05$) sont lues sur la fraction $\frac{0{,}5\times0{,}5}{1000\times(0{,}05)^2}$ ; l'énoncé ne les donne pas.
 \end{note}
 
 \end{document}
