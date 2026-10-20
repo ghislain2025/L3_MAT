@@ -1,0 +1,303 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,patterns,positioning}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bleu}{RGB}{31,56,100}
+\definecolor{bleuclair}{RGB}{47,85,151}
+\definecolor{ocre}{RGB}{150,100,0}
+
+% --- Macros mathématiques
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Rb}{\overline{\mathbb{R}}}
+\newcommand{\A}{\mathscr{A}}
+\newcommand{\B}{\mathscr{B}}
+\newcommand{\C}{\mathscr{C}}
+\newcommand{\M}{\mathscr{M}}
+\newcommand{\Pp}{\mathscr{P}}
+\newcommand{\Ee}{\mathscr{E}}
+\newcommand{\Qq}{\mathscr{Q}}
+\newcommand{\Ss}{\mathscr{S}}
+\newcommand{\Oo}{\mathscr{O}}
+\newcommand{\Ff}{\mathscr{F}}
+\newcommand{\Ii}{\mathscr{I}}
+
+% --- Mise en forme
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{bleu}MAT321}
+\fancyhead[R]{\small\color{bleu}Topologie générale}
+\fancyfoot[C]{\thepage}
+
+\newtcolorbox{enonce}[2]{enhanced,breakable,colback=bleuclair!6,colframe=bleuclair,
+  boxrule=0pt,leftrule=3pt,arc=0pt,fonttitle=\bfseries\color{bleu},
+  coltitle=bleu,title={#1~#2},attach boxed title to top left={yshift=-2mm},
+  boxed title style={colback=white,colframe=white,boxrule=0pt,left=0pt,top=0pt,bottom=0pt},
+  top=4pt,bottom=4pt}
+
+\newtcolorbox{note}{enhanced,breakable,colback=yellow!8,colframe=ocre!70,
+  boxrule=0pt,leftrule=2pt,arc=0pt,left=6pt,top=2pt,bottom=2pt,
+  fontupper=\small\itshape,before upper={\textbf{\upshape[Note de transcription]}\ }}
+
+\newenvironment{preuve}{\par\textit{\textbf{Preuve :}}\par\nopagebreak[4]}{\par}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\sect}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand{\datepage}[1]{\begin{flushright}\small\bfseries\itshape\color{bleuclair}#1\end{flushright}\vspace{-8pt}}
+
+\newcommand{\cE}[1]{\mathrm{C}_E^{#1}}
+\begin{document}
+
+\begin{center}
+  {\Huge\bfseries\color{bleu} MAT321}\\[4pt]
+  {\LARGE\bfseries\color{bleuclair} Topologie générale}\\[4pt]
+  {\large\itshape Notes de cours saisies à partir du manuscrit}
+\end{center}
+\vspace{-4pt}
+\hrule
+\vspace{6pt}
+
+\begin{note}
+Les encadrés jaunes signalent une précision ajoutée, une imprécision du manuscrit ou une partie absente du cahier. Le reste du texte suit fidèlement le cours, avec sa numérotation.
+Les lectures douteuses ont été remplacées par la version la plus probable.
+\end{note}
+
+%=====================================================================
+\section*{Chapitre 1 : Espaces topologiques}
+
+\subsection*{0- Introduction}
+
+On va définir une structure mathématique (espace topologique) obtenue en adjoignant à un ensemble $E$ donné, un ensemble de parties de $E$ vérifiant des propriétés « naturelles ».
+
+En topologie, on ne fait pas de distinction entre deux objets qui peuvent se « déformer » de façon continue l'un en l'autre.
+C'est pourquoi la topologie est appelée « la géométrie du caoutchouc » (\emph{Rubber sheet topology}).
+De façon précise, la topologie est l'étude des propriétés d'un espace qui sont conservées par déformations continues (qu'on appellera \emph{homéomorphismes}).
+
+On va donner un sens précis aux notions de limite, continuité, ne pas avoir de trous, être d'un seul tenant\dots
+
+\begin{note}
+Le manuscrit écrit « Ruban sheet topology » ; je rétablis « Rubber sheet topology ». Les mots « de parties » sont barrés dans « un ensemble de parties $E$ donné ».
+\end{note}
+
+%---------------------------------------------------------------------
+\subsection*{I- Topologie}
+
+Soit $E$ un ensemble non vide, $\Pp(E)$ désigne l'ensemble des parties de $E$.
+
+\subsubsection*{1- Définitions}
+
+\begin{enonce}{Définition}{1}
+Une \emph{topologie} sur $E$ est un ensemble $\Oo$ dont les éléments sont des parties de $E$ ($\Oo\subset\Pp(E)$) satisfaisant aux trois conditions suivantes :
+\begin{description}[leftmargin=1.4cm,labelwidth=1cm,style=sameline]
+  \item[$O_1$ :] l'ensemble vide $\varnothing$ et $E$ appartiennent à $\Oo$ ;
+  \item[$O_2$ :] l'intersection de deux éléments de $\Oo$ appartient à $\Oo$ ;
+  \item[$O_3$ :] toute réunion (finie ou non) d'éléments de $\Oo$ appartient à $\Oo$.
+\end{description}
+\end{enonce}
+
+En d'autres termes, $\Oo$ est une topologie sur $E$ si :
+\begin{description}[leftmargin=1.4cm,labelwidth=1cm,style=sameline]
+  \item[$O_1$ :] $\varnothing,E\in\Oo$ ;
+  \item[$O_2$ :] si $U,V\in\Oo$, alors $U\cap V\in\Oo$ ;
+  \item[$O_3$ :] si $(U_i)_{i\in I}$ est une famille d'éléments de $\Oo$ ($\forall i\in I$, $U_i\in\Oo$), alors $\displaystyle\bigcup_{i\in I}U_i\in\Oo$.
+\end{description}
+
+\begin{enonce}{Définition}{2}
+Si $\Oo$ est une topologie sur $E$, la paire $(E,\Oo)$ est appelée \emph{espace topologique}.
+\end{enonce}
+
+%---------------------------------------------------------------------
+\subsubsection*{2) Exemples}
+
+\textbf{\color{bleu}Exemple 1.} $E=\{a,b,c\}$.
+\begin{align*}
+  \Oo_1&=\bigl\{\varnothing,E,\{c\},\{a,b\}\bigr\},\\
+  \Oo_2&=\bigl\{\varnothing,E,\{b\},\{a,b\},\{b,c\}\bigr\},\\
+  \Oo_3&=\bigl\{\varnothing,E,\{a\},\{b\},\{c\},\{a,b\},\{a,c\},\{b,c\}\bigr\},\\
+  \Oo_4&=\bigl\{\varnothing,E\bigr\}.
+\end{align*}
+$\Oo_1$, $\Oo_2$, $\Oo_3$ et $\Oo_4$ sont des topologies sur $E$.
+
+\textbf{\color{bleu}Exemple 2.} $E=\{1,2,3,4,5,6\}$.
+\[
+  \Oo=\bigl\{\varnothing,E,\{1\},\{6\},\{1,6\},\{1,3,6\},\{2,3,4,5,6\}\bigr\}.
+\]
+$\Oo$ n'est pas une topologie sur $E$ car $\{1,3,6\}\in\Oo$, $\{2,3,4,5,6\}\in\Oo$ mais
+\[
+  \{1,3,6\}\cap\{2,3,4,5,6\}=\{3,6\}\notin\Oo .
+\]
+$O_2$ n'est pas vérifiée.
+
+\textbf{\color{bleu}Exemple 3.} $E=\{1,2,3,4,5\}$.
+\[
+  \Oo=\bigl\{\varnothing,E,\{1\},\{3,4\},\{1,3,5\},\{2,3,4\}\bigr\}.
+\]
+$\Oo$ n'est pas une topologie sur $E$ car $\{3,4\}\in\Oo$, $\{1,3,5\}\in\Oo$ cependant
+\[
+  \{3,4\}\cup\{1,3,5\}=\{1,3,4,5\}\notin\Oo .
+\]
+$O_3$ n'est pas vérifiée.
+
+\begin{note}
+Dans l'exemple 3, $O_2$ n'est pas non plus vérifiée puisque $\{3,4\}\cap\{1,3,5\}=\{3\}\notin\Oo$ ; le manuscrit ne mentionne que $O_3$.
+\end{note}
+
+\textbf{\color{bleu}Exemple 4.} $E=\N$.
+$\Oo\subset\Pp(\N)$ formé de toutes les parties finies de $\N$ et de $\N$ :
+\[
+  \Oo=\{\N\}\cup\{A\subset\N,\ A\text{ fini}\}.
+\]
+$\Oo$ n'est pas une topologie sur $\N$ car $\forall n\in\N$, $\{2n+1\}\in\Oo$ cependant
+\[
+  \bigcup_{n\in\N}\{2n+1\}=\{1\}\cup\{3\}\cup\dots\cup\{2n+1\}\cup\dots
+\]
+est infinie et $\neq\N$. Donc $\displaystyle\bigcup_{n\in\N}\{2n+1\}\notin\Oo$.
+
+\textbf{\color{bleu}Exemple 5.} $E=\N^*$.
+\[
+  \Oo=\{\varnothing\}\cup\{U_n,\ n\in\N^*\}\qquad\text{où}\qquad U_n=\{p\in\N,\ p\ge n\}.
+\]
+On peut remarquer que $(U_n)\searrow$. $\Oo$ est une topologie sur $\N^*$.
+
+$O_1$ : $\varnothing\in\Oo$ ; $\N^*=\{p\in\N,\ p\ge1\}=U_1\in\Oo$.
+
+$O_2$ : $U,V\in\Oo$.
+\begin{itemize}
+  \item Si $U=\varnothing$ ou $V=\varnothing$, $U\cap V=\varnothing\in\Oo$.
+  \item Sinon il existe $p,q\in\N^*$ tels que $U=U_p$ et $V=U_q$ ; $U\cap V=U_p\cap U_q=U_{\max(p,q)}\in\Oo$.
+\end{itemize}
+
+$O_3$ : soit $(O_i)_{i\in I}$ une famille d'éléments de $\Oo$.\\
+Si $\forall i\in I$, $O_i=\varnothing$, $\bigcup O_i=\varnothing\in\Oo$.\\
+Sinon $\exists j\in I$ tel que $O_j\neq\varnothing$, il existe $n_j\in\N^*$ tel que $O_j=U_{n_j}$. Soit
+\[
+  A=\bigl\{n_j,\ j\in I\ \big|\ \varnothing\neq O_j=U_{n_j}\bigr\}.
+\]
+$A$ est une partie non vide de $\N^*$. Soit $n_0=\min A$ :
+\[
+  \bigcup_{i\in I}O_i=\bigcup_{n\in A}U_n=U_{n_0}\in\Oo .
+\]
+
+\textbf{\color{bleu}Exemple 6} (Topologie grossière). Soit $E$ un ensemble non vide. On pose $\Oo_{\mathrm{gr}}=\{\varnothing,E\}$.
+$\Oo_{\mathrm{gr}}$ est une topologie sur $E$ appelée \emph{topologie grossière} sur $E$.
+L'espace topologique $(E,\Oo_{\mathrm{gr}})$ est appelé \emph{espace topologique grossier}.
+
+\textbf{\color{bleu}Exemple 7} (Topologie discrète). Soit $E$ un ensemble non vide. On pose
+\[
+  \Oo_d=\Pp(E)=\{A,\ A\subset E\}.
+\]
+$\Oo_d$ est une topologie sur $E$ appelée \emph{topologie discrète} sur $E$.
+L'espace topologique $(E,\Oo_d)$ est appelé \emph{espace topologique discret}.
+
+\textbf{\color{bleu}Exercice} (Caractérisation de la topologie discrète). Soit $(E,\Oo)$ un espace topologique vérifiant $\forall x\in E$, $\{x\}\in\Oo$.
+Montrer que $\Oo$ est la topologie discrète.
+
+\textbf{\color{bleu}Exemple 8} (Topologie cofinie). Soit $E$ un ensemble non vide. On pose
+\[
+  \Oo_f=\{\varnothing\}\cup\bigl\{A\subset E\ \big|\ \cE{A}\text{ fini}\bigr\}.
+\]
+$\Oo_f$ est une topologie sur $E$ appelée \emph{topologie cofinie} sur $E$. En effet :
+
+$O_1$ : $\varnothing\in\Oo_f$ ; $\cE{E}=\varnothing$ fini $\Rightarrow E\in\Oo_f$.
+
+$O_2$ : $U,V\in\Oo_f$. Si $U=\varnothing$ ou $V=\varnothing$, alors $U\cap V=\varnothing\in\Oo_f$.
+Sinon $\cE{U}$ fini et $\cE{V}$ fini ; $\cE{U\cap V}=\cE{U}\cup\cE{V}$ fini car réunion de deux ensembles finis.
+
+$O_3$ : soit $(U_i)_{i\in I}\subset\Oo_f$. Si $\forall i\in I$, $U_i=\varnothing$, $\bigcup U_i=\varnothing\in\Oo_f$.
+Sinon, $\exists j\in I$ tel que $\cE{U_j}$ fini ;
+\[
+  \cE{\bigcup U_i}=\bigcap_{i\in I}\cE{U_i}\subset\cE{U_j}\ \text{ fini.}
+\]
+$\cE{\bigcup U_i}$ est fini car sous-ensemble d'une partie finie, donc $\bigcup U_i\in\Oo_f$.
+
+%---------------------------------------------------------------------
+\subsubsection*{3) Ouverts, fermés, voisinages}
+
+$(E,\Oo)$ est un espace topologique.
+
+\begin{enonce}{Définition}{}
+Les éléments de $\Oo$ sont appelés (ensembles) \emph{ouverts} de $(E,\Oo)$ ou ouverts de $E$ pour la topologie $\Oo$.
+\[
+  A\subset E\ \text{ ouvert de }(E,\Oo)\iff A\in\Oo .
+\]
+\end{enonce}
+
+\begin{enonce}{Proposition}{(propriétés des ouverts)}
+Soit $(E,\Oo)$ un espace topologique.
+\begin{enumerate}[label=\textbf{\roman*)},leftmargin=1.2cm]
+  \item $E$ et $\varnothing$ sont des ouverts.
+  \item Toute intersection \underline{finie} d'ouverts est un ouvert.
+  \item Toute réunion d'ouverts est un ouvert.
+\end{enumerate}
+\end{enonce}
+
+\textit{Preuve.}
+
+\begin{enonce}{Définition}{(fermé)}
+Soit $(E,\Oo)$ un espace topologique. Une partie $S$ de $E$ est dite \emph{fermée} si son complémentaire dans $E$ est un ouvert.
+\[
+  S\subset E\ \text{ fermé de }(E,\Oo)\iff\cE{S}\in\Oo .
+\]
+\end{enonce}
+
+\begin{enonce}{Proposition}{(propriétés des fermés)}
+Soit $(E,\Oo)$ un espace topologique.
+\begin{enumerate}[label=\textbf{\roman*)},leftmargin=1.2cm]
+  \item $E$ et $\varnothing$ sont des fermés.
+  \item Toute intersection de fermés est un fermé.
+  \item Toute réunion finie de fermés est un fermé.
+\end{enumerate}
+\end{enonce}
+
+\textit{Preuve.}
+
+\begin{note}
+Dans le manuscrit les deux propositions (propriétés des ouverts, propriétés des fermés) sont suivies du mot « Preuve » sans rien d'écrit après ; je laisse les preuves vides.
+\end{note}
+
+\textbf{\color{bleu}Exercice 2.} Caractériser les parties fermées par la topologie cofinie sur un ensemble $E$.
+
+\begin{enonce}{Définition}{(voisinage)}
+Soit $(E,\Oo)$ un espace topologique. Soit $x\in E$. Une partie $V$ de $E$ est appelée \emph{voisinage} de $x$ s'il existe une partie ouverte $O$ contenant $x$ et contenue dans $V$ :
+\[
+  V\text{ voisinage de }x\iff\exists O\in\Oo\ \text{tel que}\ x\in O\subset V .
+\]
+\end{enonce}
+
+\textbf{Remarques :}
+\begin{itemize}
+  \item Si $V$ est un voisinage de $x$, $x\in V$.
+  \item Si $V$ est un voisinage de $x$, $V\neq\varnothing$.
+\end{itemize}
+Si $O\in\Oo$ et $x\in O$, alors $O$ est un voisinage de $x$. Autrement dit, tout ouvert non vide est voisinage de chacun de ses points.
+
+\begin{enonce}{Proposition}{(caractérisation des ouverts)}
+Soit $(E,\Oo)$ un espace topologique. Une partie non vide de $E$ est un ouvert si et seulement si elle est voisinage de chacun de ses points :
+\[
+  \varnothing\neq A\subset E\ \text{ ouvert}\iff\forall x\in A,\ \exists O_x\in\Oo\ \text{tel que}\ x\in O_x\subset A .
+\]
+\end{enonce}
+
+\textit{Preuve.}
+\[
+  A=\bigcup_{x\in A}O_x .
+\]
+
+\begin{note}
+La preuve de la caractérisation des ouverts s'arrête à la ligne $A=\bigcup_{x\in A}O_x$ en bas de page ; la suite n'est pas sur les pages reçues.
+Les exercices ne sont pas tous numérotés dans le cahier (« Exercice » pour la caractérisation de la topologie discrète, « Exercice 2 » pour les fermés de la topologie cofinie).
+\end{note}
+
+\end{document}
